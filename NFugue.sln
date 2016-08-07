@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFugue", "src\NFugue\NFugue.csproj", "{22AC1834-B1E4-4894-B815-A9AB14FD9803}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFugue.Tests", "tests\NFugue.Tests\NFugue.Tests.csproj", "{F22CC588-6A5F-4685-94D4-E32669B7B9D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{22AC1834-B1E4-4894-B815-A9AB14FD9803}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22AC1834-B1E4-4894-B815-A9AB14FD9803}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22AC1834-B1E4-4894-B815-A9AB14FD9803}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F22CC588-6A5F-4685-94D4-E32669B7B9D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F22CC588-6A5F-4685-94D4-E32669B7B9D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F22CC588-6A5F-4685-94D4-E32669B7B9D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F22CC588-6A5F-4685-94D4-E32669B7B9D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
