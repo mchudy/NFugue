@@ -40,12 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DefaultNoteSettings.cs" />
+    <Compile Include="Extensions\DoubleExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Theory\Chord.cs" />
     <Compile Include="Theory\ChordProgression.cs" />
     <Compile Include="Theory\Intervals.cs" />
     <Compile Include="Theory\Key.cs" />
+    <Compile Include="MidiDefaults.cs" />
     <Compile Include="Theory\Note.cs" />
+    <Compile Include="NoteProvider.cs" />
+    <Compile Include="NoteSubparser.cs" />
+    <Compile Include="Pattern.cs" />
     <Compile Include="Theory\Scale.cs" />
     <Compile Include="Theory\TimeSignature.cs" />
   </ItemGroup>
