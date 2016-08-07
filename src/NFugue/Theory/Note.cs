@@ -101,11 +101,6 @@ namespace NFugue.Theory
             set { this.value = value; }
         }
 
-        public static string DurationString(double decimalDuration)
-        {
-            return null;
-        }
-
         public static Note CreateRest(double duration)
         {
             return new Note
@@ -216,7 +211,7 @@ namespace NFugue.Theory
             return new NoteSubparser().Matches(candidateNote);
         }
 
-        public static string GetDurationString(double decimalDuration)
+        public static string DurationString(double decimalDuration)
         {
             double originalDecimalDuration = decimalDuration;
             StringBuilder sb = new StringBuilder();
@@ -335,7 +330,7 @@ namespace NFugue.Theory
             StringBuilder sb = new StringBuilder();
             if (IsDurationExplicitlySet)
             {
-                sb.Append(GetDurationString(duration));
+                sb.Append(DurationString(duration));
             }
             sb.Append(VelocityString());
             return sb.ToString();

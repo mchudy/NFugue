@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DefaultNoteSettings.cs" />
+    <Compile Include="Extensions\DictionaryExtensions.cs" />
     <Compile Include="Extensions\DoubleExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Theory\Chord.cs" />
@@ -48,6 +49,7 @@
     <Compile Include="Theory\Intervals.cs" />
     <Compile Include="Theory\Key.cs" />
     <Compile Include="MidiDefaults.cs" />
+    <Compile Include="KeyProvider.cs" />
     <Compile Include="Theory\Note.cs" />
     <Compile Include="NoteProvider.cs" />
     <Compile Include="NoteSubparser.cs" />
