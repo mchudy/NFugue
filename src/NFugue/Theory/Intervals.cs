@@ -208,5 +208,25 @@ namespace NFugue.Theory
             }
             return new Intervals(sb.ToString().Trim());
         }
+
+        #region Equality members
+        protected bool Equals(Intervals other)
+        {
+            return string.Equals(intervalPattern, other.intervalPattern);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Intervals) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return intervalPattern?.GetHashCode() ?? 0;
+        }
+        #endregion
     }
 }
