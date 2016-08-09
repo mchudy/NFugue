@@ -174,24 +174,24 @@ namespace NFugue.Theory
             return getPattern().ToString();
         }
 
-        public String[] toStringArray()
+        public string[] ToStringArray()
         {
             return getPattern().ToString().Split(' ');
         }
 
-        public ChordProgression eachChordAs(string sequence)
+        public ChordProgression EachChordAs(string sequence)
         {
             this.eachSequence = sequence;
             return this;
         }
 
-        public ChordProgression allChordsAs(string sequence)
+        public ChordProgression AllChordsAs(string sequence)
         {
             this.allSequence = sequence;
             return this;
         }
 
-        public ChordProgression distribute(string distribute)
+        public ChordProgression Distribute(string distribute)
         {
             for (int i = 0; i < progressionElements.Length; i++)
             {

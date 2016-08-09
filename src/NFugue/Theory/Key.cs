@@ -33,6 +33,7 @@
             }
         }
 
+        public string KeySignature => Root + Scale.ToString();
         public Note Root { get; }
         public Scale Scale { get; }
     }

@@ -135,7 +135,7 @@ namespace NFugue.Theory
             return sb.ToString();
         }
 
-        public static string GetToneStringForNote(byte noteValue)
+        public static string GetToneString(byte noteValue)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append(GetToneStringWithoutOctave(noteValue));
@@ -306,7 +306,7 @@ namespace NFugue.Theory
             {
                 return PercussionString(Value);
             }
-            return OriginalString ?? GetToneStringForNote(Value);
+            return OriginalString ?? GetToneString(Value);
         }
 
         public string ToneString()

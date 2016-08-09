@@ -6,6 +6,14 @@ namespace NFugue.Tests.Theory
 {
     public class NoteTests
     {
+        private Note rest = new Note { IsRest = true };
+
+        [Fact]
+        public void Tone_string_for_A4()
+        {
+            Assert.Equal("A4", Note.GetToneString(57), StringComparer.OrdinalIgnoreCase);
+        }
+
         [Fact]
         public void Duration_string_tests()
         {
@@ -18,13 +26,6 @@ namespace NFugue.Tests.Theory
         public void Percussion_string_test()
         {
             Assert.Equal(Note.PercussionString(56), "[COWBELL]", StringComparer.OrdinalIgnoreCase);
-        }
-
-        [Fact]
-        public void Octave_for_rest_should_be_zero()
-        {
-            var note = new Note { IsRest = true };
-            Assert.Equal(note.GetOctave(), 0);
         }
 
         [Fact]
@@ -56,5 +57,36 @@ namespace NFugue.Tests.Theory
             Assert.Equal(440.0, Note.FrequencyForNote(69));
         }
 
+        [Fact]
+        public void Should_recognize_the_same_notes_in_different_notation()
+        {
+            Assert.True(Note.IsSameNote("G#", "Ab"));
+            Assert.True(Note.IsSameNote("BB", "a#"));
+            Assert.True(Note.IsSameNote("C", "C"));
+        }
+
+        [Fact]
+        public void Octave_for_rest_should_be_zero()
+        {
+            Assert.Equal(0, rest.GetOctave());
+        }
+
+        [Fact]
+        public void Value_for_rest_should_be_zero()
+        {
+            Assert.Equal(0, rest.Value);
+        }
+
+        [Fact]
+        public void Tone_string_for_rest_should_be_R()
+        {
+            Assert.Equal("R", rest.ToneString());
+        }
+
+        [Fact]
+        public void Frequency_for_rest_should_be_zero()
+        {
+            Assert.Equal(0, Note.FrequencyForNote("R"));
+        }
     }
 }

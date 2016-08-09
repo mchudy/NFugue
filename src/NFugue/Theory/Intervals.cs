@@ -54,6 +54,12 @@ namespace NFugue.Theory
         public string AsSequence { get; set; }
         public Note Root { get; set; }
 
+        public Intervals SetRoot(string root)
+        {
+            Root = new NoteProvider().CreateNote(root);
+            return this;
+        }
+
         public Pattern GetPattern()
         {
             string[] intervals = intervalPattern.Split(' ');
@@ -91,6 +97,7 @@ namespace NFugue.Theory
             return noteList;
         }
 
+        //TODO: indexer?
         public string GetNthInterval(int n)
         {
             return intervalPattern.Split(' ')[n];
@@ -220,7 +227,7 @@ namespace NFugue.Theory
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((Intervals) obj);
+            return Equals((Intervals)obj);
         }
 
         public override int GetHashCode()
