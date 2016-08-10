@@ -43,6 +43,9 @@
     <Compile Include="DefaultNoteSettings.cs" />
     <Compile Include="Extensions\DictionaryExtensions.cs" />
     <Compile Include="Extensions\DoubleExtensions.cs" />
+    <Compile Include="Parser\Parser.cs" />
+    <Compile Include="Parser\ParserEventArgs.cs" />
+    <Compile Include="Parser\ParserException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Theory\Chord.cs" />
     <Compile Include="Theory\ChordProgression.cs" />
