@@ -57,6 +57,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Theory\ChordProgressionTests.cs" />
+    <Compile Include="Theory\ChordTests.cs" />
     <Compile Include="Theory\IntervalsTests.cs" />
     <Compile Include="Theory\KeyTests.cs" />
     <Compile Include="Theory\NoteTests.cs" />

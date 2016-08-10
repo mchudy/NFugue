@@ -57,10 +57,10 @@ namespace NFugue.Theory
             return this;
         }
 
-        public Pattern getPattern()
+        public Pattern GetPattern()
         {
             Pattern pattern = new Pattern();
-            foreach (Chord chord in getChords())
+            foreach (Chord chord in GetChords())
             {
                 pattern.Add(chord);
             }
@@ -84,7 +84,7 @@ namespace NFugue.Theory
             return pattern;
         }
 
-        public Chord[] getChords()
+        public Chord[] GetChords()
         {
             if (knownChords != null)
             {
@@ -171,12 +171,12 @@ namespace NFugue.Theory
 
         public override string ToString()
         {
-            return getPattern().ToString();
+            return GetPattern().ToString();
         }
 
         public string[] ToStringArray()
         {
-            return getPattern().ToString().Split(' ');
+            return GetPattern().ToString().Split(' ');
         }
 
         public ChordProgression EachChordAs(string sequence)
