@@ -1,10 +1,11 @@
 ﻿using NFugue.Extensions;
+using NFugue.Patterns;
 using System;
 using System.Text;
 
 namespace NFugue.Theory
 {
-    public class Note : IEquatable<Note>
+    public class Note : IEquatable<Note>, IPatternProducer
     {
         private byte value;
         private double duration;

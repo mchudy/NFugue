@@ -1,11 +1,12 @@
-﻿using System;
+﻿using NFugue.Patterns;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace NFugue.Theory
 {
-    public class Chord
+    public class Chord : IPatternProducer
     {
         static Chord()
         {

@@ -1,9 +1,10 @@
-﻿using System;
+﻿using NFugue.Patterns;
+using System;
 using System.Text.RegularExpressions;
 
 namespace NFugue.Theory
 {
-    public class ChordProgression
+    public class ChordProgression : IPatternProducer
     {
         private string[] progressionElements;
         private Chord[] knownChords = null;
@@ -67,7 +68,7 @@ namespace NFugue.Theory
 
             if (allSequence != null)
             {
-                //pattern = ReplacementFormatUtil.replaceDollarsWithCandidates(allSequence, getChords(), new Pattern(getChords()));
+                pattern = ReplacementFormatUtil.ReplaceDollarsWithCandidates(allSequence, GetChords(), new Pattern(GetChords()));
             }
 
             if (eachSequence != null)
@@ -76,7 +77,7 @@ namespace NFugue.Theory
                 foreach (var chordString in pattern.ToString().Split(' '))
                 { // TODO Should be " +"
                     Chord chord = new Chord(chordString);
-                    //p2.Add(ReplacementFormatUtil.replaceDollarsWithCandidates(eachSequence, chord.getNotes(), chord));
+                    p2.Add(ReplacementFormatUtil.ReplaceDollarsWithCandidates(eachSequence, chord.GetNotes(), chord));
                 }
                 pattern = p2;
             }

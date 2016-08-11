@@ -1,11 +1,12 @@
 ﻿using NFugue.Extensions;
+using NFugue.Patterns;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
 namespace NFugue.Theory
 {
-    public class Intervals
+    public class Intervals : IPatternProducer, INoteProducer
     {
         private static readonly IDictionary<int, int> wholeNumberDegreeToHalfsteps;
         private static readonly IDictionary<int, int> halfstepsToWholeNumberDegree;
@@ -73,17 +74,17 @@ namespace NFugue.Theory
             }
             Pattern intervalNotes = new Pattern(candidateNotes);
 
-            //if (asSequence != null)
+            if (AsSequence != null)
             {
-                //return ReplacementFormatUtil.replaceDollarsWithCandidates(asSequence, candidateNotes, intervalNotes);
+                return ReplacementFormatUtil.ReplaceDollarsWithCandidates(AsSequence, candidateNotes, intervalNotes);
             }
-            // else
+            else
             {
                 return intervalNotes;
             }
         }
 
-        public IList<Note> GetNotes()
+        public IEnumerable<Note> GetNotes()
         {
             List<Note> noteList = new List<Note>();
             Pattern pattern = GetPattern();
