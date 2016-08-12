@@ -1,5 +1,5 @@
-﻿using NFugue.Theory;
-using System;
+﻿using FluentAssertions;
+using NFugue.Theory;
 using Xunit;
 
 namespace NFugue.Tests.Theory
@@ -38,32 +38,34 @@ namespace NFugue.Tests.Theory
         public void Create_key_with_key_signature_with_sharps()
         {
             var key = new Key("K####");
-            Assert.Equal("Emaj", key.KeySignature, StringComparer.OrdinalIgnoreCase);
-            Assert.Equal("E", key.Root.OriginalString, StringComparer.OrdinalIgnoreCase);
-            Assert.Equal(Scale.Major, key.Scale);
+
+            key.KeySignature.Should().BeEquivalentTo("Emaj");
+            key.Root.OriginalString.Should().BeEquivalentTo("E");
+            key.Scale.Should().Be(Scale.Major);
         }
 
         [Fact]
         public void Create_key_with_key_signature_with_flats()
         {
             var key = new Key("Kbbb");
-            Assert.Equal("Ebmaj", key.KeySignature, StringComparer.OrdinalIgnoreCase);
-            Assert.Equal("Eb", key.Root.OriginalString, StringComparer.OrdinalIgnoreCase);
-            Assert.Equal(Scale.Major, key.Scale);
+
+            key.KeySignature.Should().BeEquivalentTo("Ebmaj");
+            key.Root.OriginalString.Should().BeEquivalentTo("Eb");
+            key.Scale.Should().Be(Scale.Major);
         }
 
         private static void CheckIfAMajorKey(Key key)
         {
-            Assert.Equal("Amaj", key.KeySignature, StringComparer.OrdinalIgnoreCase);
-            Assert.Equal("A", key.Root.OriginalString, StringComparer.OrdinalIgnoreCase);
-            Assert.Equal(Scale.Major, key.Scale);
+            key.KeySignature.Should().BeEquivalentTo("Amaj");
+            key.Root.OriginalString.Should().BeEquivalentTo("A");
+            key.Scale.Should().Be(Scale.Major);
         }
 
         private static void CheckIfAMinorKey(Key key)
         {
-            Assert.Equal("Amin", key.KeySignature, StringComparer.OrdinalIgnoreCase);
-            Assert.Equal("A", key.Root.OriginalString, StringComparer.OrdinalIgnoreCase);
-            Assert.Equal(Scale.Minor, key.Scale);
+            key.KeySignature.Should().BeEquivalentTo("Amin");
+            key.Root.OriginalString.Should().BeEquivalentTo("A");
+            key.Scale.Should().Be(Scale.Minor);
         }
     }
 }

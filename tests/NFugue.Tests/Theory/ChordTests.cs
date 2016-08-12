@@ -1,5 +1,5 @@
-﻿using NFugue.Theory;
-using System;
+﻿using FluentAssertions;
+using NFugue.Theory;
 using Xunit;
 
 namespace NFugue.Tests.Theory
@@ -11,7 +11,7 @@ namespace NFugue.Tests.Theory
         {
             var chord = new Chord("Cmaj");
             var pattern = chord.GetPattern();
-            Assert.Equal("CMAJ", pattern.ToString(), StringComparer.OrdinalIgnoreCase);
+            pattern.ToString().Should().BeEquivalentTo("CMAJ");
         }
 
         [Fact]
@@ -19,7 +19,7 @@ namespace NFugue.Tests.Theory
         {
             var chord = new Chord("60maj");
             var pattern = chord.GetPattern();
-            Assert.Equal("CMAJ", pattern.ToString(), StringComparer.OrdinalIgnoreCase);
+            pattern.ToString().Should().BeEquivalentTo("CMAJ");
         }
 
         [Fact]
@@ -27,7 +27,7 @@ namespace NFugue.Tests.Theory
         {
             var chord = new Chord(new Note("D5h"), new Intervals("1 3 5"));
             var pattern = chord.GetPattern();
-            Assert.Equal("D5MAJh", pattern.ToString(), StringComparer.OrdinalIgnoreCase);
+            pattern.ToString().Should().BeEquivalentTo("D5Majh");
         }
 
         [Fact]
@@ -64,14 +64,14 @@ namespace NFugue.Tests.Theory
         public void Create_chord_with_notes_using_string_constructor()
         {
             var chord = Chord.FromNotes("C E G");
-            Assert.Equal(new Chord("Cmaj"), chord);
+            chord.Should().Be(new Chord("Cmaj"));
         }
 
         [Fact]
         public void Create_chord_with_notes_using_string_array_constructor()
         {
             var chord = Chord.FromNotes(new[] { "Bb", "Db", "F" });
-            Assert.Equal(new Chord("Bbmin^"), chord);
+            chord.Should().Be(new Chord("Bmin^"));
         }
 
         [Fact]
@@ -83,22 +83,22 @@ namespace NFugue.Tests.Theory
                 new Note("F#"),
                 new Note("A"),
             });
-            Assert.Equal(new Chord("Dmaj"), chord);
+            chord.Should().Be(new Chord("Dmaj"));
         }
 
         [Fact]
         public void Get_chord_type_for_sus4()
         {
             var chord = new Chord("C5sus4");
-            Assert.Equal("sus4", chord.GetChordType(), StringComparer.OrdinalIgnoreCase);
+            chord.GetChordType().Should().BeEquivalentTo("sus4");
         }
 
         [Fact]
         public void Create_three_note_chord_with_notes_in_wrong_order()
         {
             var chord = Chord.FromNotes("E G C");
-            Assert.Equal(0, chord.Inversion);
-            Assert.Equal(new Chord("Cmaj"), chord);
+            chord.Inversion.Should().Be(0);
+            chord.Should().Be(new Chord("Cmaj"));
         }
 
         [Fact]
@@ -106,33 +106,33 @@ namespace NFugue.Tests.Theory
         {
             var chord = Chord.FromNotes("E4 G4 C5");
             Assert.Equal(1, chord.Inversion);
-            Assert.Equal(new Chord("C5maj"), chord);
+            chord.Should().Be(new Chord("C5maj"));
         }
 
         [Fact]
         public void Create_four_note_chord_with_inverted_notes_first_inversion()
         {
             var chord = Chord.FromNotes("E4 G4 B4 C5");
-            Assert.Equal(1, chord.Inversion);
-            Assert.Equal(new Chord("C5maj7^"), chord);
+            chord.Inversion.Should().Be(1);
+            chord.Should().Be(new Chord("C5maj7^"));
         }
 
         [Fact]
         public void Create_four_note_chord_with_inverted_notes_second_inversion()
         {
             var chord = Chord.FromNotes("G4 C5 E5 B5");
-            Assert.Equal(2, chord.Inversion);
-            Assert.Equal(new Chord("Cmaj7^^"), chord);
+            chord.Inversion.Should().Be(2);
+            chord.Should().Be(new Chord("Cmaj7^^"));
         }
 
         [Fact]
         public void Create_four_note_chord_with_inverted_notes_third_inversion()
         {
             var chord = Chord.FromNotes("B4 C5 E5 G5");
-            Assert.Equal(3, chord.Inversion);
-            Assert.Equal(new Chord("C5maj7^^^"), chord);
+            chord.Inversion.Should().Be(3);
+            chord.Should().Be(new Chord("C5maj7^^^"));
             var expectedBassNote = new Note("B4") { IsOctaveExplicitlySet = false };
-            Assert.Equal(expectedBassNote, chord.GetBassNote());
+            chord.GetBassNote().Should().Be(expectedBassNote);
         }
 
         [Fact]
@@ -140,21 +140,21 @@ namespace NFugue.Tests.Theory
         {
             var chord = new Chord("Cmaj^");
             var expectedBassNote = new Note("E3") { IsOctaveExplicitlySet = false };
-            Assert.Equal(expectedBassNote, chord.GetBassNote());
+            chord.GetBassNote().Should().Be(expectedBassNote);
         }
 
         [Fact]
         public void Create_chord_with_notes_in_different_octaves()
         {
             var chord = Chord.FromNotes("C3 E5 G7");
-            Assert.Equal(new Chord("Cmaj"), chord);
+            chord.Should().Be(new Chord("Cmaj"));
         }
 
         [Fact]
         public void Create_chord_with_many_similar_notes()
         {
             var chord = Chord.FromNotes("F3 F4 F5 A6 A5 C4 C3");
-            Assert.Equal(new Chord("Fmaj^^"), chord);
+            chord.Should().Be(new Chord("Fmaj^^"));
         }
 
         [Fact]
@@ -164,25 +164,26 @@ namespace NFugue.Tests.Theory
             var chord = new Chord("Cpow");
             var notes = chord.GetNotes();
 
-            Assert.Equal(48, notes[0].Value); // C3
-            Assert.Equal(55, notes[1].Value); // G3
+            notes[0].Should().Be(48); //C3
+            notes[1].Should().Be(55); //G3
         }
 
         private static void VerifyFirstInversion(Chord chord)
         {
             var notes = chord.GetNotes();
-            Assert.Equal(60, notes[0].Value); // C4
-            Assert.Equal(52, notes[1].Value); // E3
-            Assert.Equal(55, notes[2].Value); // G3
+
+            notes[0].Should().Be(60); // C4
+            notes[1].Should().Be(52); // E3
+            notes[2].Should().Be(55); // G3
         }
 
         private static void VerifySecondInversion(Chord chord)
         {
             var notes = chord.GetNotes();
 
-            Assert.Equal(60, notes[0].Value); // C4
-            Assert.Equal(64, notes[1].Value); // E4
-            Assert.Equal(55, notes[2].Value); // G3
+            notes[0].Should().Be(60); // C4
+            notes[1].Should().Be(64); // E4
+            notes[2].Should().Be(55); // G3
         }
     }
 }

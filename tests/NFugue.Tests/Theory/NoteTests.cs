@@ -1,5 +1,5 @@
-﻿using NFugue.Theory;
-using System;
+﻿using FluentAssertions;
+using NFugue.Theory;
 using Xunit;
 
 namespace NFugue.Tests.Theory
@@ -11,82 +11,82 @@ namespace NFugue.Tests.Theory
         [Fact]
         public void Tone_string_for_A4()
         {
-            Assert.Equal("A4", Note.GetToneString(57), StringComparer.OrdinalIgnoreCase);
+            Note.GetToneString(57).Should().BeEquivalentTo("A4");
         }
 
         [Fact]
         public void Duration_string_tests()
         {
-            Assert.Equal(Note.DurationString(0.25), "q", StringComparer.OrdinalIgnoreCase);
-            Assert.Equal(Note.DurationString(0.75), "h.", StringComparer.OrdinalIgnoreCase);
-            Assert.Equal(Note.DurationString(1.125), "wi", StringComparer.OrdinalIgnoreCase);
+            Note.DurationString(0.25).Should().BeEquivalentTo("q");
+            Note.DurationString(0.75).Should().BeEquivalentTo("h.");
+            Note.DurationString(1.125).Should().BeEquivalentTo("wi");
         }
 
         [Fact]
         public void Percussion_string_test()
         {
-            Assert.Equal(Note.PercussionString(56), "[COWBELL]", StringComparer.OrdinalIgnoreCase);
+            Note.PercussionString(56).Should().BeEquivalentTo("[cowbell]");
         }
 
         [Fact]
         public void Duration_string_for_beat_regular_values()
         {
-            Assert.Equal(Note.DurationStringForBeat(2), "h");
-            Assert.Equal(Note.DurationStringForBeat(4), "q");
-            Assert.Equal(Note.DurationStringForBeat(8), "i");
-            Assert.Equal(Note.DurationStringForBeat(16), "s");
+            Note.DurationStringForBeat(2).Should().Be("h");
+            Note.DurationStringForBeat(4).Should().Be("q");
+            Note.DurationStringForBeat(8).Should().Be("i");
+            Note.DurationStringForBeat(16).Should().Be("s");
         }
 
         [Fact]
         public void Duration_string_for_beat_irregular_values()
         {
-            Assert.Equal(Note.DurationStringForBeat(10), "/0.1");
-            Assert.True(Note.DurationStringForBeat(6).StartsWith("/0.166666666666"));
+            Note.DurationStringForBeat(10).Should().Be("/0.1");
+            Note.DurationStringForBeat(6).Should().StartWith("/0.166666666666");
         }
 
         [Fact]
         public void Should_return_correct_frequency_for_A5()
         {
-            Assert.Equal(440.0, Note.FrequencyForNote("A5"));
-            Assert.Equal(440.0, Note.FrequencyForNote("A"));
+            Note.FrequencyForNote("A5").Should().Be(440.0);
+            Note.FrequencyForNote("A").Should().Be(440.0);
         }
 
         [Fact]
         public void Should_return_correct_frequency_for_MIDI_value()
         {
-            Assert.Equal(440.0, Note.FrequencyForNote(69));
+            Note.FrequencyForNote(69).Should().Be(440.0);
         }
 
         [Fact]
         public void Should_recognize_the_same_notes_in_different_notation()
         {
-            Assert.True(Note.IsSameNote("G#", "Ab"));
-            Assert.True(Note.IsSameNote("BB", "a#"));
-            Assert.True(Note.IsSameNote("C", "C"));
+            Note.IsSameNote("G#", "Ab").Should().BeTrue();
+            Note.IsSameNote("BB", "a#").Should().BeTrue();
+            Note.IsSameNote("C", "C").Should().BeTrue();
         }
 
         [Fact]
         public void Octave_for_rest_should_be_zero()
         {
-            Assert.Equal(0, rest.GetOctave());
+            rest.GetOctave().Should().Be(0);
         }
 
         [Fact]
         public void Value_for_rest_should_be_zero()
         {
-            Assert.Equal(0, rest.Value);
+            rest.Value.Should().Be(0);
         }
 
         [Fact]
         public void Tone_string_for_rest_should_be_R()
         {
-            Assert.Equal("R", rest.ToneString());
+            rest.ToString().Should().Be("R");
         }
 
         [Fact]
         public void Frequency_for_rest_should_be_zero()
         {
-            Assert.Equal(0, Note.FrequencyForNote("R"));
+            Note.FrequencyForNote("R").Should().Be(0);
         }
     }
 }
