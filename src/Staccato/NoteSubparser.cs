@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NFugue
+namespace Staccato
 {
     public class NoteSubparser
     {

@@ -209,7 +209,9 @@ namespace NFugue.Theory
 
         public static bool IsValidNote(string candidateNote)
         {
-            return new NoteSubparser().Matches(candidateNote);
+            //TODO
+            //return new NoteSubparser().Matches(candidateNote);
+            return false;
         }
 
         public static string DurationString(double decimalDuration)

@@ -90,7 +90,8 @@ namespace NFugue.Theory
             Pattern pattern = GetPattern();
             foreach (var split in pattern.ToString().Split(' '))
             {
-                if (new NoteSubparser().Matches(split))
+                //TODO
+                //if (new NoteSubparser().Matches(split))
                 {
                     noteList.Add(new Note(split));
                 }
