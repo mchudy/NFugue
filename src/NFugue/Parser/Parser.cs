@@ -28,5 +28,30 @@ namespace NFugue.Parser
         public event EventHandler<NoteEventArgs> NoteReleased;
         public event EventHandler<NoteEventArgs> NoteParsed;
         public event EventHandler<ChordParsedEventArgs> ChordParsed;
+
+        protected void OnBeforeParsingStarted()
+        {
+            BeforeParsingStarted?.Invoke(this, EventArgs.Empty);
+        }
+
+        protected void OnAfterParsingFinished()
+        {
+            AfterParsingFinished?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void OnBarLineParsed(long measure)
+        {
+            BarLineParsed?.Invoke(this, new BarLineParsedEventArgs { Id = measure });
+        }
+
+        public void OnTrackBeatTimeRequested(double time)
+        {
+            TrackBeatTimeRequested?.Invoke(this, new TrackBeatTimeRequestedEventArgs { Time = time });
+        }
+
+        public void OnTrackBeatTimeBookmarkRequested(string timeBookmarkId)
+        {
+            TrackBeatTimeBookmarkRequested?.Invoke(this, new TrackBeatTimeBookmarkEventArgs { TimeBookmarkId = timeBookmarkId });
+        }
     }
 }
