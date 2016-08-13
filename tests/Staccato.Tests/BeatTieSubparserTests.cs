@@ -1,17 +1,14 @@
 ﻿using FluentAssertions;
 using NFugue.Parser;
-using Staccato.Subparsers;
 using Xunit;
 
 namespace Staccato.Tests
 {
-    public class BeatTieSubparserTests
+    public class BeatTimeSubparserTests
     {
-        private StaccatoParser parser = new StaccatoParser();
-        private BeatTimeSubparser subparser = new BeatTimeSubparser();
-        private StaccatoParserContext context = new StaccatoParserContext(null);
+        private readonly StaccatoParser parser = new StaccatoParser();
 
-        public BeatTieSubparserTests()
+        public BeatTimeSubparserTests()
         {
             parser.MonitorEvents();
         }
@@ -22,6 +19,14 @@ namespace Staccato.Tests
             parser.Parse("@200");
             parser.ShouldRaise(nameof(Parser.TrackBeatTimeRequested))
                 .WithArgs<TrackBeatTimeRequestedEventArgs>(e => e.Time == 200);
+        }
+
+        [Fact]
+        public void Track_beat_time_bookmarked_should_be_raised()
+        {
+            parser.Parse("@#mark");
+            parser.ShouldRaise(nameof(Parser.TrackBeatTimeBookmarkRequested))
+                .WithArgs<TrackBeatTimeBookmarkEventArgs>(e => e.TimeBookmarkId == "mark");
         }
     }
 }
