@@ -45,6 +45,7 @@
     <Compile Include="IPreprocessor.cs" />
     <Compile Include="IPreprocessorFunction.cs" />
     <Compile Include="NoteSubparser.cs" />
+    <Compile Include="Preprocessors\ParenSpacesPreprocessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StaccatoMessages.cs" />
     <Compile Include="StaccatoParser.cs" />
@@ -57,7 +58,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Maps\" />
-    <Folder Include="Preprocessors\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NFugue\NFugue.csproj">

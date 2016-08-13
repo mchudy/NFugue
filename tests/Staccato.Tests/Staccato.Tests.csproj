@@ -62,10 +62,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BarLineSubparserTests.cs" />
-    <Compile Include="BeatTieSubparserTests.cs" />
+    <Compile Include="Subparsers\BarLineSubparserTests.cs" />
+    <Compile Include="Subparsers\BeatTieSubparserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SubparserTestBase.cs" />
+    <Compile Include="Subparsers\LyricMarkerSubparserTests.cs" />
+    <Compile Include="Subparsers\SubparserTestBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

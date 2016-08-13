@@ -1,5 +1,7 @@
 ﻿using NFugue.Patterns;
 using Staccato.Extensions;
+using Staccato.Preprocessors;
+using System;
 
 namespace Staccato.Subparsers
 {
@@ -42,7 +44,17 @@ namespace Staccato.Subparsers
                 }
                 int startPos = music[1] == '(' ? 2 : 1;
                 lyricOrMarker = music.Substring(startPos, posNext - startPos);
-                //lyricOrMarker
+                lyricOrMarker = ParenSpacesPreprocessor.Unprocess(lyricOrMarker);
+                if (music[0] == LyricChar)
+                {
+                    context.Parser.OnLyricParsed(lyricOrMarker);
+                }
+                else
+                {
+                    context.Parser.OnTrackBeatTimeBookmarked(lyricOrMarker);
+                    context.Parser.OnMarkerParsed(lyricOrMarker);
+                }
+                return Math.Max(1, Math.Min(posNext + 1, music.Length));
             }
             return 0;
         }

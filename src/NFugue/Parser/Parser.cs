@@ -53,5 +53,20 @@ namespace NFugue.Parser
         {
             TrackBeatTimeBookmarkRequested?.Invoke(this, new TrackBeatTimeBookmarkEventArgs { TimeBookmarkId = timeBookmarkId });
         }
+
+        public void OnTrackBeatTimeBookmarked(string timeBookmarkId)
+        {
+            TrackBeatTimeBookmarked?.Invoke(this, new TrackBeatTimeBookmarkEventArgs { TimeBookmarkId = timeBookmarkId });
+        }
+
+        public void OnMarkerParsed(string marker)
+        {
+            if (marker != null) MarkerParsed?.Invoke(this, new MarkerParsedEventArgs { Marker = marker });
+        }
+
+        public void OnLyricParsed(string lyric)
+        {
+            LyricParsed?.Invoke(this, new LyricParsedEventArgs { Lyric = lyric });
+        }
     }
 }
