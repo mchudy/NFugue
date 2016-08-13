@@ -54,7 +54,12 @@
     <Compile Include="ISubparserFunction.cs" />
     <Compile Include="Subparsers\BarLineSubparser.cs" />
     <Compile Include="Subparsers\BeatTimeSubparser.cs" />
+    <Compile Include="Subparsers\FunctionSubparser.cs" />
+    <Compile Include="Subparsers\IVLSubparser.cs" />
     <Compile Include="Subparsers\LyricMarkerSubparser.cs" />
+    <Compile Include="Subparsers\SignatureSubparser.cs" />
+    <Compile Include="Subparsers\TempoSubparser.cs" />
+    <Compile Include="Subparsers\WhitespaceConsumer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Maps\" />

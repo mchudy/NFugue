@@ -6,17 +6,17 @@ namespace NFugue.Parser
 {
     public class TrackChangedEventArgs : EventArgs
     {
-        public byte Track { get; set; }
+        public sbyte Track { get; set; }
     }
 
     public class LayerChangedEventArgs : EventArgs
     {
-        public byte Layer { get; set; }
+        public sbyte Layer { get; set; }
     }
 
     public class InstrumentParsedEventArgs : EventArgs
     {
-        public byte Instrument { get; set; }
+        public sbyte Instrument { get; set; }
     }
 
     public class TempoChangedEventArgs : EventArgs
@@ -26,14 +26,14 @@ namespace NFugue.Parser
 
     public class KeySignatureParsedEventArgs : EventArgs
     {
-        public byte Key { get; set; }
-        public byte Scale { get; set; }
+        public sbyte Key { get; set; }
+        public sbyte Scale { get; set; }
     }
 
     public class TimeSignatureParsedEventArgs : EventArgs
     {
-        public byte Numerator { get; set; }
-        public byte PowerOfTwo { get; set; }
+        public sbyte Numerator { get; set; }
+        public sbyte PowerOfTwo { get; set; }
     }
 
     public class BarLineParsedEventArgs : EventArgs
@@ -53,30 +53,30 @@ namespace NFugue.Parser
 
     public class PitchWheelParsedEventArgs : EventArgs
     {
-        public byte LSB { get; set; }
-        public byte MSB { get; set; }
+        public sbyte LSB { get; set; }
+        public sbyte MSB { get; set; }
     }
 
     public class ChannelPressureParsedEventArgs : EventArgs
     {
-        public byte Pressure { get; set; }
+        public sbyte Pressure { get; set; }
     }
 
     public class PolyphonicPressureParsedEventArgs : EventArgs
     {
-        public byte Key { get; set; }
-        public byte Pressure { get; set; }
+        public sbyte Key { get; set; }
+        public sbyte Pressure { get; set; }
     }
 
     public class SystemExclusiveParsedEventArgs : EventArgs
     {
-        public IEnumerable<byte> Bytes { get; set; }
+        public IEnumerable<sbyte> Bytes { get; set; }
     }
 
     public class ControllerEventParsedEventArgs : EventArgs
     {
-        public byte Controller { get; set; }
-        public byte Value { get; set; }
+        public sbyte Controller { get; set; }
+        public sbyte Value { get; set; }
     }
 
     public class LyricParsedEventArgs : EventArgs

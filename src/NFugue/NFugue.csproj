@@ -43,6 +43,7 @@
     <Compile Include="DefaultNoteSettings.cs" />
     <Compile Include="Extensions\DictionaryExtensions.cs" />
     <Compile Include="Extensions\DoubleExtensions.cs" />
+    <Compile Include="IKeyProvider.cs" />
     <Compile Include="Parser\Parser.cs" />
     <Compile Include="Parser\ParserEventArgs.cs" />
     <Compile Include="Parser\ParserException.cs" />

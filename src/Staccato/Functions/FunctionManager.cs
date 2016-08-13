@@ -4,10 +4,16 @@ namespace Staccato.Functions
 {
     public class FunctionManager
     {
+        private static FunctionManager instance;
+
+        private FunctionManager() { }
+
+        public static FunctionManager Instance => instance ?? (instance = new FunctionManager());
+
         private readonly IDictionary<string, IPreprocessorFunction> preprocessorFunctions = new Dictionary<string, IPreprocessorFunction>();
         private readonly IDictionary<string, ISubparserFunction> subparserFunctions = new Dictionary<string, ISubparserFunction>();
 
-        public void addPreprocessorFunction(IPreprocessorFunction function)
+        public void AddPreprocessorFunction(IPreprocessorFunction function)
         {
             foreach (string name in function.GetNames())
             {
@@ -15,7 +21,7 @@ namespace Staccato.Functions
             }
         }
 
-        public void removePreprocessorFunction(IPreprocessorFunction function)
+        public void RemovePreprocessorFunction(IPreprocessorFunction function)
         {
             foreach (string name in function.GetNames())
             {
