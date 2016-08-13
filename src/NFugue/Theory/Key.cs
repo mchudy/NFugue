@@ -5,7 +5,7 @@
         public static readonly Key Default = new Key("C4maj");
 
         public Key(string keySignature)
-            : this(new KeyProvider().CreateKey(keySignature))
+        //: this(new KeyProvider().CreateKey(keySignature))
         { }
 
         public Key(Key key)

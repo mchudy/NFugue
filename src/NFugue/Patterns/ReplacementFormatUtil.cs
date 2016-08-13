@@ -25,11 +25,11 @@ namespace NFugue.Patterns
                 //posNextDollar = StaccatoUtil.findNextOrEnd(sequence, '$', posPrevDollar);
                 if (posPrevDollar + 1 < sequence.Length)
                 {
-                    sb.Append(sequence.Substring(posPrevDollar + 1, posNextDollar));
+                    sb.Append(sequence.Substring(posPrevDollar + 1, posNextDollar - posPrevDollar - 1));
                 }
                 if (posNextDollar != sequence.Length)
                 {
-                    string selectionString = sequence.Substring(posNextDollar + 1, posNextDollar + 2);
+                    string selectionString = sequence.Substring(posNextDollar + 1, 1);
                     if (selectionString.Equals("_"))
                     {
                         // If the underscore replacement has tokens, then the stuff after $_ needs to be applied to each
@@ -39,14 +39,14 @@ namespace NFugue.Patterns
                         foreach (string token in replacementTokens)
                         {
                             sb.Append(token);
-                            sb.Append(sequence.Substring(posNextDollar + 2, nextSpaceInSequence));
+                            sb.Append(sequence.Substring(posNextDollar + 2, nextSpaceInSequence - posNextDollar - 2));
                             sb.Append(" ");
                         }
                         posNextDollar = nextSpaceInSequence - 1;
                     }
                     else
                     {
-                        int selection = int.Parse(sequence.Substring(posNextDollar + 1, posNextDollar + 2));
+                        int selection = int.Parse(sequence.Substring(posNextDollar + 1, 1));
                         if (selection > candidates.Count)
                         {
                             throw new ArgumentException($"The selector ${selection} is greater than the number of items to choose from, which has {candidates.Count} items");

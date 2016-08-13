@@ -2,9 +2,10 @@
 {
     public class KeyProvider
     {
+        private static Key key = new Key("");
         public Key CreateKey(string keySignature)
         {
-            throw new System.NotImplementedException();
+            return key;
         }
     }
 }

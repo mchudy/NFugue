@@ -1,5 +1,6 @@
 ﻿using NFugue.Parser;
 using NFugue.Patterns;
+using Staccato.Subparsers;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,9 +15,11 @@ namespace Staccato
         public StaccatoParser()
         {
             context = new StaccatoParserContext(this);
+            subparsers.Add(new BeatTimeSubparser());
+            subparsers.Add(new BarLineSubparser());
         }
 
-        public bool ThrowsExceptionOnUknownToken { get; set; }
+        public bool ThrowsExceptionOnUnknownToken { get; set; }
 
         public void Parse(string musicString)
         {
@@ -30,7 +33,7 @@ namespace Staccato
                     {
                         subparser.Parse(substring, context);
                     }
-                    else if (ThrowsExceptionOnUknownToken)
+                    else if (ThrowsExceptionOnUnknownToken)
                     {
                         throw new ParserException(StaccatoMessages.NoParserFound + substring);
                     }

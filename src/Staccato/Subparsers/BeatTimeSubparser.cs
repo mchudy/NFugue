@@ -35,7 +35,8 @@ namespace Staccato.Subparsers
                 int posNextSpace = music.FindNextOrEnd(' ');
                 if (posNextSpace > 1)
                 {
-                    string timeTrackId = music.Substring(1, posNextSpace);
+                    // ported substring
+                    string timeTrackId = music.Substring(1, posNextSpace - 1);
                     if (Regex.IsMatch(timeTrackId, "([0-9]+(\\.[0-9]+)*)"))
                     {
                         double time = double.Parse(timeTrackId);
@@ -43,7 +44,7 @@ namespace Staccato.Subparsers
                     }
                     else if (timeTrackId[0] == BeatTimeUseMarker)
                     {
-                        string timeBookmarkId = timeTrackId.Substring(1, timeTrackId.Length);
+                        string timeBookmarkId = timeTrackId.Substring(1, timeTrackId.Length - 1);
                         context.Parser.OnTrackBeatTimeBookmarkRequested(timeBookmarkId);
                     }
                 }

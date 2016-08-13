@@ -29,8 +29,8 @@ namespace Staccato
                     {
 
                         int equalsIndex = line.IndexOf('=');
-                        string key = line.Substring(1, equalsIndex).Trim();
-                        string value = line.Substring(equalsIndex + 1, line.Length).Trim();
+                        string key = line.Substring(1, equalsIndex - 1).Trim();
+                        string value = line.Substring(equalsIndex + 1, line.Length - equalsIndex - 1).Trim();
                         this.Dictionary[key] = value;
                     }
                 }

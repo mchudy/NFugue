@@ -31,7 +31,7 @@ namespace Staccato.Subparsers
                 long measure = -1;
                 if (posNextSpace > 1)
                 {
-                    string barId = music.Substring(1, posNextSpace);
+                    string barId = music.Substring(1, posNextSpace - 1);
                     if (Regex.IsMatch(barId, @"\d+"))
                     {
                         measure = long.Parse(barId);
