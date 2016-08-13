@@ -14,6 +14,7 @@ namespace Staccato
 
         public StaccatoParser()
         {
+            //TODO: injection/reflection assembly search
             context = new StaccatoParserContext(this);
             subparsers.Add(new BeatTimeSubparser());
             subparsers.Add(new BarLineSubparser());

@@ -53,6 +53,7 @@
     <Compile Include="ISubparserFunction.cs" />
     <Compile Include="Subparsers\BarLineSubparser.cs" />
     <Compile Include="Subparsers\BeatTimeSubparser.cs" />
+    <Compile Include="Subparsers\LyricMarkerSubparser.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Maps\" />

@@ -1,31 +1,31 @@
 ﻿using FluentAssertions;
 using NFugue.Parser;
+using Staccato.Subparsers;
 using Xunit;
 
 namespace Staccato.Tests
 {
-    public class BarLineSubparserTests
+    public class BarLineSubparserTests : SubparserTestBase<BarLineSubparser>
     {
-        private StaccatoParser parser = new StaccatoParser();
-
-        public BarLineSubparserTests()
+        [Fact]
+        public void Should_match_barline()
         {
-            parser.MonitorEvents();
+            subparser.Matches("|").Should().BeTrue();
         }
 
         [Fact]
         public void Should_raise_bar_line_parsed()
         {
-            parser.Parse("|");
-            parser.ShouldRaise(nameof(Parser.BarLineParsed))
+            ParseWithSubparser("|");
+            VerifyEventRaised(nameof(Parser.BarLineParsed))
                 .WithArgs<BarLineParsedEventArgs>(e => e.Id == -1);
         }
 
         [Fact]
         public void Should_raise_bar_line_parsed_with_specifiedId()
         {
-            parser.Parse("|200");
-            parser.ShouldRaise(nameof(Parser.BarLineParsed))
+            ParseWithSubparser("|200");
+            VerifyEventRaised(nameof(Parser.BarLineParsed))
                 .WithArgs<BarLineParsedEventArgs>(e => e.Id == 200);
         }
     }
