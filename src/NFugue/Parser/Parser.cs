@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NFugue.Theory;
+using System;
 
 namespace NFugue.Parser
 {
@@ -102,6 +103,16 @@ namespace NFugue.Parser
         public void OnTimeSignatureParsed(sbyte numerator, sbyte denominator)
         {
             TimeSignatureParsed?.Invoke(this, new TimeSignatureParsedEventArgs { Numerator = numerator, PowerOfTwo = denominator });
+        }
+
+        public void OnChordParsed(Chord chord)
+        {
+            ChordParsed?.Invoke(this, new ChordParsedEventArgs { Chord = chord });
+        }
+
+        public void OnNoteParsed(Note note)
+        {
+            NoteParsed?.Invoke(this, new NoteEventArgs { Note = note });
         }
     }
 }

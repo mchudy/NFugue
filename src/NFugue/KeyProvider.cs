@@ -1,4 +1,6 @@
-﻿namespace NFugue.Theory
+﻿using NFugue.Providers;
+
+namespace NFugue.Theory
 {
     public class KeyProvider : IKeyProvider
     {

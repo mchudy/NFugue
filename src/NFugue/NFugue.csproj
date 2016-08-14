@@ -43,7 +43,8 @@
     <Compile Include="DefaultNoteSettings.cs" />
     <Compile Include="Extensions\DictionaryExtensions.cs" />
     <Compile Include="Extensions\DoubleExtensions.cs" />
-    <Compile Include="IKeyProvider.cs" />
+    <Compile Include="Providers\IChordProvider.cs" />
+    <Compile Include="Providers\IKeyProvider.cs" />
     <Compile Include="Parser\Parser.cs" />
     <Compile Include="Parser\ParserEventArgs.cs" />
     <Compile Include="Parser\ParserException.cs" />
@@ -55,6 +56,8 @@
     <Compile Include="Patterns\TokenType.cs" />
     <Compile Include="Patterns\TrackTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\INoteProvider.cs" />
+    <Compile Include="Providers\KeyProviderFactory.cs" />
     <Compile Include="Theory\Chord.cs" />
     <Compile Include="Theory\ChordProgression.cs" />
     <Compile Include="Theory\Intervals.cs" />

@@ -44,7 +44,6 @@
     <Compile Include="Functions\FunctionManager.cs" />
     <Compile Include="IPreprocessor.cs" />
     <Compile Include="IPreprocessorFunction.cs" />
-    <Compile Include="NoteSubparser.cs" />
     <Compile Include="Preprocessors\ParenSpacesPreprocessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StaccatoMessages.cs" />
@@ -57,6 +56,8 @@
     <Compile Include="Subparsers\FunctionSubparser.cs" />
     <Compile Include="Subparsers\IVLSubparser.cs" />
     <Compile Include="Subparsers\LyricMarkerSubparser.cs" />
+    <Compile Include="Subparsers\NoteSubparser\NoteContext.cs" />
+    <Compile Include="Subparsers\NoteSubparser\NoteSubparser.cs" />
     <Compile Include="Subparsers\SignatureSubparser.cs" />
     <Compile Include="Subparsers\TempoSubparser.cs" />
     <Compile Include="Subparsers\WhitespaceConsumer.cs" />

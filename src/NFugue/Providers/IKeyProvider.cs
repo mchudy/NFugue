@@ -1,6 +1,6 @@
 ﻿using NFugue.Theory;
 
-namespace NFugue
+namespace NFugue.Providers
 {
     /// <summary>
     /// This interface must be implemented by the parser responsible for Staccato strings

@@ -5,6 +5,7 @@ using NFugue.Theory;
 using Staccato.Extensions;
 using System;
 using System.Text;
+using NFugue.Providers;
 
 namespace Staccato.Subparsers
 {
@@ -121,7 +122,7 @@ namespace Staccato.Subparsers
             {
                 return new Note(MajorKeySignatures[KeySigMidpoint - accidentalCount]).PositionInOctave();
             }
-            return new Note(MinorKeySignatures[KeySigMidpoint - accidentalCount]).PositionInOctave();
+            return new NFugue.Theory.Note(MinorKeySignatures[KeySigMidpoint - accidentalCount]).PositionInOctave();
         }
 
         public sbyte ConvertKeyToByte(Key key)
