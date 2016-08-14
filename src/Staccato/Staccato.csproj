@@ -41,7 +41,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Functions\ArpeggiatedChordFunction.cs" />
+    <Compile Include="Functions\ChannelPressureFunction.cs" />
+    <Compile Include="Functions\ControllerFunction.cs" />
+    <Compile Include="Functions\DefaultPreprocessorFunction.cs" />
     <Compile Include="Functions\FunctionManager.cs" />
+    <Compile Include="Functions\PitchWheelFunction.cs" />
+    <Compile Include="Functions\PolyPressureFunction.cs" />
+    <Compile Include="Functions\SysexFunction.cs" />
+    <Compile Include="Functions\TrillFunction.cs" />
     <Compile Include="IPreprocessor.cs" />
     <Compile Include="IPreprocessorFunction.cs" />
     <Compile Include="Preprocessors\ParenSpacesPreprocessor.cs" />

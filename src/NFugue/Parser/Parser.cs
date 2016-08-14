@@ -114,5 +114,30 @@ namespace NFugue.Parser
         {
             NoteParsed?.Invoke(this, new NoteEventArgs { Note = note });
         }
+
+        public void OnChannelPressureParsed(sbyte pressure)
+        {
+            ChannelPressureParsed?.Invoke(this, new ChannelPressureParsedEventArgs { Pressure = pressure });
+        }
+
+        public void OnControllerEventParsed(sbyte controller, sbyte value)
+        {
+            ControllerEventParsed?.Invoke(this, new ControllerEventParsedEventArgs { Controller = controller, Value = value });
+        }
+
+        public void OnPitchWheelParsed(sbyte lsb, sbyte msb)
+        {
+            PitchWheelParsed?.Invoke(this, new PitchWheelParsedEventArgs { LSB = lsb, MSB = msb });
+        }
+
+        public void OnPolyphonicPressureParsed(sbyte key, sbyte pressure)
+        {
+            PolyphonicPressureParsed?.Invoke(this, new PolyphonicPressureParsedEventArgs { Key = key, Pressure = pressure });
+        }
+
+        public void OnSystemExclusiveParsed(sbyte[] bytes)
+        {
+            SystemExclusiveParsed?.Invoke(this, new SystemExclusiveParsedEventArgs { Bytes = bytes });
+        }
     }
 }
