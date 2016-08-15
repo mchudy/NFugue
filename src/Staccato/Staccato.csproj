@@ -50,9 +50,16 @@
     <Compile Include="Functions\PolyPressureFunction.cs" />
     <Compile Include="Functions\SysexFunction.cs" />
     <Compile Include="Functions\TrillFunction.cs" />
+    <Compile Include="IInstruction.cs" />
     <Compile Include="IPreprocessor.cs" />
     <Compile Include="IPreprocessorFunction.cs" />
+    <Compile Include="Preprocessors\CollectedNotesPreprocessor.cs" />
+    <Compile Include="Preprocessors\FunctionPreprocessor.cs" />
+    <Compile Include="Preprocessors\InstructionPreprocessor.cs" />
+    <Compile Include="Preprocessors\MicrotonePreprocessor.cs" />
     <Compile Include="Preprocessors\ParenSpacesPreprocessor.cs" />
+    <Compile Include="Preprocessors\ReplacementMapPreprocessor.cs" />
+    <Compile Include="Preprocessors\UppercasePreprocessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StaccatoMessages.cs" />
     <Compile Include="StaccatoParser.cs" />
