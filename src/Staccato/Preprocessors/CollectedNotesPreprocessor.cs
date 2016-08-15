@@ -11,7 +11,7 @@ namespace Staccato.Preprocessors
 
         public string Preprocess(string s, StaccatoParserContext context)
         {
-            var buddy = new StringBuilder();
+            var sb = new StringBuilder();
             int posStart = 0;
 
             foreach (Match match in parenPattern.Matches(s))
@@ -20,7 +20,7 @@ namespace Staccato.Preprocessors
                 // meant to be added to the result without any modifications.
                 int posStartOfGroup = match.Index;
                 string sub = s.Substring(posStart, posStartOfGroup - posStart);
-                buddy.Append(sub);
+                sb.Append(sub);
                 posStart = s.FindNextOrEnd(' ', match.Index + match.Length);
 
                 // Now, get the notes that are collected between parentheses. The "replicand" is the
@@ -36,17 +36,17 @@ namespace Staccato.Preprocessors
                 while (subindex < parenContents.Length)
                 {
                     var posSomething = parenContents.FindNextOrEnd(new List<char> { ' ', '+' }, subindex);
-                    buddy.Append(parenContents.Substring(subindex, posSomething - subindex));
-                    buddy.Append(replicand);
+                    sb.Append(parenContents.Substring(subindex, posSomething - subindex));
+                    sb.Append(replicand);
                     if (posSomething != parenContents.Length)
                     {
-                        buddy.Append(parenContents.Substring(posSomething, 1));
+                        sb.Append(parenContents.Substring(posSomething, 1));
                     }
                     subindex = posSomething + 1;
                 }
             }
-            buddy.Append(s.Substring(posStart, s.Length - posStart));
-            return buddy.ToString();
+            sb.Append(s.Substring(posStart, s.Length - posStart));
+            return sb.ToString();
 
         }
     }

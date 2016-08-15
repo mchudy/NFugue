@@ -8,7 +8,7 @@ namespace Staccato.Preprocessors
 {
     public class InstructionPreprocessor : IPreprocessor
     {
-        private static readonly Regex keyPattern = new Regex(@"\{\p{ASCII}*?\}", RegexOptions.Compiled);
+        private static readonly Regex keyPattern = new Regex(@"\{\p{IsBasicLatin}*?\}", RegexOptions.Compiled);
         private IDictionary<string, IInstruction> instructions = new Dictionary<string, IInstruction>();
 
         public string Preprocess(string musicString, StaccatoParserContext context)

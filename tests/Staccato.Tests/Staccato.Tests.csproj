@@ -70,6 +70,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Preprocessors\CollectedNotesPreprocessorTests.cs" />
+    <Compile Include="Preprocessors\FunctionPreprocessorTests.cs" />
+    <Compile Include="Preprocessors\ReplacementMapPreprocessorTests.cs" />
+    <Compile Include="Preprocessors\UppercasePreprocessorTests.cs" />
     <Compile Include="Subparsers\BarLineSubparserTests.cs" />
     <Compile Include="Subparsers\BeatTieSubparserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

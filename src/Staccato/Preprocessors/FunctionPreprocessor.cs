@@ -6,9 +6,9 @@ namespace Staccato.Preprocessors
 {
     public class FunctionPreprocessor : IPreprocessor
     {
-        private static readonly Regex functionPattern = new Regex(@":\S+\(\p{ASCII}*\)", RegexOptions.Compiled);
+        private static readonly Regex functionPattern = new Regex(@":\S+\(\p{IsBasicLatin}*\)", RegexOptions.Compiled);
         private static readonly Regex namePattern = new Regex(@"\S+\(", RegexOptions.Compiled);
-        private static readonly Regex paramPattern = new Regex(@"\(\p{ASCII}*\)", RegexOptions.Compiled);
+        private static readonly Regex paramPattern = new Regex(@"\(\p{IsBasicLatin}*\)", RegexOptions.Compiled);
 
         public string Preprocess(string musicString, StaccatoParserContext context)
         {
