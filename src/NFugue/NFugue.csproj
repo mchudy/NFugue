@@ -43,7 +43,9 @@
     <Compile Include="DefaultNoteSettings.cs" />
     <Compile Include="Extensions\DictionaryExtensions.cs" />
     <Compile Include="Extensions\DoubleExtensions.cs" />
+    <Compile Include="Midi\MidiEventManager.cs" />
     <Compile Include="Midi\MidiTools.cs" />
+    <Compile Include="Midi\TrackTimeManager.cs" />
     <Compile Include="Providers\IChordProvider.cs" />
     <Compile Include="Providers\IKeyProvider.cs" />
     <Compile Include="Parser\Parser.cs" />
