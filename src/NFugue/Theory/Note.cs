@@ -70,11 +70,17 @@ namespace NFugue.Theory
             return this;
         }
 
+        public void UseDefaultDuration()
+        {
+            duration = DefaultNoteSettings.DefaultDuration;
+        }
+
         public Note UseSameExplicitOctaveSettingAs(Note note2)
         {
             IsOctaveExplicitlySet = note2.IsOctaveExplicitlySet;
             return this;
         }
+
 
         public sbyte OnVelocity { get; set; }
         public sbyte OffVelocity { get; set; }

@@ -83,7 +83,7 @@ namespace NFugue.Midi
             return latestTime;
         }
 
-        protected void CreateTrack(sbyte track)
+        protected virtual void CreateTrack(sbyte track)
         {
             for (int layer = 0; layer < MidiDefaults.Layers; layer++)
             {

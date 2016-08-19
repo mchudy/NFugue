@@ -38,6 +38,15 @@
       <HintPath>..\..\packages\FluentAssertions.4.13.0\lib\net45\FluentAssertions.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Midi">
+      <HintPath>..\..\packages\midi-dot-net.1.1.0\lib\net35\Midi.dll</HintPath>
+    </Reference>
+    <Reference Include="Sanford.Multimedia">
+      <HintPath>..\..\packages\Sanford.MidiToolkit.5.0.2\lib\net40\Sanford.Multimedia.dll</HintPath>
+    </Reference>
+    <Reference Include="Sanford.Multimedia.Midi">
+      <HintPath>..\..\packages\Sanford.MidiToolkit.5.0.2\lib\net40\Sanford.Multimedia.Midi.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -64,6 +73,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MidiTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Theory\ChordProgressionTests.cs" />
     <Compile Include="Theory\ChordTests.cs" />

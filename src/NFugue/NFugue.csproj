@@ -30,6 +30,26 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Sanford.Collections, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sanford.MidiToolkit.5.0.2\lib\net40\Sanford.Collections.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sanford.Multimedia, Version=6.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sanford.MidiToolkit.5.0.2\lib\net40\Sanford.Multimedia.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sanford.Multimedia.Midi, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sanford.MidiToolkit.5.0.2\lib\net40\Sanford.Multimedia.Midi.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sanford.Multimedia.Timers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sanford.MidiToolkit.5.0.2\lib\net40\Sanford.Multimedia.Timers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sanford.Threading, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sanford.MidiToolkit.5.0.2\lib\net40\Sanford.Threading.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -45,6 +65,7 @@
     <Compile Include="Extensions\DoubleExtensions.cs" />
     <Compile Include="Midi\MidiEventManager.cs" />
     <Compile Include="Midi\MidiTools.cs" />
+    <Compile Include="Extensions\TrackExtensions.cs" />
     <Compile Include="Midi\TrackTimeManager.cs" />
     <Compile Include="Providers\IChordProvider.cs" />
     <Compile Include="Providers\IKeyProvider.cs" />
@@ -73,7 +94,9 @@
     <Compile Include="Theory\Scale.cs" />
     <Compile Include="Theory\TimeSignature.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
