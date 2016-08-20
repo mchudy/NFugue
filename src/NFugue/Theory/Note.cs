@@ -1,5 +1,6 @@
 ﻿using NFugue.Extensions;
 using NFugue.Patterns;
+using Staccato;
 using System;
 using System.Text;
 
@@ -18,7 +19,7 @@ namespace NFugue.Theory
 
         public Note(string note)
         {
-            new NoteProvider().CreateNote(note);
+            NoteProviderFactory.GetNoteProvider().CreateNote(note);
         }
 
         public Note(Note note)
@@ -195,7 +196,7 @@ namespace NFugue.Theory
         public static double FrequencyForNote(string note)
         {
             return note.ToUpper().StartsWith("R") ? 0.0d :
-                FrequencyForNote(new NoteProvider().CreateNote(note).Value.ToString());
+                FrequencyForNote(NoteProviderFactory.GetNoteProvider().CreateNote(note).Value.ToString());
         }
 
         public static double FrequencyForNote(int noteValue)

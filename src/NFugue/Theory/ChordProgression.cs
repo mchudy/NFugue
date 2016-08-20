@@ -1,4 +1,5 @@
 ﻿using NFugue.Patterns;
+using Staccato;
 using System;
 using System.Text.RegularExpressions;
 
@@ -98,7 +99,7 @@ namespace NFugue.Theory
             int counter = 0;
             foreach (string progressionElement in progressionElements)
             {
-                Note rootNote = new NoteProvider().CreateNote(scaleNotes[romanNumeralToIndex(progressionElement)]);
+                Note rootNote = NoteProviderFactory.GetNoteProvider().CreateNote(scaleNotes[romanNumeralToIndex(progressionElement)]);
                 rootNote.UseSameDurationAs(key.Root);
                 Intervals intervals = Chord.MAJOR_INTERVALS;
                 if ((progressionElement[0] == 'i') || (progressionElement[0] == 'v'))

@@ -63,10 +63,13 @@
     <Compile Include="DefaultNoteSettings.cs" />
     <Compile Include="Extensions\DictionaryExtensions.cs" />
     <Compile Include="Extensions\DoubleExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Midi\MidiEventManager.cs" />
     <Compile Include="Midi\MidiTools.cs" />
     <Compile Include="Extensions\TrackExtensions.cs" />
     <Compile Include="Midi\TrackTimeManager.cs" />
+    <Compile Include="Player\ManagedPlayer.cs" />
+    <Compile Include="Player\Player.cs" />
     <Compile Include="Providers\IChordProvider.cs" />
     <Compile Include="Providers\IKeyProvider.cs" />
     <Compile Include="Parser\Parser.cs" />
@@ -81,7 +84,43 @@
     <Compile Include="Patterns\TrackTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\INoteProvider.cs" />
+    <Compile Include="Providers\ChordProviderFactory.cs" />
+    <Compile Include="Staccato\Functions\ArpeggiatedChordFunction.cs" />
+    <Compile Include="Staccato\Functions\ChannelPressureFunction.cs" />
+    <Compile Include="Staccato\Functions\ControllerFunction.cs" />
+    <Compile Include="Staccato\Functions\DefaultPreprocessorFunction.cs" />
+    <Compile Include="Staccato\Functions\FunctionManager.cs" />
+    <Compile Include="Staccato\Functions\PitchWheelFunction.cs" />
+    <Compile Include="Staccato\Functions\PolyPressureFunction.cs" />
+    <Compile Include="Staccato\Functions\SysexFunction.cs" />
+    <Compile Include="Staccato\Functions\TrillFunction.cs" />
+    <Compile Include="Staccato\IInstruction.cs" />
+    <Compile Include="Staccato\IPreprocessor.cs" />
+    <Compile Include="Staccato\IPreprocessorFunction.cs" />
+    <Compile Include="Staccato\ISubparser.cs" />
+    <Compile Include="Staccato\ISubparserFunction.cs" />
     <Compile Include="Providers\KeyProviderFactory.cs" />
+    <Compile Include="Providers\NoteProviderFactory.cs" />
+    <Compile Include="Staccato\Preprocessors\CollectedNotesPreprocessor.cs" />
+    <Compile Include="Staccato\Preprocessors\FunctionPreprocessor.cs" />
+    <Compile Include="Staccato\Preprocessors\InstructionPreprocessor.cs" />
+    <Compile Include="Staccato\Preprocessors\MicrotonePreprocessor.cs" />
+    <Compile Include="Staccato\Preprocessors\ParenSpacesPreprocessor.cs" />
+    <Compile Include="Staccato\Preprocessors\ReplacementMapPreprocessor.cs" />
+    <Compile Include="Staccato\Preprocessors\UppercasePreprocessor.cs" />
+    <Compile Include="Staccato\StaccatoMessages.cs" />
+    <Compile Include="Staccato\StaccatoParser.cs" />
+    <Compile Include="Staccato\StaccatoParserContext.cs" />
+    <Compile Include="Staccato\Subparsers\BarLineSubparser.cs" />
+    <Compile Include="Staccato\Subparsers\BeatTimeSubparser.cs" />
+    <Compile Include="Staccato\Subparsers\FunctionSubparser.cs" />
+    <Compile Include="Staccato\Subparsers\IVLSubparser.cs" />
+    <Compile Include="Staccato\Subparsers\LyricMarkerSubparser.cs" />
+    <Compile Include="Staccato\Subparsers\NoteSubparser\NoteContext.cs" />
+    <Compile Include="Staccato\Subparsers\NoteSubparser\NoteSubparser.cs" />
+    <Compile Include="Staccato\Subparsers\SignatureSubparser.cs" />
+    <Compile Include="Staccato\Subparsers\TempoSubparser.cs" />
+    <Compile Include="Staccato\Subparsers\WhitespaceConsumer.cs" />
     <Compile Include="Theory\Chord.cs" />
     <Compile Include="Theory\ChordProgression.cs" />
     <Compile Include="Theory\Intervals.cs" />
@@ -89,13 +128,15 @@
     <Compile Include="MidiDefaults.cs" />
     <Compile Include="KeyProvider.cs" />
     <Compile Include="Theory\Note.cs" />
-    <Compile Include="NoteProvider.cs" />
     <Compile Include="Patterns\Pattern.cs" />
     <Compile Include="Theory\Scale.cs" />
     <Compile Include="Theory\TimeSignature.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Staccato\Maps\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

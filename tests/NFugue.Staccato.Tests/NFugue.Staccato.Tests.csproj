@@ -91,10 +91,6 @@
       <Project>{22ac1834-b1e4-4894-b815-a9ab14fd9803}</Project>
       <Name>NFugue</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Staccato\Staccato.csproj">
-      <Project>{ECCEA662-4540-47F5-AA3F-E4163EEB94D4}</Project>
-      <Name>Staccato</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

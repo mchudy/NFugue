@@ -1,5 +1,6 @@
 ﻿using NFugue.Extensions;
 using NFugue.Patterns;
+using Staccato;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -57,7 +58,7 @@ namespace NFugue.Theory
 
         public Intervals SetRoot(string root)
         {
-            Root = new NoteProvider().CreateNote(root);
+            Root = NoteProviderFactory.GetNoteProvider().CreateNote(root);
             return this;
         }
 
@@ -186,7 +187,7 @@ namespace NFugue.Theory
             Note[] notes = new Note[noteStrings.Length];
             for (int i = 0; i < noteStrings.Length; i++)
             {
-                notes[i] = new NoteProvider().CreateNote(noteStrings[i]);
+                notes[i] = NoteProviderFactory.GetNoteProvider().CreateNote(noteStrings[i]);
             }
             return CreateIntervalsFromNotes(notes);
         }
