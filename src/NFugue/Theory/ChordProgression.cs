@@ -1,7 +1,7 @@
 ﻿using NFugue.Patterns;
-using Staccato;
 using System;
 using System.Text.RegularExpressions;
+using NFugue.Providers;
 
 namespace NFugue.Theory
 {

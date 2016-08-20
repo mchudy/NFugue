@@ -1,7 +1,6 @@
-﻿using NFugue;
-using System;
+﻿using System;
 
-namespace Staccato.Functions
+namespace NFugue.Staccato.Functions
 {
     public class DefaultPreprocessorFunction : IPreprocessorFunction
     {

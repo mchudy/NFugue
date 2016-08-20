@@ -1,4 +1,4 @@
-﻿namespace Staccato
+﻿namespace NFugue.Staccato
 {
     /// <summary>
     /// A Preprocessor takes a token from the Staccato string, does some computation on the string,

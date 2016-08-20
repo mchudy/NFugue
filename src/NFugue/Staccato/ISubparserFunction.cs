@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Staccato
+namespace NFugue.Staccato
 {
     public interface ISubparserFunction
     {

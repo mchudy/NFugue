@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Staccato.Extensions
+namespace NFugue.Extensions
 {
     public static class StringExtensions
     {

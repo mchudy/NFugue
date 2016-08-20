@@ -10,5 +10,14 @@ namespace NFugue.Extensions
             return dict.GroupBy(p => p.Value)
                 .ToDictionary(g => g.Key, g => g.Select(pp => pp.Key).FirstOrDefault());
         }
+
+        public static void AddRange<TKey, TValue>(this IDictionary<TKey, TValue> dict,
+            IDictionary<TKey, TValue> dictToAdd)
+        {
+            foreach (var entry in dictToAdd)
+            {
+                dict.Add(entry.Key, entry.Value);
+            }
+        }
     }
 }

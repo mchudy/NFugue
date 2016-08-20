@@ -1,8 +1,10 @@
-﻿using NFugue.Patterns;
-using Staccato.Extensions;
+﻿using NFugue.Extensions;
+using NFugue.Midi;
+using NFugue.Patterns;
+using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Staccato.Subparsers
+namespace NFugue.Staccato.Subparsers
 {
     /// <summary>
     /// Parses Instrument, Voice, and Layer tokens. Each has values that are parsed as bytes. 
@@ -71,9 +73,15 @@ namespace Staccato.Subparsers
             return posNextSpace + 1;
         }
 
-        public void PopulateContext(StaccatoParserContext context)
+        public static void PopulateContext(StaccatoParserContext context)
         {
-            //TODO
+            // Voices
+            context.Dictionary["PERCUSSION"] = (byte)9;
+
+            // Instruments
+            context.Dictionary.AddRange(MidiDictionary.InstrumentStringToByte
+                .ToDictionary(item => item.Key, item => (object)item.Value)
+            );
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using NFugue.Extensions;
 using NFugue.Patterns;
-using Staccato;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+using NFugue.Providers;
 
 namespace NFugue.Theory
 {

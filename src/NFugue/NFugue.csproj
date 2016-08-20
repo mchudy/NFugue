@@ -116,6 +116,7 @@
     <Compile Include="Staccato\Subparsers\FunctionSubparser.cs" />
     <Compile Include="Staccato\Subparsers\IVLSubparser.cs" />
     <Compile Include="Staccato\Subparsers\LyricMarkerSubparser.cs" />
+    <Compile Include="Midi\MidiDictionary.cs" />
     <Compile Include="Staccato\Subparsers\NoteSubparser\NoteContext.cs" />
     <Compile Include="Staccato\Subparsers\NoteSubparser\NoteSubparser.cs" />
     <Compile Include="Staccato\Subparsers\SignatureSubparser.cs" />

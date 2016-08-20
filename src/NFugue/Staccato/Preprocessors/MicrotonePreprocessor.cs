@@ -1,9 +1,8 @@
-﻿using NFugue;
-using System;
+﻿using System;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Staccato.Preprocessors
+namespace NFugue.Staccato.Preprocessors
 {
     /// <summary>
     /// The MicrotonePreprocess lets a user express a microtone

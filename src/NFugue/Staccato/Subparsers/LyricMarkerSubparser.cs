@@ -1,9 +1,9 @@
-﻿using NFugue.Patterns;
-using Staccato.Extensions;
-using Staccato.Preprocessors;
-using System;
+﻿using System;
+using NFugue.Extensions;
+using NFugue.Patterns;
+using NFugue.Staccato.Preprocessors;
 
-namespace Staccato.Subparsers
+namespace NFugue.Staccato.Subparsers
 {
     public class LyricMarkerSubparser : ISubparser
     {

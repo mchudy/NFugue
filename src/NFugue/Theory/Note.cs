@@ -1,8 +1,9 @@
 ﻿using NFugue.Extensions;
 using NFugue.Patterns;
-using Staccato;
 using System;
 using System.Text;
+using NFugue.Providers;
+using NFugue.Staccato.Subparsers.NoteSubparser;
 
 namespace NFugue.Theory
 {
@@ -216,8 +217,7 @@ namespace NFugue.Theory
 
         public static bool IsValidNote(string candidateNote)
         {
-            //TODO
-            //return new NoteSubparser().Matches(candidateNote);
+            return NoteSubparser.Instance.Matches(candidateNote);
             return false;
         }
 

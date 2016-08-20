@@ -1,15 +1,20 @@
-﻿using NFugue;
-using NFugue.Parser;
+﻿using NFugue.Parser;
 using NFugue.Patterns;
 using NFugue.Providers;
 using NFugue.Theory;
 using System.Linq;
 
-namespace Staccato.Subparsers.NoteSubparser
+namespace NFugue.Staccato.Subparsers.NoteSubparser
 {
     public class NoteSubparser : ISubparser, INoteProvider, IChordProvider
     {
         private readonly char[] charList = { 'C', 'D', 'E', 'F', 'G', 'A', 'B', 'R', '[', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+
+        private static NoteSubparser instance;
+
+        //TODO
+        //private NoteSubparser() { }
+        public static NoteSubparser Instance => instance ?? (instance = new NoteSubparser());
 
         public bool Matches(string music)
         {

@@ -1,19 +1,18 @@
-using NFugue.Parser;
-using NFugue.Theory;
 using System.Collections.Generic;
 using System.IO;
+using NFugue.Theory;
 
-namespace Staccato
+namespace NFugue.Staccato
 {
     public class StaccatoParserContext
     {
-        public StaccatoParserContext(Parser parser)
+        public StaccatoParserContext(Parser.Parser parser)
         {
             Parser = parser;
         }
 
         public IDictionary<string, object> Dictionary = new Dictionary<string, object>();
-        public Parser Parser { get; }
+        public Parser.Parser Parser { get; }
         public TimeSignature TimeSignature { get; set; } = TimeSignature.CommonTime;
         public Key Key { get; set; } = Key.Default;
 

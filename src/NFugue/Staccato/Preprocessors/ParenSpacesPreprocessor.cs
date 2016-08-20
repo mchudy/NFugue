@@ -1,7 +1,7 @@
-﻿using Staccato.Extensions;
-using System.Text;
+﻿using System.Text;
+using NFugue.Extensions;
 
-namespace Staccato.Preprocessors
+namespace NFugue.Staccato.Preprocessors
 {
     /// <summary>
     /// Changes spaces in parentheses to underscores, since the Staccato string is split on parentheses

@@ -1,7 +1,7 @@
-﻿using NFugue.Patterns;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
+using NFugue.Patterns;
 
-namespace Staccato.Subparsers
+namespace NFugue.Staccato.Subparsers
 {
     public class WhitespaceConsumer : ISubparser
     {

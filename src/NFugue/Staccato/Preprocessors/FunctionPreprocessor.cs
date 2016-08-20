@@ -1,8 +1,8 @@
-﻿using Staccato.Functions;
-using System.Text;
+﻿using System.Text;
 using System.Text.RegularExpressions;
+using NFugue.Staccato.Functions;
 
-namespace Staccato.Preprocessors
+namespace NFugue.Staccato.Preprocessors
 {
     public class FunctionPreprocessor : IPreprocessor
     {

@@ -1,13 +1,12 @@
-﻿using NFugue;
+﻿using NFugue.Extensions;
 using NFugue.Parser;
 using NFugue.Patterns;
+using NFugue.Providers;
 using NFugue.Theory;
-using Staccato.Extensions;
 using System;
 using System.Text;
-using NFugue.Providers;
 
-namespace Staccato.Subparsers
+namespace NFugue.Staccato.Subparsers
 {
     public class SignatureSubparser : ISubparser, IKeyProvider
     {
@@ -97,8 +96,7 @@ namespace Staccato.Subparsers
                 return CreateKeyFromAccidentals(keySignature);
             }
             // Otherwise, pass the string value - something like "Cmaj" - to createChord and generate a Key from the intervals in that chord
-            //TODO: return new Key(ChordProviderFactory.getChordProvider().createChord(keySignature));
-            return null;
+            return new Key(ChordProviderFactory.GetChordProvider().CreateChord(keySignature));
         }
 
         public string CreateKeyString(sbyte notePositionInOctave, sbyte scale)

@@ -1,7 +1,7 @@
-﻿using NFugue.Theory;
-using System.Text;
+﻿using System.Text;
+using NFugue.Theory;
 
-namespace Staccato.Functions
+namespace NFugue.Staccato.Functions
 {
     public class ArpeggiatedChordFunction : IPreprocessorFunction
     {

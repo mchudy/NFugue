@@ -2,7 +2,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Staccato.Preprocessors
+namespace NFugue.Staccato.Preprocessors
 {
     public class ReplacementMapPreprocessor : IPreprocessor
     {

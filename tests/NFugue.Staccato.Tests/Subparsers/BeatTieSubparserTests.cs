@@ -1,9 +1,9 @@
 ﻿using FluentAssertions;
 using NFugue.Parser;
-using Staccato.Subparsers;
+using NFugue.Staccato.Subparsers;
 using Xunit;
 
-namespace Staccato.Tests
+namespace Staccato.Tests.Subparsers
 {
     public class BeatTimeSubparserTests : SubparserTestBase<BeatTimeSubparser>
     {

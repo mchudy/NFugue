@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
-using Staccato.Preprocessors;
 using System.Collections.Generic;
+using NFugue.Staccato.Preprocessors;
 using Xunit;
 
 namespace Staccato.Tests.Preprocessors

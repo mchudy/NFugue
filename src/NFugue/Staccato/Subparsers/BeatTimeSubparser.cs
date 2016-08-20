@@ -1,9 +1,9 @@
-﻿using NFugue.Patterns;
-using Staccato.Extensions;
-using System;
+﻿using System;
 using System.Text.RegularExpressions;
+using NFugue.Extensions;
+using NFugue.Patterns;
 
-namespace Staccato.Subparsers
+namespace NFugue.Staccato.Subparsers
 {
     public class BeatTimeSubparser : ISubparser
     {

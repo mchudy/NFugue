@@ -1,7 +1,8 @@
 ﻿using FluentAssertions;
 using FluentAssertions.Events;
+using NFugue.Staccato;
 
-namespace Staccato.Tests
+namespace Staccato.Tests.Subparsers
 {
     //TODO: use mocks
     public class SubparserTestBase<TSubparser> where TSubparser : ISubparser, new()

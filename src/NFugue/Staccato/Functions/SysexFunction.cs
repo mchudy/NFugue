@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Staccato.Functions
+namespace NFugue.Staccato.Functions
 {
     public class SysexFunction : ISubparserFunction
     {

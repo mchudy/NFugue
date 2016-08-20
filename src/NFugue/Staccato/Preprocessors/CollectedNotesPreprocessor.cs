@@ -1,9 +1,9 @@
-﻿using Staccato.Extensions;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+using NFugue.Extensions;
 
-namespace Staccato.Preprocessors
+namespace NFugue.Staccato.Preprocessors
 {
     public class CollectedNotesPreprocessor : IPreprocessor
     {

@@ -1,11 +1,11 @@
-﻿using NFugue.Patterns;
-using Staccato.Extensions;
-using Staccato.Functions;
-using Staccato.Preprocessors;
-using System;
+﻿using System;
 using System.Text;
+using NFugue.Extensions;
+using NFugue.Patterns;
+using NFugue.Staccato.Functions;
+using NFugue.Staccato.Preprocessors;
 
-namespace Staccato.Subparsers
+namespace NFugue.Staccato.Subparsers
 {
     public class FunctionSubparser : ISubparser
     {

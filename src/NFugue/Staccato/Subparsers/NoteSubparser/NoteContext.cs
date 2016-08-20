@@ -1,7 +1,7 @@
 using System;
 using NFugue.Theory;
 
-namespace Staccato.Subparsers.NoteSubparser
+namespace NFugue.Staccato.Subparsers.NoteSubparser
 {
     internal class NoteContext
     {

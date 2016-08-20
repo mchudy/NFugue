@@ -1,8 +1,8 @@
-﻿using Staccato.Extensions;
-using System;
+﻿using System;
 using System.Text;
+using NFugue.Extensions;
 
-namespace Staccato.Preprocessors
+namespace NFugue.Staccato.Preprocessors
 {
     /// <summary>
     /// Turns to uppercase all tokens that are not lyrics, markers, or functions

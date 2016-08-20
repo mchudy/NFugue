@@ -1,8 +1,9 @@
-﻿using NFugue.Theory;
-using System;
+﻿using System;
 using System.Text;
+using NFugue.Providers;
+using NFugue.Theory;
 
-namespace Staccato.Functions
+namespace NFugue.Staccato.Functions
 {
     /// <summary>
     /// Replaces the given note with multiple 32nd notes of the given note and the note one interval higher.
@@ -24,9 +25,7 @@ namespace Staccato.Functions
             {
                 try
                 {
-                    //TODO:
-                    //Note note = NoteProviderFactory.getNoteProvider().createNote(noteString);
-                    var note = new Note(noteString);
+                    Note note = NoteProviderFactory.GetNoteProvider().CreateNote(noteString);
                     int n = (int)(note.Duration / ThirtySecondDuration);
                     for (int i = 0; i < n / 2; i++)
                     {

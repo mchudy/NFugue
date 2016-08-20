@@ -1,4 +1,4 @@
-﻿namespace Staccato
+﻿namespace NFugue.Staccato
 {
     public interface IInstruction
     {

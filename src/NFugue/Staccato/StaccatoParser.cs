@@ -1,12 +1,15 @@
 ﻿using NFugue.Parser;
 using NFugue.Patterns;
-using Staccato.Subparsers;
+using NFugue.Staccato.Functions;
+using NFugue.Staccato.Subparsers;
+using NFugue.Staccato.Subparsers.NoteSubparser;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Staccato
+namespace NFugue.Staccato
 {
-    public class StaccatoParser : Parser
+    public class StaccatoParser : Parser.Parser
     {
         private readonly StaccatoParserContext context;
         private readonly IList<IPreprocessor> preprocessors = new List<IPreprocessor>();
@@ -14,10 +17,15 @@ namespace Staccato
 
         public StaccatoParser()
         {
-            //TODO: injection/reflection assembly search
             context = new StaccatoParserContext(this);
-            subparsers.Add(new BeatTimeSubparser());
-            subparsers.Add(new BarLineSubparser());
+
+            NoteSubparser.PopulateContext(context);
+            TempoSubparser.PopulateContext(context);
+            IVLSubparser.PopulateContext(context);
+
+            InitializeSubparsers();
+            InitializePreprocessors();
+            InitializeFunctionManager();
         }
 
         public bool ThrowsExceptionOnUnknownToken { get; set; }
@@ -65,6 +73,45 @@ namespace Staccato
         protected IEnumerable<string> PreprocessAndSplit(string musicString)
         {
             return Preprocess(musicString).Split(' ');
+        }
+
+        private void InitializeFunctionManager()
+        {
+            var types = typeof(StaccatoParser).Assembly.GetTypes()
+                .Where(t => !t.IsAbstract && !t.IsInterface)
+                .ToList();
+            var preprocessorFunctionTypes = types.Where(t => typeof(IPreprocessorFunction).IsAssignableFrom(t));
+            var subparserFunctionTypes = types.Where(t => typeof(ISubparserFunction).IsAssignableFrom(t));
+            foreach (Type type in preprocessorFunctionTypes)
+            {
+                FunctionManager.Instance.AddPreprocessorFunction((IPreprocessorFunction)Activator.CreateInstance(type));
+            }
+            foreach (Type type in subparserFunctionTypes)
+            {
+                FunctionManager.Instance.AddSubparserFunction((ISubparserFunction)Activator.CreateInstance(type));
+            }
+        }
+
+        private void InitializePreprocessors()
+        {
+            var preprocessorTypes = typeof(StaccatoParser).Assembly
+                .GetTypes()
+                .Where(t => !t.IsAbstract && !t.IsInterface && typeof(IPreprocessor).IsAssignableFrom(t));
+            foreach (Type type in preprocessorTypes)
+            {
+                preprocessors.Add((IPreprocessor)Activator.CreateInstance(type));
+            }
+        }
+
+        private void InitializeSubparsers()
+        {
+            var subparserTypes = typeof(StaccatoParser).Assembly
+                .GetTypes()
+                .Where(t => !t.IsAbstract && !t.IsInterface && typeof(ISubparser).IsAssignableFrom(t));
+            foreach (Type subparserType in subparserTypes)
+            {
+                subparsers.Add((ISubparser)Activator.CreateInstance(subparserType));
+            }
         }
     }
 }

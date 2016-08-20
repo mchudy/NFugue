@@ -1,7 +1,7 @@
-﻿using NFugue.Midi;
+﻿using NFugue.Extensions;
+using NFugue.Staccato;
 using Sanford.Multimedia.Midi;
 using System.Threading;
-using NFugue.Extensions;
 using Xunit;
 
 namespace NFugue.Tests
@@ -13,6 +13,7 @@ namespace NFugue.Tests
         {
             using (OutputDevice outDevice = new OutputDevice(0))
             {
+                var parser = new StaccatoParser();
 
                 Track track = new Track();
                 track.Add(new MetaMessage(MetaType.Copyright, new byte[] { }));

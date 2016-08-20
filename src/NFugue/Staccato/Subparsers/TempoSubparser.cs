@@ -1,8 +1,10 @@
-﻿using NFugue.Patterns;
-using Staccato.Extensions;
+﻿using NFugue.Extensions;
+using NFugue.Midi;
+using NFugue.Patterns;
+using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Staccato.Subparsers
+namespace NFugue.Staccato.Subparsers
 {
     public class TempoSubparser : ISubparser
     {
@@ -49,7 +51,8 @@ namespace Staccato.Subparsers
 
         public static void PopulateContext(StaccatoParserContext context)
         {
-            //TODO
+            context.Dictionary.AddRange(MidiDictionary.TempoStringToInt
+                .ToDictionary(item => item.Key, item => (object)item.Value));
         }
     }
 }

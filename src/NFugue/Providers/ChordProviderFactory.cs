@@ -1,16 +1,12 @@
-﻿using NFugue.Providers;
-using Staccato.Subparsers.NoteSubparser;
-using System;
+﻿using NFugue.Staccato.Subparsers.NoteSubparser;
 
-namespace Staccato
+namespace NFugue.Providers
 {
     public class ChordProviderFactory
     {
-        private static readonly Lazy<IChordProvider> chordProvider = new Lazy<IChordProvider>(() => new NoteSubparser());
-
         public static IChordProvider GetChordProvider()
         {
-            return chordProvider.Value;
+            return NoteSubparser.Instance;
         }
     }
 }

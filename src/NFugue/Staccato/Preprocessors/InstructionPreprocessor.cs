@@ -1,10 +1,10 @@
-﻿using NFugue.Patterns;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using NFugue.Patterns;
 
-namespace Staccato.Preprocessors
+namespace NFugue.Staccato.Preprocessors
 {
     public class InstructionPreprocessor : IPreprocessor
     {

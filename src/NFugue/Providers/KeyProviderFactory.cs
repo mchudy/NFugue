@@ -1,8 +1,7 @@
-﻿using NFugue.Providers;
-using Staccato.Subparsers;
-using System;
+﻿using System;
+using NFugue.Staccato.Subparsers;
 
-namespace Staccato
+namespace NFugue.Providers
 {
     public class KeyProviderFactory
     {

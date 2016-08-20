@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using Staccato.Preprocessors;
+using NFugue.Staccato.Preprocessors;
 using Xunit;
 
 namespace Staccato.Tests.Preprocessors

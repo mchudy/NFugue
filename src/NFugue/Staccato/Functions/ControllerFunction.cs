@@ -1,8 +1,8 @@
-﻿using NFugue.Midi;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using NFugue.Midi;
 
-namespace Staccato.Functions
+namespace NFugue.Staccato.Functions
 {
     public class ControllerFunction : ISubparserFunction
     {

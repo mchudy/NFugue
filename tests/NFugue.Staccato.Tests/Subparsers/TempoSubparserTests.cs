@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 using NFugue.Parser;
-using Staccato.Subparsers;
+using NFugue.Staccato.Subparsers;
 using Xunit;
 
 namespace Staccato.Tests.Subparsers

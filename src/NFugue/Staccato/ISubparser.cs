@@ -1,6 +1,6 @@
 ﻿using NFugue.Patterns;
 
-namespace Staccato
+namespace NFugue.Staccato
 {
     public interface ISubparser
     {
