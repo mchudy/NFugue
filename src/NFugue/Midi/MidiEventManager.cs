@@ -6,12 +6,12 @@ namespace NFugue.Midi
 {
     public class MidiEventManager : TrackTimeManager
     {
-        public Sequence Sequence;
         private readonly Track[] tracks = new Track[MidiDefaults.Tracks];
 
         public float DivisionType { get; set; } = MidiDefaults.DefaultDivisionType;
         public int ResolutionTicksPerBeat { get; set; } = MidiDefaults.DefaultResolutionTicksPerBeat;
         public byte MetronomePulse { get; set; } = (byte)MidiDefaults.DefaultMetronomePulse;
+        public Sequence Sequence { get; private set; }
 
         public byte ThirtySecondNotesPerQuarterNote { get; set; } =
             (byte)MidiDefaults.DefaultThirtysecondNotesPer24MidiClockSignals;
@@ -35,7 +35,7 @@ namespace NFugue.Midi
             CreateTrack(0);
         }
 
-        public void AddEvent(int command, int data)
+        public void AddEvent(ChannelCommand command, int data)
         {
             var shortMessageBuilder = new ChannelMessageBuilder
             {
@@ -62,7 +62,7 @@ namespace NFugue.Midi
 
         public void FinishSequence()
         {
-            MetaMessage message = new MetaMessage(MetaType.EndOfTrack, null);
+            MetaMessage message = new MetaMessage(MetaType.EndOfTrack, new byte[] { });
             for (int i = 0; i < LastCreatedTrackNumber; i++)
             {
                 if (tracks[i] != null)
@@ -136,6 +136,18 @@ namespace NFugue.Midi
             base.CreateTrack(track);
             tracks[track] = new Track();
             Sequence.Add(tracks[track]);
+        }
+
+        public void SetKeySignature(byte key, byte scale)
+        {
+            MetaMessage message = new MetaMessage(MetaType.KeySignature, new[] { key, scale });
+            CurrentTrack.Add(message);
+        }
+
+        public void AddMetaMessage(MetaType type, byte[] bytes)
+        {
+            MetaMessage message = new MetaMessage(type, bytes);
+            CurrentTrack.Add(message);
         }
     }
 }

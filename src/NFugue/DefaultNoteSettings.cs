@@ -1,5 +1,6 @@
 ﻿using NFugue.Theory;
 using System;
+using NFugue.Midi;
 
 namespace NFugue
 {

@@ -2,6 +2,7 @@
 using NFugue.Patterns;
 using System;
 using System.Text;
+using NFugue.Midi;
 using NFugue.Providers;
 using NFugue.Staccato.Subparsers.NoteSubparser;
 

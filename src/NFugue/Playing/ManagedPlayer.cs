@@ -1,7 +1,7 @@
 ﻿using Sanford.Multimedia.Midi;
 using System;
 
-namespace NFugue.Player
+namespace NFugue.Playing
 {
     public class ManagedPlayer
     {
@@ -19,6 +19,18 @@ namespace NFugue.Player
 
         public void Start(Sequence sequence)
         {
+            Sequencer sequencer = new Sequencer();
+            sequencer.Sequence = sequence;
+            sequencer.Start();
+            //sequencer.MetaMessagePlayed += (s, e) =>
+            //{
+            //    if (e.Message.MetaType == MetaType.EndOfTrack)
+            //    {
+            //        this.IsFinished = true;
+            //        sequencer.Stop();
+            //    }
+            //};
+            sequencer.Stopped += (s, e) => IsFinished = true;
         }
     }
 

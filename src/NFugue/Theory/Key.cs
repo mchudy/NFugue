@@ -1,12 +1,15 @@
-﻿namespace NFugue.Theory
+﻿using NFugue.Providers;
+
+namespace NFugue.Theory
 {
     public class Key
     {
         public static readonly Key Default = new Key("C4maj");
 
         public Key(string keySignature)
-        //: this(new KeyProvider().CreateKey(keySignature))
-        { }
+            : this(KeyProviderFactory.GetKeyProvider().CreateKey(keySignature))
+        {
+        }
 
         public Key(Key key)
         {

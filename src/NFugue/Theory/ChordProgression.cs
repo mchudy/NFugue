@@ -1,7 +1,7 @@
 ﻿using NFugue.Patterns;
+using NFugue.Providers;
 using System;
 using System.Text.RegularExpressions;
-using NFugue.Providers;
 
 namespace NFugue.Theory
 {
@@ -50,7 +50,7 @@ namespace NFugue.Theory
         /** The key usually identifies the tonic note and/or chord [Wikipedia] */
         public ChordProgression SetKey(string key)
         {
-            return SetKey(new KeyProvider().CreateKey(key));
+            return SetKey(KeyProviderFactory.GetKeyProvider().CreateKey(key));
         }
 
         public ChordProgression SetKey(Key key)

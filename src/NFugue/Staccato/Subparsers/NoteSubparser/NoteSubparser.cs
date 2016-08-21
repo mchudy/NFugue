@@ -570,8 +570,7 @@ namespace NFugue.Staccato.Subparsers.NoteSubparser
             {
                 if (parserContext.Key != null)
                 {
-                    //TODO
-                    int keySig = new SignatureSubparser().ConvertKeyToByte(parserContext.Key);
+                    int keySig = KeyProviderFactory.GetKeyProvider().ConvertKeyToByte(parserContext.Key);
                     if ((keySig != 0) && (!noteContext.IsNatural))
                     {
                         if ((keySig <= -1) && (noteContext.NoteNumber == 11)) noteContext.NoteNumber = 10;
@@ -699,7 +698,7 @@ namespace NFugue.Staccato.Subparsers.NoteSubparser
                 }
                 string octaveNumberString = music.Substring(index, definiteOctaveLength);
                 int octave;
-                if (int.TryParse(octaveNumberString, out octave) && octave < Note.MinOctave && octave > Note.MaxOctave)
+                if (int.TryParse(octaveNumberString, out octave) && octave >= Note.MinOctave && octave <= Note.MaxOctave)
                 {
                     context.OctaveNumber = octave;
                     context.IsOctaveExplicitlySet = true;
