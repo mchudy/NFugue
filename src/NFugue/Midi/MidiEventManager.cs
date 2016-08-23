@@ -31,7 +31,7 @@ namespace NFugue.Midi
 
         public void Reset()
         {
-            Sequence = new Sequence((int)DivisionType);
+            Sequence = new Sequence(806400);
             CreateTrack(0);
         }
 
@@ -39,7 +39,7 @@ namespace NFugue.Midi
         {
             var shortMessageBuilder = new ChannelMessageBuilder
             {
-                Command = (ChannelCommand)command,
+                Command = command,
                 Data1 = CurrentTrackNumber,
                 Data2 = data,
             };
