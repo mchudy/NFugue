@@ -30,7 +30,7 @@ namespace NFugue.Midi
 
         public void Reset()
         {
-            Sequence = new Sequence(806400);
+            Sequence = new Sequence((int)MidiDefaults.DefaultDivisionType);
             CreateTrack(0);
         }
 
@@ -86,7 +86,7 @@ namespace NFugue.Midi
         {
             TempoChangeBuilder builder = new TempoChangeBuilder
             {
-                Tempo = tempoBPM
+                Tempo = 60000000 / tempoBPM // convert to PPQ
             };
             builder.Build();
             CurrentTrack.Insert(ConvertBeatsToTicks(TrackBeatTime), builder.Result);

@@ -9,7 +9,7 @@ namespace NFugue.Tests
         public void MidiTest()
         {
             var player = new Player();
-            player.Play("C D E F G A B C6");
+            player.Play("T400 C D E F G A B C6 Cmajh");
         }
     }
 }

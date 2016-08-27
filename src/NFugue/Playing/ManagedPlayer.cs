@@ -46,13 +46,14 @@ namespace NFugue.Playing
                         $"status:{e.Message.Status.ToString()} data: {e.Message.GetBytes()}");
                 outputDevice.Send(e.Message);
             };
-            IsPlaying = true;
             sequencer.PlayingCompleted += (s, e) =>
             {
                 log.Trace("Playing completed. Closing device...");
                 IsFinished = true;
+                IsPlaying = false;
                 outputDevice.Close();
             };
+            IsPlaying = true;
             sequencer.Start();
         }
     }
