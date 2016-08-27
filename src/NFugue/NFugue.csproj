@@ -70,7 +70,6 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Midi\MidiEventManager.cs" />
     <Compile Include="Midi\MidiTools.cs" />
-    <Compile Include="Extensions\TrackExtensions.cs" />
     <Compile Include="Midi\TrackTimeManager.cs" />
     <Compile Include="Playing\ManagedPlayer.cs" />
     <Compile Include="Playing\Player.cs" />

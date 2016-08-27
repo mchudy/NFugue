@@ -1,5 +1,4 @@
-﻿using NFugue.Extensions;
-using NFugue.Theory;
+﻿using NFugue.Theory;
 using Sanford.Multimedia.Midi;
 
 namespace NFugue.Midi
@@ -44,7 +43,7 @@ namespace NFugue.Midi
                 Data2 = data,
             };
             shortMessageBuilder.Build();
-            CurrentTrack.Add(shortMessageBuilder.Result);
+            CurrentTrack.Insert(ConvertBeatsToTicks(TrackBeatTime), shortMessageBuilder.Result);
         }
 
         public void AddEvent(ChannelCommand command, int data1, int data2)
@@ -57,7 +56,12 @@ namespace NFugue.Midi
                 MidiChannel = CurrentTrackNumber
             };
             shortMessageBuilder.Build();
-            CurrentTrack.Add(shortMessageBuilder.Result);
+            CurrentTrack.Insert(ConvertBeatsToTicks(TrackBeatTime), shortMessageBuilder.Result);
+        }
+
+        private int ConvertBeatsToTicks(double beats)
+        {
+            return (int)(ResolutionTicksPerBeat * beats * MidiDefaults.DefaultTempoBeatsPerWhole);
         }
 
         public void FinishSequence()
@@ -67,7 +71,7 @@ namespace NFugue.Midi
             {
                 if (tracks[i] != null)
                 {
-                    tracks[i].Add(message);
+                    tracks[i].Insert(ConvertBeatsToTicks(GetLatestTrackBeatTime((sbyte)i)), message);
                 }
             }
         }
@@ -75,7 +79,7 @@ namespace NFugue.Midi
         public void AddSystemExclusiveEvent(byte[] bytes)
         {
             var message = new SysExMessage(bytes);
-            CurrentTrack.Add(message);
+            CurrentTrack.Insert(ConvertBeatsToTicks(TrackBeatTime), message);
         }
 
         public void SetTempo(int tempoBPM)
@@ -85,7 +89,7 @@ namespace NFugue.Midi
                 Tempo = tempoBPM
             };
             builder.Build();
-            CurrentTrack.Add(builder.Result);
+            CurrentTrack.Insert(ConvertBeatsToTicks(TrackBeatTime), builder.Result);
         }
 
         public void SetTimeSignature(byte numerator, byte denominator)
@@ -98,7 +102,7 @@ namespace NFugue.Midi
                 ThirtySecondNotesPerQuarterNote = ThirtySecondNotesPerQuarterNote
             };
             builder.Build();
-            CurrentTrack.Add(builder.Result);
+            CurrentTrack.Insert(ConvertBeatsToTicks(TrackBeatTime), builder.Result);
         }
 
         public void AddNote(Note note)
@@ -141,13 +145,13 @@ namespace NFugue.Midi
         public void SetKeySignature(byte key, byte scale)
         {
             MetaMessage message = new MetaMessage(MetaType.KeySignature, new[] { key, scale });
-            CurrentTrack.Add(message);
+            CurrentTrack.Insert(ConvertBeatsToTicks(TrackBeatTime), message);
         }
 
         public void AddMetaMessage(MetaType type, byte[] bytes)
         {
             MetaMessage message = new MetaMessage(type, bytes);
-            CurrentTrack.Add(message);
+            CurrentTrack.Insert(ConvertBeatsToTicks(TrackBeatTime), message);
         }
     }
 }

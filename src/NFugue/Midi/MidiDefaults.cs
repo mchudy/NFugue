@@ -4,7 +4,7 @@ namespace NFugue.Midi
 {
     public static class MidiDefaults
     {
-        public static readonly float DefaultDivisionType = 480f;
+        public static readonly float DefaultDivisionType = 50000;
         public static readonly int DefaultResolutionTicksPerBeat = 128;
         public static readonly int DefaultTempoBeatsPerMinute = 120;
         public static readonly int DefaultTempoBeatsPerWhole = 4;

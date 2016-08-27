@@ -1,10 +1,10 @@
 ﻿using NFugue.Extensions;
-using NFugue.Patterns;
-using System;
-using System.Text;
 using NFugue.Midi;
+using NFugue.Patterns;
 using NFugue.Providers;
 using NFugue.Staccato.Subparsers.NoteSubparser;
+using System;
+using System.Text;
 
 namespace NFugue.Theory
 {
@@ -219,7 +219,6 @@ namespace NFugue.Theory
         public static bool IsValidNote(string candidateNote)
         {
             return NoteSubparser.Instance.Matches(candidateNote);
-            return false;
         }
 
         public static string DurationString(double decimalDuration)

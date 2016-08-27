@@ -23,8 +23,8 @@ namespace NFugue.Playing
         public void Start(Sequence sequence)
         {
             OutputDevice outputDevice = new OutputDevice(0);
-            Sequencer sequencer = new Sequencer();
-            sequencer.Sequence = sequence;
+            Sequencer sequencer = new Sequencer { Sequence = sequence };
+            log.Trace($"Playing sequence with division {sequence.Division}");
             sequencer.ChannelMessagePlayed += (s, e) =>
             {
                 log.Trace($"Channel message played: {e.Message.MessageType.ToString()} " +
