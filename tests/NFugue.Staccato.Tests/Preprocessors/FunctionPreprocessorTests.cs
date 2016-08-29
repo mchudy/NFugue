@@ -20,8 +20,6 @@ namespace Staccato.Tests.Preprocessors
 
             preprocessor.Preprocess("a b c :TRILL(Ch Eh) e r", context)
                 .Should().Be("a b c C5t D5t C5t D5t C5t D5t C5t D5t C5t D5t C5t D5t C5t D5t C5t D5t E5t F#5t E5t F#5t E5t F#5t E5t F#5t E5t F#5t E5t F#5t E5t F#5t E5t F#5t e r");
-
-            preprocessor.Preprocess(":pw(4000) a", context).Should().Be(":pw(4000) a");
         }
     }
 }

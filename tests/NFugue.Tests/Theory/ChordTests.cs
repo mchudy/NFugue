@@ -164,26 +164,26 @@ namespace NFugue.Tests.Theory
             var chord = new Chord("Cpow");
             var notes = chord.GetNotes();
 
-            notes[0].Should().Be(48); //C3
-            notes[1].Should().Be(55); //G3
+            notes[0].Value.Should().Be(48); //C3
+            notes[1].Value.Should().Be(55); //G3
         }
 
         private static void VerifyFirstInversion(Chord chord)
         {
             var notes = chord.GetNotes();
 
-            notes[0].Should().Be(60); // C4
-            notes[1].Should().Be(52); // E3
-            notes[2].Should().Be(55); // G3
+            notes[0].Value.Should().Be(60); // C4
+            notes[1].Value.Should().Be(52); // E3
+            notes[2].Value.Should().Be(55); // G3
         }
 
         private static void VerifySecondInversion(Chord chord)
         {
             var notes = chord.GetNotes();
 
-            notes[0].Should().Be(60); // C4
-            notes[1].Should().Be(64); // E4
-            notes[2].Should().Be(55); // G3
+            notes[0].Value.Should().Be(60); // C4
+            notes[1].Value.Should().Be(64); // E4
+            notes[2].Value.Should().Be(55); // G3
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using NFugue.Patterns;
+using NFugue.Providers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,8 +74,8 @@ namespace NFugue.Theory
         private int inversion;
 
         public Chord(string s)
+            : this(ChordProviderFactory.GetChordProvider().CreateChord(s))
         {
-            //this(ChordProviderFactory.getChordProvider().createChord(s));
         }
 
         public Chord(Chord chord)

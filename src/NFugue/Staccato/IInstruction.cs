@@ -102,7 +102,7 @@ namespace NFugue.Staccato
             int posDollar = instruction.IndexOf(ReplaceChar);
             sb.Append(instruction.Substring(0, posDollar));
             sb.Append(instructions.Last());
-            sb.Append(instruction.Substring(posDollar + 1, instruction.Length - posDollar - 1);
+            sb.Append(instruction.Substring(posDollar + 1, instruction.Length - posDollar - 1));
             return sb.ToString();
         }
     }

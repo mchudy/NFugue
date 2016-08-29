@@ -1,6 +1,6 @@
-﻿using System.Text;
+﻿using NFugue.Staccato.Functions;
+using System.Text;
 using System.Text.RegularExpressions;
-using NFugue.Staccato.Functions;
 
 namespace NFugue.Staccato.Preprocessors
 {
@@ -23,7 +23,7 @@ namespace NFugue.Staccato.Preprocessors
                 {
                     functionName = nameMatch.Groups[0].ToString().Substring(1, nameMatch.Groups[0].Length - 2);
                 }
-                //TODO
+
                 var function = FunctionManager.Instance.GetPreprocessorFunction(functionName);
                 if (function == null)
                 {

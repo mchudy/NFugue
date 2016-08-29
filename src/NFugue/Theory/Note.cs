@@ -198,7 +198,7 @@ namespace NFugue.Theory
         public static double FrequencyForNote(string note)
         {
             return note.ToUpper().StartsWith("R") ? 0.0d :
-                FrequencyForNote(NoteProviderFactory.GetNoteProvider().CreateNote(note).Value.ToString());
+                FrequencyForNote(NoteProviderFactory.GetNoteProvider().CreateNote(note).Value);
         }
 
         public static double FrequencyForNote(int noteValue)

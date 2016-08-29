@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using NFugue.Patterns;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using NFugue.Patterns;
 
 namespace NFugue.Staccato.Preprocessors
 {
@@ -71,7 +71,7 @@ namespace NFugue.Staccato.Preprocessors
         private class Instruction : IInstruction
         {
             public string Value { private get; set; }
-            public string OnIstructionReceived(string[] instructions) => Value;
+            public string OnIstructionReceived(IEnumerable<string> instructions) => Value;
         }
     }
 }
