@@ -88,6 +88,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\INoteProvider.cs" />
     <Compile Include="Providers\ChordProviderFactory.cs" />
+    <Compile Include="Rhythm\AltLayer.cs" />
+    <Compile Include="Rhythm\Rhythm.cs" />
+    <Compile Include="Rhythm\IRhythmAltLayerProvider.cs" />
+    <Compile Include="Staccato\StaccatoUtils.cs" />
     <Compile Include="Staccato\Functions\ArpeggiatedChordFunction.cs" />
     <Compile Include="Staccato\Functions\ChannelPressureFunction.cs" />
     <Compile Include="Staccato\Functions\ControllerFunction.cs" />
