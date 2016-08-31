@@ -92,6 +92,7 @@
     <Compile Include="Rhythm\Rhythm.cs" />
     <Compile Include="Rhythm\IRhythmAltLayerProvider.cs" />
     <Compile Include="Staccato\Utils\ElementWithTrack.cs" />
+    <Compile Include="Staccato\StaccatoParserPatternHelper.cs" />
     <Compile Include="Staccato\Utils\StaccatoUtils.cs" />
     <Compile Include="Staccato\Functions\ArpeggiatedChordFunction.cs" />
     <Compile Include="Staccato\Functions\ChannelPressureFunction.cs" />

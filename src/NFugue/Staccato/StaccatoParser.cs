@@ -5,6 +5,7 @@ using NFugue.Staccato.Subparsers;
 using NFugue.Staccato.Subparsers.NoteSubparser;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace NFugue.Staccato
@@ -70,10 +71,12 @@ namespace NFugue.Staccato
             return Preprocess(producer.ToString());
         }
 
-        protected IEnumerable<string> PreprocessAndSplit(string musicString)
+        internal IEnumerable<string> PreprocessAndSplit(string musicString)
         {
             return Preprocess(musicString).Split(' ');
         }
+
+        internal IEnumerable<ISubparser> Subparsers => new ReadOnlyCollection<ISubparser>(subparsers);
 
         private void InitializeFunctionManager()
         {
