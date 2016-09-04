@@ -13,7 +13,7 @@ namespace NFugue.Staccato.Preprocessors
     /// </summary>
     public class MicrotonePreprocessor : IPreprocessor
     {
-        private static readonly Regex microtonePattern = new Regex(@"(^\s)[Mm]\S+", RegexOptions.Compiled);
+        private static readonly Regex microtonePattern = new Regex(@"(^|\s)[Mm]\S+", RegexOptions.Compiled);
         private static readonly Regex frequencyPattern = new Regex(@"[0-9.]+", RegexOptions.Compiled);
         private static readonly Regex qualifierPattern = new Regex(@"[WHQISTXOADwhqistxoad/]+[0-9.]*\S*");
 
@@ -24,7 +24,7 @@ namespace NFugue.Staccato.Preprocessors
 
             foreach (Match match in microtonePattern.Matches(musicString))
             {
-                sb.Append(musicString, posPrev, match.Index);
+                sb.Append(musicString, posPrev, match.Index - posPrev);
 
                 double frequency = 0.0d;
                 Match frequencyMatch = frequencyPattern.Match(match.Groups[0].Value);
