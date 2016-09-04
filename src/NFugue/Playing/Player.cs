@@ -12,8 +12,9 @@ namespace NFugue.Playing
     public class Player
     {
         private readonly ManagedPlayer managedPlayer = new ManagedPlayer();
-        private readonly StaccatoParser parser = new StaccatoParser();
         private readonly MidiEventManager eventManager = new MidiEventManager();
+
+        public StaccatoParser Parser { get; } = new StaccatoParser();
 
         public Player()
         {
@@ -37,7 +38,7 @@ namespace NFugue.Playing
 
         public Sequence GetSequence(string s)
         {
-            parser.Parse(s);
+            Parser.Parse(s);
             return eventManager.Sequence;
         }
 
@@ -101,31 +102,31 @@ namespace NFugue.Playing
 
         private void SubscribeToParserEvents()
         {
-            parser.BeforeParsingStarted += (s, e) => eventManager.Reset();
-            parser.AfterParsingFinished += (s, e) => eventManager.FinishSequence();
-            parser.TrackChanged += (s, e) => eventManager.CurrentTrackNumber = e.Track;
-            parser.LayerChanged += (s, e) => eventManager.CurrentLayerNumber = e.Layer;
-            parser.InstrumentParsed += (s, e) => eventManager.AddEvent(ChannelCommand.ProgramChange, e.Instrument, 0);
-            parser.TempoChanged += (s, e) => eventManager.SetTempo(e.TempoBPM);
-            parser.KeySignatureParsed += (s, e) => eventManager.SetKeySignature((byte)e.Key, (byte)e.Scale);
-            parser.TimeSignatureParsed += (s, e) => eventManager.SetTimeSignature((byte)e.Numerator, (byte)e.PowerOfTwo);
-            parser.TrackBeatTimeBookmarked += (s, e) => eventManager.AddTrackTickTimeBookmark(e.TimeBookmarkId);
-            parser.TrackBeatTimeBookmarkRequested +=
+            Parser.BeforeParsingStarted += (s, e) => eventManager.Reset();
+            Parser.AfterParsingFinished += (s, e) => eventManager.FinishSequence();
+            Parser.TrackChanged += (s, e) => eventManager.CurrentTrackNumber = e.Track;
+            Parser.LayerChanged += (s, e) => eventManager.CurrentLayerNumber = e.Layer;
+            Parser.InstrumentParsed += (s, e) => eventManager.AddEvent(ChannelCommand.ProgramChange, e.Instrument, 0);
+            Parser.TempoChanged += (s, e) => eventManager.SetTempo(e.TempoBPM);
+            Parser.KeySignatureParsed += (s, e) => eventManager.SetKeySignature((byte)e.Key, (byte)e.Scale);
+            Parser.TimeSignatureParsed += (s, e) => eventManager.SetTimeSignature((byte)e.Numerator, (byte)e.PowerOfTwo);
+            Parser.TrackBeatTimeBookmarked += (s, e) => eventManager.AddTrackTickTimeBookmark(e.TimeBookmarkId);
+            Parser.TrackBeatTimeBookmarkRequested +=
                 (s, e) => eventManager.TrackBeatTime = eventManager.GetTrackBeatTimeBookmark(e.TimeBookmarkId);
-            parser.TrackBeatTimeRequested += (s, e) => eventManager.TrackBeatTime = e.Time;
-            parser.PitchWheelParsed += (s, e) => eventManager.AddEvent(ChannelCommand.PitchWheel, e.LSB, e.MSB);
-            parser.ChannelPressureParsed += (s, e) => eventManager.AddEvent(ChannelCommand.ChannelPressure, e.Pressure);
-            parser.PolyphonicPressureParsed +=
+            Parser.TrackBeatTimeRequested += (s, e) => eventManager.TrackBeatTime = e.Time;
+            Parser.PitchWheelParsed += (s, e) => eventManager.AddEvent(ChannelCommand.PitchWheel, e.LSB, e.MSB);
+            Parser.ChannelPressureParsed += (s, e) => eventManager.AddEvent(ChannelCommand.ChannelPressure, e.Pressure);
+            Parser.PolyphonicPressureParsed +=
                 (s, e) => eventManager.AddEvent(ChannelCommand.PolyPressure, e.Key, e.Pressure);
-            parser.SystemExclusiveParsed += (s, e) => eventManager.AddSystemExclusiveEvent(e.Bytes.Cast<byte>().ToArray());
-            parser.ControllerEventParsed +=
+            Parser.SystemExclusiveParsed += (s, e) => eventManager.AddSystemExclusiveEvent(e.Bytes.Cast<byte>().ToArray());
+            Parser.ControllerEventParsed +=
                 (s, e) => eventManager.AddEvent(ChannelCommand.Controller, e.Controller, e.Value);
-            parser.LyricParsed +=
+            Parser.LyricParsed +=
                 (s, e) => eventManager.AddMetaMessage(MetaType.Lyric, Encoding.ASCII.GetBytes(e.Lyric));
-            parser.MarkerParsed +=
+            Parser.MarkerParsed +=
                 (s, e) => eventManager.AddMetaMessage(MetaType.Marker, Encoding.ASCII.GetBytes(e.Marker));
-            parser.NoteParsed += (s, e) => eventManager.AddNote(e.Note);
-            parser.ChordParsed += (s, e) =>
+            Parser.NoteParsed += (s, e) => eventManager.AddNote(e.Note);
+            Parser.ChordParsed += (s, e) =>
             {
                 foreach (var note in e.Chord.GetNotes())
                 {

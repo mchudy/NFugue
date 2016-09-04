@@ -44,6 +44,10 @@
       <HintPath>..\..\packages\Moq.4.5.21\lib\net45\Moq.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Sanford.Multimedia.Midi, Version=6.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sanford.Multimedia.Midi.6.1.2\lib\net20\Sanford.Multimedia.Midi.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -72,6 +76,7 @@
   <ItemGroup>
     <Compile Include="Preprocessors\CollectedNotesPreprocessorTests.cs" />
     <Compile Include="Preprocessors\FunctionPreprocessorTests.cs" />
+    <Compile Include="Preprocessors\ParenSpacesPreprocessorTests.cs" />
     <Compile Include="Preprocessors\ReplacementMapPreprocessorTests.cs" />
     <Compile Include="Preprocessors\UppercasePreprocessorTests.cs" />
     <Compile Include="Subparsers\BarLineSubparserTests.cs" />
@@ -79,9 +84,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Subparsers\FunctionSubparserTests.cs" />
     <Compile Include="Subparsers\LyricMarkerSubparserTests.cs" />
+    <Compile Include="Subparsers\NoteSubparserTests.cs" />
     <Compile Include="Subparsers\SignatureSubparserTests.cs" />
     <Compile Include="Subparsers\SubparserTestBase.cs" />
     <Compile Include="Subparsers\TempoSubparserTests.cs" />
+    <Compile Include="UnknownTokenTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

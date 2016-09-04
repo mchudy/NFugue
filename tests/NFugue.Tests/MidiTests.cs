@@ -1,5 +1,4 @@
-﻿using NFugue.Playing;
-using Xunit;
+﻿using Xunit;
 
 namespace NFugue.Tests
 {
@@ -8,8 +7,13 @@ namespace NFugue.Tests
         [Fact]
         public void MidiTest()
         {
-            var player = new Player();
-            player.Play("T400 C D E F G A B C6 Cmajh");
+            //Pattern pattern = new ChordProgression("I IV V")
+            //        .Distribute("7%6")
+            //        .AllChordsAs("$0 $0 $0 $0 $1 $1 $0 $0 $2 $1 $0 $0")
+            //        .EachChordAs("$0ia100 $1ia80 $2ia80 $3ia80 $4ia100 $3ia80 $2ia80 $1ia80")
+            //        .GetPattern()
+            //        .SetTempo(100);
+            //new Player().Play(pattern);
         }
     }
 }

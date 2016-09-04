@@ -22,6 +22,11 @@ namespace Staccato.Tests.Subparsers
             subparser.Parse(s, context);
         }
 
+        protected void ParseWithParser(string s)
+        {
+            parser.Parse(s);
+        }
+
         protected IEventRecorder VerifyEventRaised(string name)
         {
             return parser.ShouldRaise(name);

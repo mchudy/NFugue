@@ -1,3 +1,4 @@
+using NFugue.Staccato.Subparsers;
 using System.Collections.Generic;
 using System.Text;
 
@@ -136,7 +137,7 @@ namespace NFugue.Patterns
             // Add the explicit tempo, if one has been provided
             if (explicitTempo != UNDECLARED_EXPLICIT)
             {
-                //b2.Append(TempoSubparser.TEMPO);
+                b2.Append(TempoSubparser.TempoChar);
                 b2.Append(explicitTempo);
                 b2.Append(" ");
             }
@@ -144,7 +145,7 @@ namespace NFugue.Patterns
             // Add the explicit voice, if one has been provided
             if (explicitVoice != UNDECLARED_EXPLICIT)
             {
-                // b2.Append(IVLSubparser.VOICE);
+                b2.Append(IVLSubparser.VoiceChar);
                 b2.Append(explicitVoice);
                 b2.Append(" ");
             }
@@ -152,9 +153,10 @@ namespace NFugue.Patterns
             // Add the explicit voice, if one has been provided
             if (explicitInstrument != UNDECLARED_EXPLICIT)
             {
-                // b2.Append(IVLSubparser.INSTRUMENT);
+                b2.Append(IVLSubparser.InstrumentChar);
                 b2.Append("[");
-                // b2.Append(MidiDictionary.INSTRUMENT_BYTE_TO_STRING.get((byte)explicitInstrument));
+                //TODO:
+                // b2.Append(MidiDictionary.InstrumentStringToByte[(byte)explicitInstrument)];
                 b2.Append("] ");
             }
 
@@ -181,9 +183,16 @@ namespace NFugue.Patterns
             return this;
         }
 
-        public Pattern SetVoice(int trackCounter)
+        public Pattern SetVoice(int voice)
         {
-            throw new System.NotImplementedException();
+            explicitVoice = voice;
+            return this;
+        }
+
+        public Pattern SetInstrument(int instrument)
+        {
+            explicitInstrument = instrument;
+            return this;
         }
     }
 }

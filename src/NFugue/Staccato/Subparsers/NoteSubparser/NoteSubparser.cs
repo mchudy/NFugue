@@ -754,7 +754,7 @@ namespace NFugue.Staccato.Subparsers.NoteSubparser
         {
             for (int i = 0; i < Note.PercussionNames.Length; i++)
             {
-                context.Dictionary[Note.PercussionNames[i]] = (byte)(i + 35);
+                context.Dictionary[Note.PercussionNames[i]] = i + 35;
             }
 
             // Also give a hand to Chord!
