@@ -47,14 +47,14 @@ namespace NFugue.Tests.Theory
         [Fact]
         public void Should_return_correct_frequency_for_A5()
         {
-            Note.FrequencyForNote("A5").Should().Be(440.0);
-            Note.FrequencyForNote("A").Should().Be(440.0);
+            Note.FrequencyForNote("A5").Should().BeApproximately(440.0, 0.01);
+            Note.FrequencyForNote("A").Should().BeApproximately(440.0, 0.01);
         }
 
         [Fact]
         public void Should_return_correct_frequency_for_MIDI_value()
         {
-            Note.FrequencyForNote(69).Should().Be(440.0);
+            Note.FrequencyForNote(69).Should().BeApproximately(440.0, 0.01);
         }
 
         [Fact]

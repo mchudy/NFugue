@@ -1,9 +1,9 @@
 ﻿using NFugue.Extensions;
 using NFugue.Patterns;
+using NFugue.Providers;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
-using NFugue.Providers;
 
 namespace NFugue.Theory
 {
@@ -59,6 +59,12 @@ namespace NFugue.Theory
         public Intervals SetRoot(string root)
         {
             Root = NoteProviderFactory.GetNoteProvider().CreateNote(root);
+            return this;
+        }
+
+        public Intervals SetRoot(Note root)
+        {
+            Root = root;
             return this;
         }
 

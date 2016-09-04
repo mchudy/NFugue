@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NFugue.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -22,7 +23,7 @@ namespace NFugue.Patterns
 
             while (posNextDollar < sequence.Length)
             {
-                //posNextDollar = StaccatoUtil.findNextOrEnd(sequence, '$', posPrevDollar);
+                posNextDollar = sequence.FindNextOrEnd('$', posPrevDollar);
                 if (posPrevDollar + 1 < sequence.Length)
                 {
                     sb.Append(sequence.Substring(posPrevDollar + 1, posNextDollar - posPrevDollar - 1));
@@ -35,7 +36,7 @@ namespace NFugue.Patterns
                         // If the underscore replacement has tokens, then the stuff after $_ needs to be applied to each
                         // token in the underscore replacement!
                         string[] replacementTokens = underscoreReplacement.GetPattern().ToString().Split(' ');
-                        int nextSpaceInSequence = 0;//StaccatoUtil.findNextOrEnd(sequence, ' ', posNextDollar);
+                        int nextSpaceInSequence = sequence.FindNextOrEnd(' ', posNextDollar);
                         foreach (string token in replacementTokens)
                         {
                             sb.Append(token);

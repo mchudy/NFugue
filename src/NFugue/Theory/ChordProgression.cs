@@ -1,6 +1,5 @@
 ﻿using NFugue.Patterns;
 using NFugue.Providers;
-using System;
 using System.Text.RegularExpressions;
 
 namespace NFugue.Theory
@@ -93,13 +92,12 @@ namespace NFugue.Theory
                 return knownChords;
             }
             Chord[] chords = new Chord[progressionElements.Length];
-            key.Scale.Intervals.Root = key.Root;
-            Pattern scalePattern = key.Root.GetPattern();
-            String[] scaleNotes = scalePattern.ToString().Split(' ');
+            Pattern scalePattern = key.Scale.Intervals.SetRoot(key.Root).GetPattern();
+            string[] scaleNotes = scalePattern.ToString().Split(' ');
             int counter = 0;
             foreach (string progressionElement in progressionElements)
             {
-                Note rootNote = NoteProviderFactory.GetNoteProvider().CreateNote(scaleNotes[romanNumeralToIndex(progressionElement)]);
+                Note rootNote = NoteProviderFactory.GetNoteProvider().CreateNote(scaleNotes[RomanNumeralToIndex(progressionElement)]);
                 rootNote.UseSameDurationAs(key.Root);
                 Intervals intervals = Chord.MAJOR_INTERVALS;
                 if ((progressionElement[0] == 'i') || (progressionElement[0] == 'v'))
@@ -145,7 +143,7 @@ namespace NFugue.Theory
             return chords;
         }
 
-        private int romanNumeralToIndex(string romanNumeral)
+        private int RomanNumeralToIndex(string romanNumeral)
         {
             string s = romanNumeral.ToLower();
 

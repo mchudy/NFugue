@@ -35,6 +35,19 @@
         public Intervals Intervals { get; }
         public int Disposition => MajorOrMinorIndicator == MajorIndicator ? 1 : -1;
 
+        public override string ToString()
+        {
+            if (MajorOrMinorIndicator == MajorIndicator)
+            {
+                return "maj";
+            }
+            if (MajorOrMinorIndicator == MinorIndicator)
+            {
+                return "min";
+            }
+            return Name;
+        }
+
         #region Equality members
         protected bool Equals(Scale other)
         {

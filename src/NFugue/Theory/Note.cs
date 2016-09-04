@@ -20,8 +20,8 @@ namespace NFugue.Theory
         }
 
         public Note(string note)
+            : this(NoteProviderFactory.GetNoteProvider().CreateNote(note))
         {
-            NoteProviderFactory.GetNoteProvider().CreateNote(note);
         }
 
         public Note(Note note)
@@ -45,7 +45,7 @@ namespace NFugue.Theory
         public Note(int value) : this()
         {
             Value = (sbyte)value;
-            IsOctaveExplicitlySet = true;
+            IsOctaveExplicitlySet = false;
             duration = DefaultNoteSettings.DefaultDuration;
         }
 
@@ -346,22 +346,6 @@ namespace NFugue.Theory
             return sb.ToString();
         }
 
-        //TODO: drop in favour of OrderBy?
-        public static void SortNotesBy(Note[] notes, Func<Note, int> callback)
-        {
-            for (int i = 0; i < notes.Length - 1; i++)
-            {
-                for (int j = 1; j < notes.Length - i; j++)
-                {
-                    if (callback(notes[j - 1]) > callback(notes[j]))
-                    {
-                        var temp = notes[j - 1];
-                        notes[j - 1] = notes[j];
-                        notes[j] = temp;
-                    }
-                }
-            }
-        }
         public static readonly Note Rest = new Note(0) { IsRest = true };
         public static readonly string[] NoteNamesCommon = { "C", "C#", "D", "Eb", "E", "F", "F#", "G", "G#", "A", "Bb", "B" };
         public static readonly string[] NoteNamesSharp = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
@@ -429,8 +413,7 @@ namespace NFugue.Theory
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            bool originalStringsMatchSufficientlyWell = ((other.OriginalString == null) || (OriginalString == null)) ||
-                other.OriginalString.Equals(OriginalString, StringComparison.OrdinalIgnoreCase);
+            bool originalStringsMatchSufficientlyWell = (other.OriginalString == null) || (OriginalString == null) || other.OriginalString.Equals(OriginalString, StringComparison.OrdinalIgnoreCase);
             return value == other.value && duration.Equals(other.duration) &&
                    OnVelocity == other.OnVelocity &&
                    OffVelocity == other.OffVelocity &&

@@ -39,7 +39,7 @@ namespace NFugue.Tests.Theory
             var intervals = new Intervals("1 3 5");
             intervals.SetRoot("C");
 
-            intervals.ToString().Should().Be("C5 E5 G5");
+            intervals.GetPattern().ToString().Should().Be("C5 E5 G5");
         }
 
         [Fact]
@@ -57,7 +57,7 @@ namespace NFugue.Tests.Theory
         }
 
         [Fact]
-        public void As_sequence_with_shorter_nites()
+        public void As_sequence_with_shorter_notes()
         {
             Intervals intervals = new Intervals("1 3 5").SetRoot("C");
             intervals.AsSequence = "$_i $0q $1h $2w";

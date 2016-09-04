@@ -71,7 +71,6 @@ namespace NFugue.Theory
         }
 
         private readonly Intervals intervals;
-        private int inversion;
 
         public Chord(string s)
             : this(ChordProviderFactory.GetChordProvider().CreateChord(s))
@@ -82,7 +81,7 @@ namespace NFugue.Theory
         {
             Root = chord.Root;
             intervals = chord.GetIntervals();
-            inversion = chord.Inversion;
+            Inversion = chord.Inversion;
         }
 
         public Chord(Note root, Intervals intervals)
@@ -99,7 +98,7 @@ namespace NFugue.Theory
 
         public Note Root { get; set; }
         public int Inversion { get; set; }
-        public bool IsMinor => intervals.Equals(MAJOR_INTERVALS);
+        public bool IsMinor => intervals.Equals(MINOR_INTERVALS);
         public bool IsMajor => intervals.Equals(MAJOR_INTERVALS);
 
         public static IDictionary<string, Intervals> chordMap;
@@ -217,7 +216,7 @@ namespace NFugue.Theory
             bool returnNonOctaveNotes = false;
 
             // Sorting notes by their value will let us know which is the bass note
-            Note.SortNotesBy(notes, n => n.Value);
+            notes = notes.OrderBy(n => n.Value).ToArray();
 
             // If the distance between the lowest note and the highest note is greater than 12, 
             // we have a chord that spans octaves and we should return a chord in which the
@@ -228,9 +227,8 @@ namespace NFugue.Theory
             }
             Note bassNote = notes[0];
 
-
             // Sorting notes by position in octave will let us know which chord we have
-            Note.SortNotesBy(notes, n => n.PositionInOctave());
+            notes = notes.OrderBy(n => n.PositionInOctave()).ToArray();
             notes = FlattenNotesByPositionInOctave(notes);
 
             string[] possibleChords = new string[notes.Length];
@@ -253,7 +251,6 @@ namespace NFugue.Theory
                     if (returnNonOctaveNotes)
                     {
                         sb.Append(Note.GetToneStringWithoutOctave(notes[i].Value));
-
                     }
                     else
                     {
@@ -292,7 +289,7 @@ namespace NFugue.Theory
             {
                 if (newBass.Value % 12 == (Root.Value + Theory.Intervals.GetHalfsteps(intervals.GetNthInterval(i))) % 12)
                 {
-                    this.inversion = i;
+                    Inversion = i;
                 }
             }
             return this;
@@ -300,7 +297,7 @@ namespace NFugue.Theory
 
         public Note GetBassNote()
         {
-            return new Note(Root.Value - Note.Octave + Theory.Intervals.GetHalfsteps(this.intervals.GetNthInterval(this.inversion)));
+            return new Note(Root.Value - Note.Octave + Theory.Intervals.GetHalfsteps(intervals.GetNthInterval(Inversion)));
         }
 
         public Chord SetOctave(int octave)
@@ -326,7 +323,7 @@ namespace NFugue.Theory
             }
 
             // For notes Now calculate inversion
-            for (int i = 0; i < inversion; i++)
+            for (int i = 0; i < Inversion; i++)
             {
                 if (i < retVal.Length)
                 {
@@ -429,7 +426,7 @@ namespace NFugue.Theory
         #region Equality members
         protected bool Equals(Chord other)
         {
-            return Equals(Root, other.Root) && Equals(intervals, other.intervals) && inversion == other.inversion;
+            return Equals(Root, other.Root) && Equals(intervals, other.intervals) && Inversion == other.Inversion;
         }
 
         public override bool Equals(object obj)
@@ -446,7 +443,7 @@ namespace NFugue.Theory
             {
                 var hashCode = Root?.GetHashCode() ?? 0;
                 hashCode = (hashCode * 397) ^ (intervals?.GetHashCode() ?? 0);
-                hashCode = (hashCode * 397) ^ inversion;
+                hashCode = (hashCode * 397) ^ Inversion;
                 return hashCode;
             }
         }

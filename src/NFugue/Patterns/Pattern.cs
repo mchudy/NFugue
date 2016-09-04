@@ -17,6 +17,10 @@ namespace NFugue.Patterns
 
         public Pattern(string patternString)
         {
+            if (patternBuilder.Length > 0)
+            {
+                patternBuilder.Append(" ");
+            }
             patternBuilder.Append(patternString);
         }
 
@@ -38,7 +42,7 @@ namespace NFugue.Patterns
         {
             foreach (var patternProducer in patternProducers)
             {
-                patternBuilder.Append(patternProducer.GetPattern());
+                Add(patternProducer.GetPattern().ToString());
             }
             return this;
         }
@@ -60,7 +64,7 @@ namespace NFugue.Patterns
         {
             for (int i = 0; i < repetitions; i++)
             {
-                Add(producer);
+                Add(producer.GetPattern().ToString());
             }
             return this;
         }

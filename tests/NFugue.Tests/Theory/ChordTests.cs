@@ -71,13 +71,13 @@ namespace NFugue.Tests.Theory
         public void Create_chord_with_notes_using_string_array_constructor()
         {
             var chord = Chord.FromNotes(new[] { "Bb", "Db", "F" });
-            chord.Should().Be(new Chord("Bmin^"));
+            chord.Should().Be(new Chord("Bbmin^"));
         }
 
         [Fact]
         public void Create_chord_with_notes_using_note_array_constructor()
         {
-            var chord = Chord.FromNotes(new Note[]
+            var chord = Chord.FromNotes(new[]
             {
                 new Note("D"),
                 new Note("F#"),
@@ -106,7 +106,7 @@ namespace NFugue.Tests.Theory
         {
             var chord = Chord.FromNotes("E4 G4 C5");
             Assert.Equal(1, chord.Inversion);
-            chord.Should().Be(new Chord("C5maj"));
+            chord.Should().Be(new Chord("C5maj^"));
         }
 
         [Fact]

@@ -11,6 +11,7 @@ namespace NFugue.Extensions
 
         public static int FindNextOrEnd(this string s, IEnumerable<char> charsToFind, int startIndex = 0)
         {
+            if (startIndex < 0) startIndex = 0;
             int position = int.MaxValue;
             foreach (var c in charsToFind)
             {
