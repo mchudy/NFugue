@@ -31,7 +31,12 @@ namespace NFugue.Staccato.Functions
 
         public IPreprocessorFunction GetPreprocessorFunction(string name)
         {
-            return preprocessorFunctions[name.ToUpper()];
+            IPreprocessorFunction value;
+            if (preprocessorFunctions.TryGetValue(name.ToUpper(), out value))
+            {
+                return value;
+            }
+            return null;
         }
 
         public void AddSubparserFunction(ISubparserFunction function)

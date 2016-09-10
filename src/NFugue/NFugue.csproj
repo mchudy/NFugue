@@ -91,6 +91,10 @@
     <Compile Include="Rhythm\AltLayer.cs" />
     <Compile Include="Rhythm\Rhythm.cs" />
     <Compile Include="Rhythm\IRhythmAltLayerProvider.cs" />
+    <Compile Include="Staccato\Instructions\ChoiceInstruction.cs" />
+    <Compile Include="Staccato\Instructions\LastIsValueInstruction.cs" />
+    <Compile Include="Staccato\Instructions\LastIsValueToSplitInstruction.cs" />
+    <Compile Include="Staccato\Instructions\SwitchInstruction.cs" />
     <Compile Include="Staccato\Utils\ElementWithTrack.cs" />
     <Compile Include="Staccato\StaccatoParserPatternHelper.cs" />
     <Compile Include="Staccato\Utils\StaccatoUtils.cs" />
@@ -103,7 +107,7 @@
     <Compile Include="Staccato\Functions\PolyPressureFunction.cs" />
     <Compile Include="Staccato\Functions\SysexFunction.cs" />
     <Compile Include="Staccato\Functions\TrillFunction.cs" />
-    <Compile Include="Staccato\IInstruction.cs" />
+    <Compile Include="Staccato\Instructions\IInstruction.cs" />
     <Compile Include="Staccato\IPreprocessor.cs" />
     <Compile Include="Staccato\IPreprocessorFunction.cs" />
     <Compile Include="Staccato\ISubparser.cs" />

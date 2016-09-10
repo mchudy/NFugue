@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using NFugue.Staccato.Instructions;
 
 namespace NFugue.Staccato.Preprocessors
 {
@@ -34,7 +35,7 @@ namespace NFugue.Staccato.Preprocessors
                             string value = key;
                             if (instructions.TryGetValue(possibleMatch, out instruction))
                             {
-                                value = instruction.OnIstructionReceived(key.Split(' '));
+                                value = instruction.OnInstructionReceived(key.Split(' '));
                             }
                             sb.Append(musicString.Substring(posPrev, match.Index - posPrev));
                             sb.Append(value);
@@ -62,7 +63,7 @@ namespace NFugue.Staccato.Preprocessors
             AddInstruction(key, value.GetPattern().ToString());
         }
 
-        private void AddInstruction(string key, string value)
+        public void AddInstruction(string key, string value)
         {
             //TODO: use delegates
             instructions.Add(key, new Instruction { Value = value });
@@ -71,7 +72,7 @@ namespace NFugue.Staccato.Preprocessors
         private class Instruction : IInstruction
         {
             public string Value { private get; set; }
-            public string OnIstructionReceived(IEnumerable<string> instructions) => Value;
+            public string OnInstructionReceived(IEnumerable<string> instructions) => Value;
         }
     }
 }

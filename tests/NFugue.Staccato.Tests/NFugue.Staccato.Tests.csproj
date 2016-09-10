@@ -76,6 +76,7 @@
   <ItemGroup>
     <Compile Include="Preprocessors\CollectedNotesPreprocessorTests.cs" />
     <Compile Include="Preprocessors\FunctionPreprocessorTests.cs" />
+    <Compile Include="Preprocessors\InstructionPreprocessorTests.cs" />
     <Compile Include="Preprocessors\MicrotonePreprocessorTests.cs" />
     <Compile Include="Preprocessors\ParenSpacesPreprocessorTests.cs" />
     <Compile Include="Preprocessors\ReplacementMapPreprocessorTests.cs" />
