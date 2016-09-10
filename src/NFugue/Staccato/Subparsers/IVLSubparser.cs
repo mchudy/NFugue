@@ -79,7 +79,7 @@ namespace NFugue.Staccato.Subparsers
             context.Dictionary["PERCUSSION"] = (byte)9;
 
             // Instruments
-            context.Dictionary.AddRange(MidiDictionary.InstrumentStringToByte
+            context.Dictionary.AddRange(MidiDictionary.InstrumentStringToInt
                 .ToDictionary(item => item.Key, item => (object)item.Value)
             );
         }

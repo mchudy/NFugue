@@ -14,7 +14,7 @@ namespace NFugue.Staccato
     {
         private readonly StaccatoParser parser = new StaccatoParser();
 
-        public List<Token> getTokens(IPatternProducer p)
+        public List<Token> GetTokens(IPatternProducer p)
         {
             var tokenStrings = parser.PreprocessAndSplit(p.ToString());
             return tokenStrings.Select(tokenString => new Token(tokenString, GetTokenType(tokenString)))

@@ -54,7 +54,7 @@ namespace NFugue.Tests
         }
 
         [Fact]
-        public void testMultiLayerRhythmWithLength()
+        public void Tets_multi_layer_rhythm_with_length()
         {
             rhythm.AddLayer("So").AddLayer(".^");
             rhythm.Length = 5;
@@ -65,7 +65,7 @@ namespace NFugue.Tests
         }
 
         [Fact]
-        public void testRhythmWithRangedAltLayer()
+        public void Test_rhythm_with_ranged_alt_layer()
         {
             rhythm.AddLayer("So");
             rhythm.Length = 5;
@@ -74,7 +74,7 @@ namespace NFugue.Tests
         }
 
         [Fact]
-        public void testRhythmWithOneTimeAltLayer()
+        public void Test_rhythm_with_one_time_alt_layer()
         {
             rhythm.AddLayer("So");
             rhythm.Length = 5;
@@ -83,7 +83,7 @@ namespace NFugue.Tests
         }
 
         [Fact]
-        public void testRhythmWithRecurringAltLayerFrom0()
+        public void Test_rhythm_with_recurring_alt_layer_from_0()
         {
             rhythm.AddLayer("So");
             rhythm.Length = 10;
@@ -92,7 +92,7 @@ namespace NFugue.Tests
         }
 
         [Fact]
-        public void testRhythmWithRecurringAltLayerFromIndex()
+        public void Test_rhythm_with_recurring_alt_layer_from_index()
         {
             rhythm.AddLayer("So");
             rhythm.Length = 10;
@@ -117,7 +117,7 @@ namespace NFugue.Tests
         }
 
         [Fact]
-        public void testRhythmWithProvidingAltLayer()
+        public void Test_rhythm_with_providing_alt_layer()
         {
             rhythm.AddLayer("So");
             rhythm.Length = 10;
@@ -127,7 +127,7 @@ namespace NFugue.Tests
         }
 
         [Fact]
-        public void testAltsWithDefaultZOrder()
+        public void Test_alts_with_default_z_order()
         {
             rhythm.AddLayer("So");
             rhythm.Length = 10;
@@ -138,7 +138,7 @@ namespace NFugue.Tests
         }
 
         [Fact]
-        public void testAltsWithSpecifiedZOrder()
+        public void Test_alts_with_specified_z_order()
         {
             rhythm.AddLayer("So");
             rhythm.Length = 10;
@@ -149,7 +149,7 @@ namespace NFugue.Tests
         }
 
         [Fact]
-        public void testAltsInMultipleLayers()
+        public void Test_alts_in_multiple_layers()
         {
             rhythm.AddLayer("So").AddLayer("xx");
             rhythm.Length = 10;

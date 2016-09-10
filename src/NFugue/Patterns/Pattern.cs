@@ -1,5 +1,9 @@
+using NFugue.Midi;
+using NFugue.Staccato;
 using NFugue.Staccato.Subparsers;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace NFugue.Patterns
@@ -8,10 +12,10 @@ namespace NFugue.Patterns
     {
         protected StringBuilder patternBuilder = new StringBuilder();
 
-        private const int UNDECLARED_EXPLICIT = -1;
-        private int explicitVoice = UNDECLARED_EXPLICIT;
-        private int explicitInstrument = UNDECLARED_EXPLICIT;
-        private int explicitTempo = UNDECLARED_EXPLICIT;
+        private const int UndeclaredExplicit = -1;
+        private int explicitVoice = UndeclaredExplicit;
+        private int explicitInstrument = UndeclaredExplicit;
+        private int explicitTempo = UndeclaredExplicit;
 
         public Pattern()
         { }
@@ -125,9 +129,8 @@ namespace NFugue.Patterns
 
         public IEnumerable<Token> GetTokens()
         {
-            //StaccatoParserPatternHelper spph = new StaccatoParserPatternHelper();
-            //return spph.getTokens(this.getPattern());
-            return null;
+            StaccatoParserPatternHelper spph = new StaccatoParserPatternHelper();
+            return spph.GetTokens(GetPattern());
         }
 
         public override string ToString()
@@ -135,7 +138,7 @@ namespace NFugue.Patterns
             var b2 = new StringBuilder();
 
             // Add the explicit tempo, if one has been provided
-            if (explicitTempo != UNDECLARED_EXPLICIT)
+            if (explicitTempo != UndeclaredExplicit)
             {
                 b2.Append(TempoSubparser.TempoChar);
                 b2.Append(explicitTempo);
@@ -143,7 +146,7 @@ namespace NFugue.Patterns
             }
 
             // Add the explicit voice, if one has been provided
-            if (explicitVoice != UNDECLARED_EXPLICIT)
+            if (explicitVoice != UndeclaredExplicit)
             {
                 b2.Append(IVLSubparser.VoiceChar);
                 b2.Append(explicitVoice);
@@ -151,12 +154,11 @@ namespace NFugue.Patterns
             }
 
             // Add the explicit voice, if one has been provided
-            if (explicitInstrument != UNDECLARED_EXPLICIT)
+            if (explicitInstrument != UndeclaredExplicit)
             {
                 b2.Append(IVLSubparser.InstrumentChar);
                 b2.Append("[");
-                //TODO:
-                // b2.Append(MidiDictionary.InstrumentStringToByte[(byte)explicitInstrument)];
+                b2.Append(MidiDictionary.InstrumentIntToString[explicitInstrument]);
                 b2.Append("] ");
             }
 
@@ -183,6 +185,15 @@ namespace NFugue.Patterns
             return this;
         }
 
+        public Pattern SetTempo(string tempo)
+        {
+            if (!MidiDictionary.TempoStringToInt.ContainsKey(tempo.ToUpper()))
+            {
+                throw new ApplicationException("The tempo '" + tempo + "' is not recognized");
+            }
+            return SetTempo(MidiDictionary.TempoStringToInt[tempo.ToUpper()]);
+        }
+
         public Pattern SetVoice(int voice)
         {
             explicitVoice = voice;
@@ -194,5 +205,60 @@ namespace NFugue.Patterns
             explicitInstrument = instrument;
             return this;
         }
+
+        public Pattern SetInstrument(string instrument)
+        {
+            if (!MidiDictionary.InstrumentStringToInt.ContainsKey(instrument.ToUpper()))
+            {
+                throw new ApplicationException("The instrument '" + instrument + "' is not recognized");
+            }
+            return SetInstrument(MidiDictionary.InstrumentStringToInt[instrument.ToUpper()]);
+        }
+
+        /// <summary>
+        /// Expects a parameter of "note decorators" - i.e., things that are added to 
+        /// the end of a note, such as duration or attack/decay settings; splits the given 
+        /// parameter on spaces and applies each decorator to each note as it is encountered
+        /// in the current pattern. 
+        /// </summary>
+        /// <remarks>
+        /// If there is one decorator in the parameter, this method will apply that same
+        /// decorator to all note in the pattern.
+        /// 
+        /// If there are more notes than decorators, a counter resets to 0 and the decorators
+        /// starting from the first are applied to the future notes.
+        /// </remarks>
+        /// <example>
+        /// new Pattern("A B C").AddToEachNoteToken("q")       --> "Aq Bq Cq"
+        /// new Pattern("A B C").AddToEachNoteToken("q i")     --> "Aq Bi Cq" (rolls back to q for third note)
+        /// new Pattern("A B C").AddToEachNoteToken("q i s")   --> "Aq Bi Cs"
+        /// new Pattern("A B C").AddToEachNoteToken("q i s w") --> "Aq Bi Cs" (same as "q i s")
+        /// </example>
+        public Pattern AddToEachNoteToken(string decoratorString)
+        {
+            int currentDecorator = 0;
+            string[] decorators = decoratorString.Split(' ');
+
+            StringBuilder b2 = new StringBuilder();
+
+            List<Token> tokens = GetTokens().ToList();
+            foreach (Token token in tokens)
+            {
+                if (token.Type == TokenType.Note)
+                {
+                    b2.Append(token);
+                    b2.Append(decorators[currentDecorator++ % decorators.Length]);
+                }
+                else
+                {
+                    b2.Append(token);
+                }
+                b2.Append(" ");
+            }
+            patternBuilder = new StringBuilder(b2.ToString().Trim());
+            return this;
+        }
+
+        //TODO: save, transform
     }
 }
