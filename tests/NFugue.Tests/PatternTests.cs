@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
+using NFugue.Midi;
 using NFugue.Patterns;
-using System;
 using Xunit;
 
 namespace NFugue.Tests
@@ -8,10 +8,10 @@ namespace NFugue.Tests
     public class PatternTests
     {
         [Fact]
-        public void Should_set_tempo_from_string()
+        public void Should_set_tempo_from_enum()
         {
             Pattern pattern = new Pattern("A B C");
-            pattern.SetTempo("Adagio");
+            pattern.SetTempo(Tempo.Adagio);
             pattern.ToString().Should().Be("T60 A B C");
         }
 
@@ -24,18 +24,10 @@ namespace NFugue.Tests
         }
 
         [Fact]
-        public void Given_invalid_tempo_should_throw()
+        public void Should_set_instrument_from_enum()
         {
             Pattern pattern = new Pattern("A B C");
-            Action act = () => pattern.SetTempo("Unknown");
-            act.ShouldThrow<ApplicationException>();
-        }
-
-        [Fact]
-        public void Should_set_instrument_from_string_ignoring_case()
-        {
-            Pattern pattern = new Pattern("A B C");
-            pattern.SetInstrument("FlUtE");
+            pattern.SetInstrument(Instrument.Flute);
             pattern.ToString().Should().Be("I[Flute] A B C");
         }
 
@@ -45,14 +37,6 @@ namespace NFugue.Tests
             Pattern pattern = new Pattern("A B C");
             pattern.SetInstrument(60);
             pattern.ToString().Should().Be("I[French_Horn] A B C");
-        }
-
-        [Fact]
-        public void Given_invalid_instrument_should_throw()
-        {
-            Pattern pattern = new Pattern("A B C");
-            Action act = () => pattern.SetInstrument("Unknown");
-            act.ShouldThrow<ApplicationException>();
         }
 
         [Fact]
@@ -66,7 +50,7 @@ namespace NFugue.Tests
         [Fact]
         public void Should_set_tempo_instrument_and_voice_in_correct_order()
         {
-            Pattern pattern = new Pattern("A B C").SetTempo("Allegro").SetInstrument(0).SetVoice(8);
+            Pattern pattern = new Pattern("A B C").SetTempo(Tempo.Allegro).SetInstrument(0).SetVoice(8);
             pattern.ToString().Should().Be("T120 V8 I[Piano] A B C");
         }
 

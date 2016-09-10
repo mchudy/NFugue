@@ -1,5 +1,6 @@
 ﻿namespace NFugue.Rhythms
 {
+    //TODO: replace with delegate?
     public interface IRhythmAltLayerProvider
     {
         /// <summary>

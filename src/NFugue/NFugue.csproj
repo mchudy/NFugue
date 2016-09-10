@@ -67,9 +67,13 @@
     <Compile Include="DefaultNoteSettings.cs" />
     <Compile Include="Extensions\DictionaryExtensions.cs" />
     <Compile Include="Extensions\DoubleExtensions.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Midi\Controller.cs" />
+    <Compile Include="Midi\Instrument.cs" />
     <Compile Include="Midi\MidiEventManager.cs" />
     <Compile Include="Midi\MidiTools.cs" />
+    <Compile Include="Midi\Tempo.cs" />
     <Compile Include="Midi\TrackTimeManager.cs" />
     <Compile Include="Playing\ManagedPlayer.cs" />
     <Compile Include="Playing\Player.cs" />
@@ -130,7 +134,6 @@
     <Compile Include="Staccato\Subparsers\FunctionSubparser.cs" />
     <Compile Include="Staccato\Subparsers\IVLSubparser.cs" />
     <Compile Include="Staccato\Subparsers\LyricMarkerSubparser.cs" />
-    <Compile Include="Midi\MidiDictionary.cs" />
     <Compile Include="Staccato\Subparsers\NoteSubparser\NoteContext.cs" />
     <Compile Include="Staccato\Subparsers\NoteSubparser\NoteSubparser.cs" />
     <Compile Include="Staccato\Subparsers\SignatureSubparser.cs" />

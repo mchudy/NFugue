@@ -1,6 +1,7 @@
 ﻿using NFugue.Extensions;
 using NFugue.Midi;
 using NFugue.Patterns;
+using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -51,8 +52,8 @@ namespace NFugue.Staccato.Subparsers
 
         public static void PopulateContext(StaccatoParserContext context)
         {
-            context.Dictionary.AddRange(MidiDictionary.TempoStringToInt
-                .ToDictionary(item => item.Key, item => (object)item.Value));
+            context.Dictionary.AddRange(Enum.GetValues(typeof(Tempo)).OfType<Tempo>()
+                .ToDictionary(item => item.GetDescription(), item => (object)item));
         }
     }
 }

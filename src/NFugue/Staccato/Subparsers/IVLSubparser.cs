@@ -1,6 +1,7 @@
 ﻿using NFugue.Extensions;
 using NFugue.Midi;
 using NFugue.Patterns;
+using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -79,8 +80,8 @@ namespace NFugue.Staccato.Subparsers
             context.Dictionary["PERCUSSION"] = (byte)9;
 
             // Instruments
-            context.Dictionary.AddRange(MidiDictionary.InstrumentStringToInt
-                .ToDictionary(item => item.Key, item => (object)item.Value)
+            context.Dictionary.AddRange(Enum.GetValues(typeof(Instrument)).OfType<Instrument>()
+                .ToDictionary(item => item.GetDescription(), item => (object)item)
             );
         }
     }

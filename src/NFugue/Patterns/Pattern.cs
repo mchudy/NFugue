@@ -1,7 +1,7 @@
+using NFugue.Extensions;
 using NFugue.Midi;
 using NFugue.Staccato;
 using NFugue.Staccato.Subparsers;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -158,7 +158,7 @@ namespace NFugue.Patterns
             {
                 b2.Append(IVLSubparser.InstrumentChar);
                 b2.Append("[");
-                b2.Append(MidiDictionary.InstrumentIntToString[explicitInstrument]);
+                b2.Append(((Instrument)explicitInstrument).GetDescription());
                 b2.Append("] ");
             }
 
@@ -185,13 +185,9 @@ namespace NFugue.Patterns
             return this;
         }
 
-        public Pattern SetTempo(string tempo)
+        public Pattern SetTempo(Tempo tempo)
         {
-            if (!MidiDictionary.TempoStringToInt.ContainsKey(tempo.ToUpper()))
-            {
-                throw new ApplicationException("The tempo '" + tempo + "' is not recognized");
-            }
-            return SetTempo(MidiDictionary.TempoStringToInt[tempo.ToUpper()]);
+            return SetTempo((int)tempo);
         }
 
         public Pattern SetVoice(int voice)
@@ -206,13 +202,9 @@ namespace NFugue.Patterns
             return this;
         }
 
-        public Pattern SetInstrument(string instrument)
+        public Pattern SetInstrument(Instrument instrument)
         {
-            if (!MidiDictionary.InstrumentStringToInt.ContainsKey(instrument.ToUpper()))
-            {
-                throw new ApplicationException("The instrument '" + instrument + "' is not recognized");
-            }
-            return SetInstrument(MidiDictionary.InstrumentStringToInt[instrument.ToUpper()]);
+            return SetInstrument((int)instrument);
         }
 
         /// <summary>
