@@ -88,9 +88,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\INoteProvider.cs" />
     <Compile Include="Providers\ChordProviderFactory.cs" />
-    <Compile Include="Rhythm\AltLayer.cs" />
-    <Compile Include="Rhythm\Rhythm.cs" />
-    <Compile Include="Rhythm\IRhythmAltLayerProvider.cs" />
+    <Compile Include="Rhythms\AltLayer.cs" />
+    <Compile Include="Rhythms\Rhythm.cs" />
+    <Compile Include="Rhythms\IRhythmAltLayerProvider.cs" />
     <Compile Include="Staccato\Instructions\ChoiceInstruction.cs" />
     <Compile Include="Staccato\Instructions\LastIsValueInstruction.cs" />
     <Compile Include="Staccato\Instructions\LastIsValueToSplitInstruction.cs" />

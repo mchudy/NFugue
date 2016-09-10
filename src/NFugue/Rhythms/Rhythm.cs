@@ -1,14 +1,13 @@
 ﻿using NFugue.Extensions;
 using NFugue.Midi;
 using NFugue.Patterns;
+using NFugue.Staccato.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NFugue.Staccato;
-using NFugue.Staccato.Utils;
 
-namespace NFugue.Rhythm
+namespace NFugue.Rhythms
 {
     public class Rhythm : IPatternProducer
     {
@@ -46,7 +45,7 @@ namespace NFugue.Rhythm
         /// For example, creating a layer of "S...S...S...O..." and a length of 3 would result 
         /// in a Rhythm pattern of "S...S...S...O...S...S...S...O...S...S...S...O..."
         /// </summary>
-        public int Length { get; set; }
+        public int Length { get; set; } = 1;
 
         /// <summary>
         /// All layers that have been added with the traditional AddLayer() method - but to
@@ -91,7 +90,7 @@ namespace NFugue.Rhythm
             {
                 List<AltLayer> altLayersForLayer = GetSortedAltLayersForLayer(layer);
                 // Start with the base layer
-                retVal[layer] = GetLayer(layer);
+                retVal.Insert(layer, GetLayer(layer));
 
                 // See if the base layer should be replaced by any of the alt layers
                 foreach (AltLayer altLayer in altLayersForLayer)
@@ -102,7 +101,7 @@ namespace NFugue.Rhythm
                         string rhythmOrNull = altLayer.GetAltLayer(segment);
                         if (rhythmOrNull != null)
                         {
-                            retVal[layer] = rhythmOrNull;
+                            retVal.Insert(layer, rhythmOrNull);
                         }
                     }
                 }
@@ -119,6 +118,7 @@ namespace NFugue.Rhythm
             if (!altLayers.TryGetValue(layer, out value))
             {
                 altLayers[layer] = new List<AltLayer>();
+                return altLayers[layer];
             }
             return value;
         }
@@ -226,7 +226,7 @@ namespace NFugue.Rhythm
 
         public Pattern GetPatternAt(int segment)
         {
-            var pattern = new Pattern(StaccatoUtils.CreateTrackElement(0));
+            var pattern = new Pattern(StaccatoUtils.CreateTrackElement(9));
             int layerCounter = 0;
             foreach (string layer in GetLayersAt(segment))
             {

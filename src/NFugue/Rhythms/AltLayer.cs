@@ -1,4 +1,4 @@
-﻿namespace NFugue.Rhythm
+﻿namespace NFugue.Rhythms
 {
     public class AltLayer
     {

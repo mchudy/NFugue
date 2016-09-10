@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="MidiTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RhythmTests.cs" />
     <Compile Include="Theory\ChordProgressionTests.cs" />
     <Compile Include="Theory\ChordTests.cs" />
     <Compile Include="Theory\IntervalsTests.cs" />
