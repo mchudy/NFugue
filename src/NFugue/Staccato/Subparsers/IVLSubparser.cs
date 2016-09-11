@@ -56,7 +56,7 @@ namespace NFugue.Staccato.Subparsers
                     {
                         instrumentId = instrumentId.Substring(1, instrumentId.Length - 2);
                     }
-                    value = (sbyte)context.Dictionary[instrumentId];
+                    value = (sbyte)((Instrument)context.Dictionary[instrumentId]);
                 }
             }
             switch (music[0])
@@ -81,7 +81,7 @@ namespace NFugue.Staccato.Subparsers
 
             // Instruments
             context.Dictionary.AddRange(Enum.GetValues(typeof(Instrument)).OfType<Instrument>()
-                .ToDictionary(item => item.GetDescription(), item => (object)item)
+                .ToDictionary(item => item.GetDescription().ToUpper(), item => (object)item)
             );
         }
     }

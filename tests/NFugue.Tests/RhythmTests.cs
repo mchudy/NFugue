@@ -161,6 +161,5 @@ namespace NFugue.Tests
             rhythms[0].Should().Be("..So..So..So..SoSoSo");
             rhythms[1].Should().Be("xxXXXXXX**XXxxxxxxxx");
         }
-
     }
 }
