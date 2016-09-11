@@ -85,12 +85,16 @@ namespace NFugue.Rhythms
         /// </summary>
         public IList<string> GetLayersAt(int segment)
         {
-            List<string> retVal = new List<string>();
+            List<string> retVal = new List<string>(layers.Count);
+            for (int i = 0; i < layers.Count; i++)
+            {
+                retVal.Add(null);
+            }
             for (int layer = 0; layer < layers.Count; layer++)
             {
                 List<AltLayer> altLayersForLayer = GetSortedAltLayersForLayer(layer);
                 // Start with the base layer
-                retVal.Insert(layer, GetLayer(layer));
+                retVal[layer] = GetLayer(layer);
 
                 // See if the base layer should be replaced by any of the alt layers
                 foreach (AltLayer altLayer in altLayersForLayer)
@@ -101,7 +105,7 @@ namespace NFugue.Rhythms
                         string rhythmOrNull = altLayer.GetAltLayer(segment);
                         if (rhythmOrNull != null)
                         {
-                            retVal.Insert(layer, rhythmOrNull);
+                            retVal[layer] = rhythmOrNull;
                         }
                     }
                 }

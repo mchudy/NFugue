@@ -209,7 +209,7 @@ namespace NFugue.Patterns
 
         /// <summary>
         /// Expects a parameter of "note decorators" - i.e., things that are added to 
-        /// the end of a note, such as duration or attack/decay settings; splits the given 
+        /// the end of a note, such as or attack/decay settings; splits the given 
         /// parameter on spaces and applies each decorator to each note as it is encountered
         /// in the current pattern. 
         /// </summary>

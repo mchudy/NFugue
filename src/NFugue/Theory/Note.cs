@@ -266,7 +266,7 @@ namespace NFugue.Theory
                 case 4: return "q";
                 case 8: return "i";
                 case 16: return "s";
-                default: return "/" + (1.0 / (double)beat);
+                default: return "/" + (1.0 / beat);
             }
         }
 
