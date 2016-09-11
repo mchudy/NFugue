@@ -1,6 +1,7 @@
 ﻿using NLog;
 using Sanford.Multimedia.Midi;
 using System;
+#pragma warning disable 67
 
 namespace NFugue.Playing
 {

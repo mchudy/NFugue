@@ -1,5 +1,6 @@
 ﻿using NFugue.Theory;
 using System;
+#pragma warning disable 67
 
 namespace NFugue.Parser
 {
