@@ -73,6 +73,7 @@
     <Compile Include="Midi\Instrument.cs" />
     <Compile Include="Midi\MidiEventManager.cs" />
     <Compile Include="Midi\MidiTools.cs" />
+    <Compile Include="Midi\PercussionInstrument.cs" />
     <Compile Include="Midi\Tempo.cs" />
     <Compile Include="Midi\TrackTimeManager.cs" />
     <Compile Include="Playing\ManagedPlayer.cs" />

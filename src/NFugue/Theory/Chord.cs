@@ -11,7 +11,7 @@ namespace NFugue.Theory
     {
         static Chord()
         {
-            chordMap = new SortedDictionary<string, Intervals>(Comparer<string>.Create((s1, s2) =>
+            ChordMap = new SortedDictionary<string, Intervals>(Comparer<string>.Create((s1, s2) =>
             {
                 int result = CompareLength(s1, s2);
                 if (result == 0)
@@ -101,7 +101,7 @@ namespace NFugue.Theory
         public bool IsMinor => intervals.Equals(MINOR_INTERVALS);
         public bool IsMajor => intervals.Equals(MAJOR_INTERVALS);
 
-        public static IDictionary<string, Intervals> chordMap;
+        public static IDictionary<string, Intervals> ChordMap;
         public static IDictionary<string, string> humanReadableMap;
 
         private static int CompareLength(string s1, string s2)
@@ -119,7 +119,7 @@ namespace NFugue.Theory
 
         public static string[] GetChordNames()
         {
-            return chordMap.Keys.ToArray();
+            return ChordMap.Keys.ToArray();
         }
 
         public static void AddChord(string name, string intervalPattern)
@@ -129,22 +129,22 @@ namespace NFugue.Theory
 
         public static void AddChord(string name, Intervals intervalPattern)
         {
-            chordMap.Add(name, intervalPattern);
+            ChordMap.Add(name, intervalPattern);
         }
 
         public static Intervals GetIntervals(string name)
         {
-            return chordMap[name];
+            return ChordMap[name];
         }
 
         public static void RemoveChord(string name)
         {
-            chordMap.Remove(name);
+            ChordMap.Remove(name);
         }
 
         public static string GetChordType(Intervals intervals)
         {
-            foreach (var entry in chordMap)
+            foreach (var entry in ChordMap)
             {
                 if (intervals.Equals(entry.Value))
                 {
@@ -350,7 +350,7 @@ namespace NFugue.Theory
 
         public string GetChordType()
         {
-            foreach (var entry in chordMap)
+            foreach (var entry in ChordMap)
             {
                 if (GetIntervals().Equals(entry.Value))
                 {

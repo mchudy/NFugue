@@ -190,7 +190,7 @@ namespace NFugue.Theory
         {
             StringBuilder buddy = new StringBuilder();
             buddy.Append("[");
-            buddy.Append(PercussionNames[noteValue - 35]);
+            buddy.Append(((PercussionInstrument)noteValue).GetDescription());
             buddy.Append("]");
             return buddy.ToString();
         }
@@ -354,58 +354,6 @@ namespace NFugue.Theory
         public static readonly sbyte Octave = 12;
         public static readonly sbyte MinOctave = 0;
         public static readonly sbyte MaxOctave = 10;
-
-        //TODO: enum?
-        public static readonly string[] PercussionNames = {
-    	    // Percussion Name		// MIDI Note Value
-    	    "ACOUSTIC_BASS_DRUM", 	//       35
-    	    "BASS_DRUM", 			//       36
-    	    "SIDE_STICK", 			//       37
-    	    "ACOUSTIC_SNARE",		//       38
-    	    "HAND_CLAP", 			//       39
-    	    "ELECTRIC_SNARE", 		//       40
-    	    "LO_FLOOR_TOM", 		//       41
-    	    "CLOSED_HI_HAT",		//       42
-    	    "HIGH_FLOOR_TOM", 		//       43
-    	    "PEDAL_HI_HAT", 		//       44
-    	    "LO_TOM", 				//       45
-    	    "OPEN_HI_HAT", 		    //       46
-    	    "LO_MID_TOM", 			//       47
-    	    "HI_MID_TOM", 			//       48
-    	    "CRASH_CYMBAL_1", 		//       49
-    	    "HI_TOM",				//       50
-    	    "RIDE_CYMBAL_1", 		//       51
-    	    "CHINESE_CYMBAL", 		//       52
-    	    "RIDE_BELL", 			//       53
-    	    "TAMBOURINE",			//       54
-    	    "SPLASH_CYMBAL", 		//       55
-    	    "COWBELL", 				//       56
-    	    "CRASH_CYMBAL_2", 		//       57
-    	    "VIBRASLAP",			//       58
-    	    "RIDE_CYMBAL_2", 		//       59
-    	    "HI_BONGO", 			//       60
-    	    "LO_BONGO", 			//       61
-    	    "MUTE_HI_CONGA",		//       62
-    	    "OPEN_HI_CONGA", 		//       63
-    	    "LO_CONGA", 			//       64
-    	    "HI_TIMBALE", 			//       65
-    	    "LO_TIMBALE",			//       66
-    	    "HI_AGOGO", 			//       67
-    	    "LO_AGOGO", 			//       68
-    	    "CABASA", 				//       69
-    	    "MARACAS", 				//       70
-    	    "SHORT_WHISTLE", 		//       71
-    	    "LONG_WHISTLE", 		//       72
-    	    "SHORT_GUIRO", 			//       73
-    	    "LONG_GUIRO",			//       74
-    	    "CLAVES", 				//       75
-    	    "HI_WOOD_BLOCK", 		//       76
-    	    "LO_WOOD_BLOCK", 		//       77
-    	    "MUTE_CUICA",			//       78
-    	    "OPEN_CUICA", 			//       79
-    	    "MUTE_TRIANGLE", 		//       80
-    	    "OPEN_TRIANGLE"			//       81
-        };
 
         #region Equality members
 

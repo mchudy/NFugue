@@ -160,7 +160,7 @@ namespace NFugue.Tests.Theory
         [Fact]
         public void Test_adding_new_chord_type()
         {
-            Chord.chordMap["POW"] = new Intervals("1 5");
+            Chord.ChordMap["POW"] = new Intervals("1 5");
             var chord = new Chord("Cpow");
             var notes = chord.GetNotes();
 

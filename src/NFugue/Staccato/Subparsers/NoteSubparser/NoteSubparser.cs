@@ -1,7 +1,10 @@
-﻿using NFugue.Parser;
+﻿using NFugue.Extensions;
+using NFugue.Midi;
+using NFugue.Parser;
 using NFugue.Patterns;
 using NFugue.Providers;
 using NFugue.Theory;
+using System;
 using System.Linq;
 
 namespace NFugue.Staccato.Subparsers.NoteSubparser
@@ -752,15 +755,15 @@ namespace NFugue.Staccato.Subparsers.NoteSubparser
 
         public static void PopulateContext(StaccatoParserContext context)
         {
-            for (int i = 0; i < Note.PercussionNames.Length; i++)
+            foreach (PercussionInstrument percussionInstrument in Enum.GetValues(typeof(PercussionInstrument))
+                .OfType<PercussionInstrument>())
             {
-                context.Dictionary[Note.PercussionNames[i]] = i + 35;
+                context.Dictionary[percussionInstrument.GetDescription()] = (int)percussionInstrument;
             }
 
-            // Also give a hand to Chord!
-            foreach (string key in Chord.chordMap.Keys)
+            foreach (string key in Chord.ChordMap.Keys)
             {
-                context.Dictionary[key] = Chord.chordMap[key];
+                context.Dictionary[key] = Chord.ChordMap[key];
             }
         }
     }
