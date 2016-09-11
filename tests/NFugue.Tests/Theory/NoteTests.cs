@@ -68,7 +68,7 @@ namespace NFugue.Tests.Theory
         [Fact]
         public void Octave_for_rest_should_be_zero()
         {
-            rest.GetOctave().Should().Be(0);
+            rest.Octave.Should().Be(0);
         }
 
         [Fact]

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NFugue.Parser
+namespace NFugue.Parsing
 {
     public class ParserException : Exception
     {

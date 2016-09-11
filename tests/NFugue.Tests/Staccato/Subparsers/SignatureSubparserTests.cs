@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using NFugue.Parser;
+using NFugue.Parsing;
 using NFugue.Staccato.Subparsers;
 using NFugue.Theory;
 using Xunit;

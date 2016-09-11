@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
-using NFugue.Parser;
 using NFugue.Playing;
 using System;
+using NFugue.Parsing;
 using Xunit;
 
 namespace Staccato.Tests

@@ -1,5 +1,4 @@
-﻿using NFugue.Parser;
-using NFugue.Patterns;
+﻿using NFugue.Patterns;
 using NFugue.Staccato.Functions;
 using NFugue.Staccato.Subparsers;
 using NFugue.Staccato.Subparsers.NoteSubparser;
@@ -7,10 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using NFugue.Parsing;
 
 namespace NFugue.Staccato
 {
-    public class StaccatoParser : Parser.Parser
+    public class StaccatoParser : Parsing.Parser
     {
         private readonly StaccatoParserContext context;
         private readonly IList<IPreprocessor> preprocessors = new List<IPreprocessor>();

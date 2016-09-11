@@ -1,10 +1,10 @@
 ﻿using NFugue.Extensions;
-using NFugue.Parser;
 using NFugue.Patterns;
 using NFugue.Providers;
 using NFugue.Theory;
 using System;
 using System.Text;
+using NFugue.Parsing;
 
 namespace NFugue.Staccato.Subparsers
 {
@@ -64,7 +64,7 @@ namespace NFugue.Staccato.Subparsers
                 int posNextSpace = music.FindNextOrEnd(' ');
                 Key key = CreateKey(music.Substring(KeySignatureString.Length, posNextSpace - KeySignatureString.Length));
                 context.Key = key;
-                context.Parser.OnKeySignatureParsed(key.Root.PositionInOctave(), (sbyte)key.Scale.MajorOrMinorIndicator);
+                context.Parser.OnKeySignatureParsed(key.Root.PositionInOctave, (sbyte)key.Scale.MajorOrMinorIndicator);
                 return posNextSpace + 1;
             }
             if (MatchesTimeSignature(music))
@@ -118,9 +118,9 @@ namespace NFugue.Staccato.Subparsers
         {
             if (scale == Scale.MajorIndicator)
             {
-                return new Note(MajorKeySignatures[KeySigMidpoint - accidentalCount]).PositionInOctave();
+                return new Note(MajorKeySignatures[KeySigMidpoint - accidentalCount]).PositionInOctave;
             }
-            return new NFugue.Theory.Note(MinorKeySignatures[KeySigMidpoint - accidentalCount]).PositionInOctave();
+            return new NFugue.Theory.Note(MinorKeySignatures[KeySigMidpoint - accidentalCount]).PositionInOctave;
         }
 
         public sbyte ConvertKeyToByte(Key key)

@@ -1,7 +1,7 @@
-﻿using NFugue.Theory;
-using System;
+﻿using System;
+using NFugue.Theory;
 
-namespace NFugue.Parser
+namespace NFugue.Parsing
 {
     public class Parser
     {

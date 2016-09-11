@@ -6,13 +6,13 @@ namespace NFugue.Staccato
 {
     public class StaccatoParserContext
     {
-        public StaccatoParserContext(Parser.Parser parser)
+        public StaccatoParserContext(Parsing.Parser parser)
         {
             Parser = parser;
         }
 
         public IDictionary<string, object> Dictionary = new Dictionary<string, object>();
-        public Parser.Parser Parser { get; }
+        public Parsing.Parser Parser { get; }
         public TimeSignature TimeSignature { get; set; } = TimeSignature.CommonTime;
         public Key Key { get; set; } = Key.Default;
 

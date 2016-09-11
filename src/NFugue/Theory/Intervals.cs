@@ -205,13 +205,13 @@ namespace NFugue.Theory
             for (int i = 1; i < notes.Length; i++)
             {
                 int diff = 0;
-                if (notes[i].PositionInOctave() < notes[0].PositionInOctave())
+                if (notes[i].PositionInOctave < notes[0].PositionInOctave)
                 {
-                    diff = notes[i].PositionInOctave() + 12 - notes[0].PositionInOctave();
+                    diff = notes[i].PositionInOctave + 12 - notes[0].PositionInOctave;
                 }
                 else
                 {
-                    diff = notes[i].PositionInOctave() - notes[0].PositionInOctave();
+                    diff = notes[i].PositionInOctave - notes[0].PositionInOctave;
                 }
                 if (!halfstepsToWholeNumberDegree.ContainsKey(diff))
                 {

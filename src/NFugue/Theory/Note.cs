@@ -122,13 +122,9 @@ namespace NFugue.Theory
 
         public double MicrosecondDuration(double mpq) => duration * 4.0f * mpq;
 
-        public sbyte GetOctave()
-        {
-            return IsRest ? (sbyte)0 : (sbyte)(value / Octave);
-        }
+        public sbyte Octave => (sbyte)(IsRest ? 0 : (sbyte)(value / SemitonesInOctave));
 
-        public sbyte PositionInOctave() => IsRest ? (sbyte)0 : (sbyte)(Value % Octave);
-
+        public sbyte PositionInOctave => (sbyte)(IsRest ? 0 : (sbyte)(Value % SemitonesInOctave));
 
         public string GetToneString()
         {
@@ -140,7 +136,7 @@ namespace NFugue.Theory
             sb.Append(GetToneStringWithoutOctave(Value));
             if (IsOctaveExplicitlySet)
             {
-                sb.Append(GetOctave());
+                sb.Append(Octave);
             }
             return sb.ToString();
         }
@@ -149,13 +145,13 @@ namespace NFugue.Theory
         {
             StringBuilder sb = new StringBuilder();
             sb.Append(GetToneStringWithoutOctave(noteValue));
-            sb.Append(noteValue / Octave);
+            sb.Append(noteValue / SemitonesInOctave);
             return sb.ToString();
         }
 
         public static string GetToneStringWithoutOctave(sbyte noteValue)
         {
-            return NoteNamesCommon[noteValue % Octave];
+            return NoteNamesCommon[noteValue % SemitonesInOctave];
         }
 
         public static bool IsSameNote(string note1, string note2)
@@ -181,9 +177,9 @@ namespace NFugue.Theory
         {
             if (dispose == -1)
             {
-                return NoteNamesFlat[noteValue % Octave];
+                return NoteNamesFlat[noteValue % SemitonesInOctave];
             }
-            return NoteNamesSharp[noteValue % Octave];
+            return NoteNamesSharp[noteValue % SemitonesInOctave];
         }
 
         public static string PercussionString(sbyte noteValue)
@@ -330,7 +326,7 @@ namespace NFugue.Theory
             sb.Append(GetToneStringWithoutOctave(Value));
             if (IsOctaveExplicitlySet)
             {
-                sb.Append(GetOctave());
+                sb.Append(Octave);
             }
             return sb.ToString();
         }
@@ -351,7 +347,7 @@ namespace NFugue.Theory
         public static readonly string[] NoteNamesSharp = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
         public static readonly string[] NoteNamesFlat = { "C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B" };
 
-        public static readonly sbyte Octave = 12;
+        public static readonly sbyte SemitonesInOctave = 12;
         public static readonly sbyte MinOctave = 0;
         public static readonly sbyte MaxOctave = 10;
 

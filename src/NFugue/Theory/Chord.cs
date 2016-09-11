@@ -194,7 +194,7 @@ namespace NFugue.Theory
             var noteOrder = new List<int>();
             foreach (var note in notes)
             {
-                int positionInOctave = note.PositionInOctave();
+                int positionInOctave = note.PositionInOctave;
                 if (!noteMap.ContainsKey(positionInOctave))
                 {
                     noteMap.Add(positionInOctave, note);
@@ -221,14 +221,14 @@ namespace NFugue.Theory
             // If the distance between the lowest note and the highest note is greater than 12, 
             // we have a chord that spans octaves and we should return a chord in which the
             // notes have no octave.
-            if (notes[notes.Length - 1].Value - notes[0].Value > Note.Octave)
+            if (notes[notes.Length - 1].Value - notes[0].Value > Note.SemitonesInOctave)
             {
                 returnNonOctaveNotes = true;
             }
             Note bassNote = notes[0];
 
             // Sorting notes by position in octave will let us know which chord we have
-            notes = notes.OrderBy(n => n.PositionInOctave()).ToArray();
+            notes = notes.OrderBy(n => n.PositionInOctave).ToArray();
             notes = FlattenNotesByPositionInOctave(notes);
 
             string[] possibleChords = new string[notes.Length];
@@ -297,12 +297,12 @@ namespace NFugue.Theory
 
         public Note GetBassNote()
         {
-            return new Note(Root.Value - Note.Octave + Theory.Intervals.GetHalfsteps(intervals.GetNthInterval(Inversion)));
+            return new Note(Root.Value - Note.SemitonesInOctave + Theory.Intervals.GetHalfsteps(intervals.GetNthInterval(Inversion)));
         }
 
         public Chord SetOctave(int octave)
         {
-            Root.Value = (sbyte)(Root.PositionInOctave() + octave * 12);
+            Root.Value = (sbyte)(Root.PositionInOctave + octave * 12);
             return this;
         }
 

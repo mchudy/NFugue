@@ -1,8 +1,8 @@
-﻿using NFugue.Theory;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using NFugue.Theory;
 
-namespace NFugue.Parser
+namespace NFugue.Parsing
 {
     public class TrackChangedEventArgs : EventArgs
     {

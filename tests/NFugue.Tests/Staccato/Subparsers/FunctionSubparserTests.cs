@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 using Moq;
-using NFugue.Parser;
+using NFugue.Parsing;
 using NFugue.Staccato;
 using NFugue.Staccato.Functions;
 using NFugue.Staccato.Subparsers;

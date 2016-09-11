@@ -1,11 +1,11 @@
 ﻿using NFugue.Extensions;
 using NFugue.Midi;
-using NFugue.Parser;
 using NFugue.Patterns;
 using NFugue.Providers;
 using NFugue.Theory;
 using System;
 using System.Linq;
+using NFugue.Parsing;
 
 namespace NFugue.Staccato.Subparsers.NoteSubparser
 {

@@ -69,6 +69,9 @@
     <Compile Include="Extensions\DoubleExtensions.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Integration\LilyPond\LilyPondNoteDurationHelper.cs" />
+    <Compile Include="Integration\LilyPond\LilyPondStringBuilder.cs" />
+    <Compile Include="Integration\LilyPond\NoteWindow.cs" />
     <Compile Include="Midi\Controller.cs" />
     <Compile Include="Midi\Instrument.cs" />
     <Compile Include="Midi\MidiEventManager.cs" />
@@ -80,9 +83,9 @@
     <Compile Include="Playing\Player.cs" />
     <Compile Include="Providers\IChordProvider.cs" />
     <Compile Include="Providers\IKeyProvider.cs" />
-    <Compile Include="Parser\Parser.cs" />
-    <Compile Include="Parser\ParserEventArgs.cs" />
-    <Compile Include="Parser\ParserException.cs" />
+    <Compile Include="Parsing\Parser.cs" />
+    <Compile Include="Parsing\ParserEventArgs.cs" />
+    <Compile Include="Parsing\ParserException.cs" />
     <Compile Include="Patterns\INoteProducer.cs" />
     <Compile Include="Patterns\IPatternProducer.cs" />
     <Compile Include="Patterns\ITokenProducer.cs" />
