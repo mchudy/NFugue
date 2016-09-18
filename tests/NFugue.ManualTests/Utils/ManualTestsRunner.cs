@@ -83,7 +83,7 @@ namespace NFugue.ManualTests.Utils
                     break;
                 }
             } while (true);
-            Console.WriteLine("------------------------------------------------------\n");
+            Console.Write("\n\n");
         }
 
         private static void PrintBeforeTest(ManualTestAttribute attribute, int testNumber)
