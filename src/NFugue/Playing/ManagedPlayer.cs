@@ -38,6 +38,9 @@ namespace NFugue.Playing
             log.Trace($"Playing sequence with division {sequence.Division}");
 
             IsPlaying = true;
+            IsFinished = false;
+            IsPaused = false;
+            IsStarted = true;
             sequencer.Start();
             Started?.Invoke(this, new SequenceEventArgs { Sequence = sequence });
         }
@@ -73,11 +76,11 @@ namespace NFugue.Playing
         public void Finish()
         {
             log.Trace("Playing completed. Closing device...");
-            IsFinished = true;
-            Finished?.Invoke(this, EventArgs.Empty);
-            outputDevice.Close();
+            outputDevice?.Close();
             outputDevice?.Dispose();
             outputDevice = null;
+            Finished?.Invoke(this, EventArgs.Empty);
+            IsFinished = true;
         }
 
         private void SubscribeMessageEvents()
