@@ -72,6 +72,12 @@
     <Compile Include="Integration\LilyPond\LilyPondNoteDurationHelper.cs" />
     <Compile Include="Integration\LilyPond\LilyPondStringBuilder.cs" />
     <Compile Include="Integration\LilyPond\NoteWindow.cs" />
+    <Compile Include="Integration\MusicXml\Internals\KeySignature.cs" />
+    <Compile Include="Integration\MusicXml\Internals\MidiInstrument.cs" />
+    <Compile Include="Integration\MusicXml\Internals\Mappings.cs" />
+    <Compile Include="Integration\MusicXml\MusicXmlParser.cs" />
+    <Compile Include="Integration\MusicXml\Internals\PartContext.cs" />
+    <Compile Include="Integration\MusicXml\Internals\VoiceDefinition.cs" />
     <Compile Include="Midi\Controller.cs" />
     <Compile Include="Midi\Instrument.cs" />
     <Compile Include="Midi\MidiEventManager.cs" />

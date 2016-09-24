@@ -8,12 +8,10 @@ namespace NFugue.Integration.LilyPond
 {
     public class LilyPondStringBuilder
     {
-        private bool closeStaff;
-        private bool handleChord;
         private bool closeChord;
         private bool handlePolyphony;
         private bool closePolyphony;
-        private NoteWindow noteWindow = new NoteWindow();
+        private readonly NoteWindow noteWindow = new NoteWindow();
         private StringBuilder lilyPondString = new StringBuilder(" ");
 
         public LilyPondStringBuilder(Parser parser)
@@ -80,7 +78,6 @@ namespace NFugue.Integration.LilyPond
             noteWindow.AddNote(e.Note);
             if (e.Note.IsFirstNote)
             {
-                handleChord = false;
                 if (handlePolyphony)
                 {
                     handlePolyphony = false;
@@ -88,16 +85,7 @@ namespace NFugue.Integration.LilyPond
             }
             else
             {
-                if (e.Note.IsHarmonicNote)
-                {
-                    handleChord = true;
-                    handlePolyphony = false;
-                }
-                else
-                {
-                    handleChord = false;
-                    handlePolyphony = true;
-                }
+                handlePolyphony = !e.Note.IsHarmonicNote;
             }
             if (noteWindow.SecondPreviousNote != null)
             {
@@ -124,7 +112,6 @@ namespace NFugue.Integration.LilyPond
             {
                 lilyPondString = new StringBuilder();
             }
-            closeStaff = true;
             lilyPondString.Append("\\new Staff { ");
         }
 
@@ -145,7 +132,6 @@ namespace NFugue.Integration.LilyPond
 
             if (!lilyPondString.ToString().Contains("new Staff"))
             {
-                closeStaff = true;
                 var lyBuffer = new StringBuilder();
                 lyBuffer.Append("\\new Staff {");
                 lyBuffer.Append(lilyPondString);

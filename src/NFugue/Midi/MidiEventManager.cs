@@ -50,6 +50,7 @@ namespace NFugue.Midi
 
         public void AddEvent(ChannelCommand command, int data1, int data2)
         {
+            LogManager.GetCurrentClassLogger().Trace($"New message {command} {data1} {data2} \nticks: {ConvertBeatsToTicks(TrackBeatTime)} layer:{CurrentLayerNumber} track: {CurrentTrackNumber} beats:{TrackBeatTime}");
             var shortMessageBuilder = new ChannelMessageBuilder
             {
                 Command = command,
