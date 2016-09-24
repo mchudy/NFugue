@@ -37,13 +37,13 @@ namespace NFugue.Midi
 
         public void AdvanceTrackBeatTime(double advanceTime)
         {
-            BeatTime[currentTrackNumber, currentLayerNumber[currentTrackNumber]] += advanceTime;
+            BeatTime[CurrentTrackNumber, CurrentLayerNumber] += advanceTime;
         }
 
         public double TrackBeatTime
         {
             get { return BeatTime[CurrentTrackNumber, CurrentLayerNumber]; }
-            set { BeatTime[currentTrackNumber, currentLayerNumber[currentTrackNumber]] = value; }
+            set { BeatTime[CurrentTrackNumber, CurrentLayerNumber] = value; }
         }
 
         public void SetAllTrackBeatTime(double newTime)

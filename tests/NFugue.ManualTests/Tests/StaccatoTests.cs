@@ -29,7 +29,7 @@ namespace NFugue.ManualTests.Tests
         [ManualTest("Attack and decay", "You should hear one note in five different ways")]
         public void AttackDecayTest()
         {
-            player.Play("V1 I[Flute] Cq Rw Dwwa10d10 Rw Ewwa100d10 Rw Fwwa10d100 Rw Gwwa100d100");
+            player.Play("V1 I[Flute] Cq Rq Dwwa10d10 Rq Ewwa100d10 Rq Fwwa10d100 Rq Gwwa100d100");
         }
 
         [ManualTest("Chord inversions",

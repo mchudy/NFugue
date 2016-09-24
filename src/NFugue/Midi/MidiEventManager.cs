@@ -1,5 +1,7 @@
 ﻿using NFugue.Theory;
+using NLog;
 using Sanford.Multimedia.Midi;
+using System.Linq;
 
 namespace NFugue.Midi
 {
@@ -67,11 +69,14 @@ namespace NFugue.Midi
         public void FinishSequence()
         {
             MetaMessage message = new MetaMessage(MetaType.EndOfTrack, new byte[] { });
+            double latestTick = ConvertBeatsToTicks(Enumerable.Range(0, tracks.Length)
+                .Select(i => GetLatestTrackBeatTime((sbyte)i))
+                .Max());
             for (int i = 0; i < LastCreatedTrackNumber; i++)
             {
                 if (tracks[i] != null)
                 {
-                    tracks[i].Insert(ConvertBeatsToTicks(GetLatestTrackBeatTime((sbyte)i)), message);
+                    tracks[i].Insert((int)latestTick, message);
                 }
             }
         }
