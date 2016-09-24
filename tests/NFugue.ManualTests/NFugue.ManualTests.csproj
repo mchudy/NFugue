@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\RhythmTests.cs" />
     <Compile Include="Tests\StaccatoTests.cs" />
     <Compile Include="Utils\ConsoleEx.cs" />
     <Compile Include="Utils\ManualTestAttribute.cs" />
