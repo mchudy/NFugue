@@ -5,6 +5,8 @@
 ## Getting started
 
 ```csharp
-Player player = new Player();
-player.Play("C D E F G A B");
+using(var player = new Player())
+{
+    player.Play("C D E F G A B");
+}
 ```

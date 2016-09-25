@@ -46,18 +46,22 @@ namespace NFugue.ManualTests.Utils
         private void RunTest(MethodInfo method, int testNumber)
         {
             var type = method.DeclaringType;
-            if (type != null)
+            if (type == null) return;
+            var typeInstance = Activator.CreateInstance(type);
+            var attribute = method.GetCustomAttribute<ManualTestAttribute>();
+
+            PrintBeforeTest(attribute, testNumber);
+
+            method.Invoke(typeInstance, null);
+
+            if (typeof(IDisposable).IsAssignableFrom(type))
             {
-                var typeInstance = Activator.CreateInstance(type);
-                var attribute = method.GetCustomAttribute<ManualTestAttribute>();
-
-                PrintBeforeTest(attribute, testNumber);
-
-                method.Invoke(typeInstance, null);
-
-                GetTestResult();
-                testsRun++;
+                var disposeMethod = type.GetMethod("Dispose");
+                disposeMethod.Invoke(typeInstance, null);
             }
+
+            GetTestResult();
+            testsRun++;
         }
 
         private void GetTestResult()

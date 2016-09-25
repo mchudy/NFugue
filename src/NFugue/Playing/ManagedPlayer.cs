@@ -4,14 +4,15 @@ using System;
 
 namespace NFugue.Playing
 {
-    public class ManagedPlayer
+    public class ManagedPlayer : IDisposable
     {
         private static readonly ILogger log = LogManager.GetCurrentClassLogger();
         private readonly Sequencer sequencer = new Sequencer();
-        private OutputDevice outputDevice;
+        private readonly OutputDevice outputDevice;
 
         public ManagedPlayer()
         {
+            outputDevice = new OutputDevice(0);
             sequencer.PlayingCompleted += (s, e) => Finish();
             SubscribeMessageEvents();
         }
@@ -30,10 +31,6 @@ namespace NFugue.Playing
 
         public void Start(Sequence sequence)
         {
-            if (outputDevice == null || outputDevice.IsDisposed)
-            {
-                outputDevice = new OutputDevice(0);
-            }
             sequencer.Sequence = sequence;
             log.Trace($"Playing sequence with division {sequence.Division}");
             foreach (var track in sequence)
@@ -82,9 +79,6 @@ namespace NFugue.Playing
         public void Finish()
         {
             log.Trace("Playing completed. Closing device...");
-            outputDevice?.Close();
-            outputDevice?.Dispose();
-            outputDevice = null;
             Finished?.Invoke(this, EventArgs.Empty);
             IsFinished = true;
         }
@@ -112,6 +106,11 @@ namespace NFugue.Playing
                           $"status:{e.Message.Status.ToString()} data: {e.Message.GetBytes()}");
                 outputDevice?.Send(e.Message);
             };
+        }
+
+        public void Dispose()
+        {
+            outputDevice.Dispose();
         }
     }
 

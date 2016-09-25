@@ -2,6 +2,7 @@
 using NFugue.Patterns;
 using NFugue.Staccato;
 using Sanford.Multimedia.Midi;
+using System;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace NFugue.Playing
 {
-    public class Player
+    public class Player : IDisposable
     {
         private readonly ManagedPlayer managedPlayer = new ManagedPlayer();
         private readonly MidiEventManager eventManager = new MidiEventManager();
@@ -133,6 +134,11 @@ namespace NFugue.Playing
                     eventManager.AddNote(note);
                 }
             };
+        }
+
+        public void Dispose()
+        {
+            managedPlayer.Dispose();
         }
     }
 }

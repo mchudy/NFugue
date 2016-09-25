@@ -1,8 +1,8 @@
-﻿using Xunit;
+﻿using System;
 
 namespace NFugue.ManualTests.Utils
 {
-    public class ManualTestAttribute : FactAttribute
+    public class ManualTestAttribute : Attribute
     {
         public ManualTestAttribute(string title, string description = "")
         {

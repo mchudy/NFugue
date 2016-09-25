@@ -2,10 +2,11 @@
 using NFugue.Patterns;
 using NFugue.Playing;
 using NFugue.Rhythms;
+using System;
 
 namespace NFugue.ManualTests.Tests
 {
-    public class RhythmTests
+    public class RhythmTests : IDisposable
     {
         private readonly Rhythm rhythm = new Rhythm();
         private readonly Player player = new Player();
@@ -27,6 +28,11 @@ namespace NFugue.ManualTests.Tests
         {
             rhythm.AddLayer("oxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxo");
             player.Play(rhythm);
+        }
+
+        public void Dispose()
+        {
+            player.Dispose();
         }
     }
 }

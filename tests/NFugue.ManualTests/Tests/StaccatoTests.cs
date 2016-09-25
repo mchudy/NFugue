@@ -8,7 +8,7 @@ using System;
 
 namespace NFugue.ManualTests.Tests
 {
-    public class StaccatoTests
+    public class StaccatoTests : IDisposable
     {
         private readonly Player player = new Player();
 
@@ -119,6 +119,11 @@ namespace NFugue.ManualTests.Tests
             string microtone = "m346.0w m356.5w";
             player.Play(microtone);
             player.Play(preprocessor.Preprocess(microtone, null));
+        }
+
+        public void Dispose()
+        {
+            player.Dispose();
         }
     }
 }

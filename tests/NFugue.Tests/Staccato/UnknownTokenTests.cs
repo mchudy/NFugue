@@ -1,12 +1,12 @@
 ﻿using FluentAssertions;
+using NFugue.Parsing;
 using NFugue.Playing;
 using System;
-using NFugue.Parsing;
 using Xunit;
 
 namespace Staccato.Tests
 {
-    public class UnknownTokenTests
+    public class UnknownTokenTests : IDisposable
     {
         private readonly Player player = new Player();
 
@@ -22,6 +22,11 @@ namespace Staccato.Tests
             player.Parser.ThrowsExceptionOnUnknownToken = true;
             Action action = () => player.Play("UNKNOWN");
             action.ShouldThrow<ParserException>();
+        }
+
+        public void Dispose()
+        {
+            player.Dispose();
         }
     }
 }
