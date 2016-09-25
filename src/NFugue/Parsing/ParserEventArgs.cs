@@ -38,7 +38,7 @@ namespace NFugue.Parsing
 
     public class BarLineParsedEventArgs : EventArgs
     {
-        public long Id { get; set; }
+        public long Time { get; set; }
     }
 
     public class TrackBeatTimeBookmarkEventArgs : EventArgs

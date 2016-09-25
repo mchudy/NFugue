@@ -3,14 +3,14 @@ namespace NFugue.Integration.MusicXml.Internals
 {
     internal class KeySignature
     {
-        public KeySignature(sbyte key, sbyte scale)
+        public KeySignature(int key, int scale)
         {
             Key = key;
             Scale = scale;
         }
 
-        public sbyte Key { get; }
-        public sbyte Scale { get; }
+        public int Key { get; }
+        public int Scale { get; }
 
         public override bool Equals(object obj)
         {

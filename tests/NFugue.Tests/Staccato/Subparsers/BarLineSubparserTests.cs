@@ -18,7 +18,7 @@ namespace Staccato.Tests.Subparsers
         {
             ParseWithSubparser("|");
             VerifyEventRaised(nameof(Parser.BarLineParsed))
-                .WithArgs<BarLineParsedEventArgs>(e => e.Id == -1);
+                .WithArgs<BarLineParsedEventArgs>(e => e.Time == -1);
         }
 
         [Fact]
@@ -26,7 +26,7 @@ namespace Staccato.Tests.Subparsers
         {
             ParseWithSubparser("|200");
             VerifyEventRaised(nameof(Parser.BarLineParsed))
-                .WithArgs<BarLineParsedEventArgs>(e => e.Id == 200);
+                .WithArgs<BarLineParsedEventArgs>(e => e.Time == 200);
         }
     }
 }

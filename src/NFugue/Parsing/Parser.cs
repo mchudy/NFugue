@@ -42,7 +42,7 @@ namespace NFugue.Parsing
 
         public void OnBarLineParsed(long measure)
         {
-            BarLineParsed?.Invoke(this, new BarLineParsedEventArgs { Id = measure });
+            BarLineParsed?.Invoke(this, new BarLineParsedEventArgs { Time = measure });
         }
 
         public void OnTrackBeatTimeRequested(double time)

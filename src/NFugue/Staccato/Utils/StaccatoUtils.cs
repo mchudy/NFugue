@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace NFugue.Staccato.Utils
 {
-    public static class StaccatoUtils
+    public static class StaccatoElementsFactory
     {
         public static string CreateTrackElement(int track)
         {

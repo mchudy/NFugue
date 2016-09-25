@@ -230,11 +230,11 @@ namespace NFugue.Rhythms
 
         public Pattern GetPatternAt(int segment)
         {
-            var pattern = new Pattern(StaccatoUtils.CreateTrackElement(9));
+            var pattern = new Pattern(StaccatoElementsFactory.CreateTrackElement(9));
             int layerCounter = 0;
             foreach (string layer in GetLayersAt(segment))
             {
-                pattern.Add(StaccatoUtils.CreateLayerElement(layerCounter));
+                pattern.Add(StaccatoElementsFactory.CreateLayerElement(layerCounter));
                 layerCounter++;
                 pattern.Add(GetStaccatoStringForRhythm(layer));
             }

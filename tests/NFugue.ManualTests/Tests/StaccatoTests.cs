@@ -23,7 +23,7 @@ namespace NFugue.ManualTests.Tests
         {
             FunctionManager.Instance.AddPreprocessorFunction(new ArpeggiatedChordFunction());
 
-            player.Play(":ARPEGGIATED(Cmajw) Cmaj Emaj Gmaj Amin");
+            player.Play(":ARPEGGIATED(Cmajw)");
         }
 
         [ManualTest("Attack and decay", "You should hear one note in five different ways")]

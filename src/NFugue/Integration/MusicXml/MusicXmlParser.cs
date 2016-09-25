@@ -2,6 +2,7 @@
 using NFugue.Integration.MusicXml.Internals;
 using NFugue.Midi;
 using NFugue.Parsing;
+using NFugue.Providers;
 using NFugue.Theory;
 using System;
 using System.Collections.Generic;
@@ -15,13 +16,13 @@ namespace NFugue.Integration.MusicXml
     {
         private XDocument document;
 
-        private readonly int curVelocity = DefaultNoteSettings.DefaultOnVelocity;
+        private readonly int curVelocity = DefaultNoteSettings.DefaultOffVelocity;
         private int beatsPerMeasure = 1;
         private int divisionsPerBeat = 1;
         private int currentVoice = -1;
         private int currentLayer;
 
-        private KeySignature keySignature = new KeySignature(0, 0);
+        private KeySignature keySignature = new KeySignature(0, Scale.MajorIndicator);
 
         // next available voice # for a new voice
         private byte nextVoice;
@@ -90,7 +91,7 @@ namespace NFugue.Integration.MusicXml
                 if (!keySignature.Equals(ks))
                 {
                     keySignature = ks;
-                    OnKeySignatureParsed(keySignature.Key, keySignature.Scale);
+                    OnKeySignatureParsed((sbyte)keySignature.Key, (sbyte)keySignature.Scale);
                 }
 
                 int newDivisionsPerBeat;
@@ -413,33 +414,36 @@ namespace NFugue.Integration.MusicXml
 
         private KeySignature ParseKeySignature(XElement attributes)
         {
-            // scale 0 = minor, 1 = major
-            sbyte key = keySignature.Key, scale = keySignature.Scale;
+            int key = keySignature.Key, scale = keySignature.Scale;
             var attr = attributes.Element("key");
-            if (attr != null)
+            if (attr == null)
             {
-                sbyte.TryParse(attr.Element("fifths")?.Value, out key);
-                var eMode = attr.Element("mode");
-                if (eMode != null)
+                return new KeySignature(key, scale);
+            }
+            var eMode = attr.Element("mode");
+            if (eMode != null)
+            {
+                string mode = eMode.Value;
+                if (mode.Equals("major", StringComparison.OrdinalIgnoreCase))
                 {
-                    string mode = eMode.Value;
-                    if (mode.Equals("major", StringComparison.OrdinalIgnoreCase))
-                    {
-                        scale = 0;
-                    }
-                    else if (mode.Equals("minor", StringComparison.OrdinalIgnoreCase))
-                    {
-                        scale = 1;
-                    }
-                    else
-                    {
-                        throw new ParserException("Error in key signature: " + mode);
-                    }
+                    scale = (sbyte)Scale.MajorIndicator;
+                }
+                else if (mode.Equals("minor", StringComparison.OrdinalIgnoreCase))
+                {
+                    scale = (sbyte)Scale.MinorIndicator;
                 }
                 else
                 {
-                    scale = 0;
+                    throw new ParserException("Error in key signature: " + mode);
                 }
+            }
+            else
+            {
+                scale = (sbyte)Scale.MajorIndicator;
+            }
+            if (int.TryParse(attr.Element("fifths")?.Value, out key))
+            {
+                key = KeyProviderFactory.GetKeyProvider().ConvertAccidentalCountToKeyRootPositionInOctave(-key, (sbyte)scale);
             }
             return new KeySignature(key, scale);
         }
