@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Staccato.Tests
 {
-    public class UnknownTokenTests : IDisposable
+    public class UnknownTokenTests
     {
         private readonly StaccatoParser parser = new StaccatoParser();
 
