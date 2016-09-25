@@ -1,5 +1,5 @@
-﻿using System;
-using NFugue.Theory;
+﻿using NFugue.Theory;
+using System;
 
 namespace NFugue.Parsing
 {
@@ -138,6 +138,16 @@ namespace NFugue.Parsing
         public void OnSystemExclusiveParsed(sbyte[] bytes)
         {
             SystemExclusiveParsed?.Invoke(this, new SystemExclusiveParsedEventArgs { Bytes = bytes });
+        }
+
+        public void OnNotePressed(Note note)
+        {
+            NotePressed?.Invoke(this, new NoteEventArgs { Note = note });
+        }
+
+        public void OnNoteReleased(Note note)
+        {
+            NoteReleased?.Invoke(this, new NoteEventArgs { Note = note });
         }
     }
 }
