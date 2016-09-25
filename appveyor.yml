@@ -1,6 +1,9 @@
-﻿version: 1.0.{build}
+﻿version: 1.0.0.{build}
 
 configuration: Release
 
 before_build:
-    - nuget restore
+  - nuget restore
+
+cache:
+  - packages -> **\packages.config 

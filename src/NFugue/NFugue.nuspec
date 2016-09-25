@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>NFugue</id>
+    <version>$version$</version>
+    <authors>Marcin Chudy</authors>
+    <owners>mchudy</owners>
+    <licenseUrl>https://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <projectUrl>https://www.github.com/mchudy/nfugue</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Music programming library for .NET</description>
+    <releaseNotes>Initial release.</releaseNotes>
+    <copyright>Copyright ©2016 Marcin Chudy</copyright>
+    <tags>music</tags>
+    <dependencies>
+      <dependency id="NLog" version="4.3.7" />
+      <dependency id="Sanford.MidiToolkit" version="5.0.2" />
+    </dependencies>
+  </metadata>
+</package>

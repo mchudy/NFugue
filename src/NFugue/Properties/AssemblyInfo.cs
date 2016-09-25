@@ -1,16 +1,15 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("NFugue")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Music programming library for .NET")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Marcin Chudy")]
 [assembly: AssemblyProduct("NFugue")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCopyright("Copyright © 2016 Marcin Chudy ")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
