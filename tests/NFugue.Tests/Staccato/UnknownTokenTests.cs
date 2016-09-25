@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 using NFugue.Parsing;
-using NFugue.Playing;
+using NFugue.Staccato;
 using System;
 using Xunit;
 
@@ -8,25 +8,20 @@ namespace Staccato.Tests
 {
     public class UnknownTokenTests : IDisposable
     {
-        private readonly Player player = new Player();
+        private readonly StaccatoParser parser = new StaccatoParser();
 
         [Fact]
         public void Should_ignore_unknown_token_by_default()
         {
-            player.Play("UKNOWN");
+            parser.Parse("UNKNOWN");
         }
 
         [Fact]
         public void Should_throw_exception_if_flag_set()
         {
-            player.Parser.ThrowsExceptionOnUnknownToken = true;
-            Action action = () => player.Play("UNKNOWN");
+            parser.ThrowsExceptionOnUnknownToken = true;
+            Action action = () => parser.Parse("UNKNOWN");
             action.ShouldThrow<ParserException>();
-        }
-
-        public void Dispose()
-        {
-            player.Dispose();
         }
     }
 }
