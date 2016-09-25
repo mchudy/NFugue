@@ -31,7 +31,6 @@ namespace Staccato.Tests.Subparsers
 
             VerifyEventRaised(nameof(Parser.FunctionParsed))
                 .WithArgs<FunctionParsedEventArgs>(e => e.Id == "CP" && e.Message.Equals("7"));
-            function.Verify(f => f.Apply("7", It.IsAny<StaccatoParserContext>()), Times.Once);
         }
 
         [Fact]
@@ -41,7 +40,6 @@ namespace Staccato.Tests.Subparsers
 
             VerifyEventRaised(nameof(Parser.FunctionParsed))
                 .WithArgs<FunctionParsedEventArgs>(e => e.Id == "CP" && e.Message.Equals("7,8"));
-            function.Verify(f => f.Apply("7,8", It.IsAny<StaccatoParserContext>()), Times.Once);
         }
     }
 }
