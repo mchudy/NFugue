@@ -41,7 +41,7 @@ namespace NFugue.ManualTests.Tests
         public void ChordInversionsTest()
         {
             Pattern pattern = new Pattern(
-                "#no_inversion  C4majw                  | " +
+                "#no_inversion      C4majw                  | " +
                 "#first_inversion   C4maj^w     C4maj^Ew    | " +
                 "#second_inversion  C4maj^^w    C4maj^Gw      ");
             player.Play(pattern);
@@ -53,9 +53,9 @@ namespace NFugue.ManualTests.Tests
         ")]
         public void LayersTest()
         {
-            player.Play("V1 L0 C L1 E L2 G L0 D L1 F L2 A L0 E L1 G L2 B " +
+            player.Play("V0 L0 C L1 E L2 G L0 D L1 F L2 A L0 E L1 G L2 B " +
                 "#(That previous half should sound the same as this upcoming half) " +
-                "V1 L0 C D E L1 E F G L2 G A B");
+                "V0 L0 C D E L1 E F G L2 G A B");
         }
 
         [ManualTest("Pitch wheel", "The following notes should all sound different")]

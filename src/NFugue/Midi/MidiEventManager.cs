@@ -1,6 +1,6 @@
 ﻿using NFugue.Theory;
-using NLog;
 using Sanford.Multimedia.Midi;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace NFugue.Midi
@@ -8,6 +8,7 @@ namespace NFugue.Midi
     public class MidiEventManager : TrackTimeManager
     {
         private readonly Track[] tracks = new Track[MidiDefaults.Tracks];
+        private readonly List<MessageToInsert> messagesToInsert = new List<MessageToInsert>();
 
         public float DivisionType { get; set; } = MidiDefaults.DefaultDivisionType;
         public int ResolutionTicksPerBeat { get; set; } = MidiDefaults.DefaultResolutionTicksPerBeat;
@@ -30,12 +31,6 @@ namespace NFugue.Midi
             }
         }
 
-        public void Reset()
-        {
-            Sequence = new Sequence((int)MidiDefaults.DefaultDivisionType);
-            CreateTrack(0);
-        }
-
         public void AddEvent(ChannelCommand command, int data)
         {
             var shortMessageBuilder = new ChannelMessageBuilder
@@ -45,12 +40,11 @@ namespace NFugue.Midi
                 Data2 = data,
             };
             shortMessageBuilder.Build();
-            CurrentTrack.Insert(ConvertBeatsToTicks(TrackBeatTime), shortMessageBuilder.Result);
+            QueueMessage(shortMessageBuilder.Result);
         }
 
         public void AddEvent(ChannelCommand command, int data1, int data2)
         {
-            LogManager.GetCurrentClassLogger().Trace($"New message {command} {data1} {data2} \nticks: {ConvertBeatsToTicks(TrackBeatTime)} layer:{CurrentLayerNumber} track: {CurrentTrackNumber} beats:{TrackBeatTime}");
             var shortMessageBuilder = new ChannelMessageBuilder
             {
                 Command = command,
@@ -59,33 +53,19 @@ namespace NFugue.Midi
                 MidiChannel = CurrentTrackNumber
             };
             shortMessageBuilder.Build();
-            CurrentTrack.Insert(ConvertBeatsToTicks(TrackBeatTime), shortMessageBuilder.Result);
+            QueueMessage(shortMessageBuilder.Result);
         }
 
-        private int ConvertBeatsToTicks(double beats)
+        public void AddMetaMessage(MetaType type, byte[] bytes)
         {
-            return (int)(ResolutionTicksPerBeat * beats * MidiDefaults.DefaultTempoBeatsPerWhole);
-        }
-
-        public void FinishSequence()
-        {
-            MetaMessage message = new MetaMessage(MetaType.EndOfTrack, new byte[] { });
-            double latestTick = ConvertBeatsToTicks(Enumerable.Range(0, tracks.Length)
-                .Select(i => GetLatestTrackBeatTime((sbyte)i))
-                .Max());
-            for (int i = 0; i < LastCreatedTrackNumber; i++)
-            {
-                if (tracks[i] != null)
-                {
-                    tracks[i].Insert((int)latestTick, message);
-                }
-            }
+            MetaMessage message = new MetaMessage(type, bytes);
+            QueueMessage(message);
         }
 
         public void AddSystemExclusiveEvent(byte[] bytes)
         {
             var message = new SysExMessage(bytes);
-            CurrentTrack.Insert(ConvertBeatsToTicks(TrackBeatTime), message);
+            QueueMessage(message);
         }
 
         public void SetTempo(int tempoBPM)
@@ -95,7 +75,7 @@ namespace NFugue.Midi
                 Tempo = 60000000 / tempoBPM // convert to PPQ
             };
             builder.Build();
-            CurrentTrack.Insert(ConvertBeatsToTicks(TrackBeatTime), builder.Result);
+            QueueMessage(builder.Result);
         }
 
         public void SetTimeSignature(byte numerator, byte denominator)
@@ -108,7 +88,7 @@ namespace NFugue.Midi
                 ThirtySecondNotesPerQuarterNote = ThirtySecondNotesPerQuarterNote
             };
             builder.Build();
-            CurrentTrack.Insert(ConvertBeatsToTicks(TrackBeatTime), builder.Result);
+            QueueMessage(builder.Result);
         }
 
         public void AddNote(Note note)
@@ -141,6 +121,35 @@ namespace NFugue.Midi
             }
         }
 
+        public void SetKeySignature(byte key, byte scale)
+        {
+            MetaMessage message = new MetaMessage(MetaType.KeySignature, new[] { key, scale });
+            QueueMessage(message);
+        }
+
+        public void FinishSequence()
+        {
+            InsertChannelMessages();
+            MetaMessage message = new MetaMessage(MetaType.EndOfTrack, new byte[] { });
+            double latestTick = ConvertBeatsToTicks(Enumerable.Range(0, tracks.Length)
+                .Select(i => GetLatestTrackBeatTime((sbyte)i))
+                .Max());
+            for (int i = 0; i < LastCreatedTrackNumber; i++)
+            {
+                if (tracks[i] != null)
+                {
+                    tracks[i].Insert((int)latestTick, message);
+                }
+            }
+        }
+
+        public void Reset()
+        {
+            messagesToInsert.Clear();
+            Sequence = new Sequence((int)MidiDefaults.DefaultDivisionType);
+            CreateTrack(0);
+        }
+
         protected override void CreateTrack(sbyte track)
         {
             base.CreateTrack(track);
@@ -148,16 +157,40 @@ namespace NFugue.Midi
             Sequence.Add(tracks[track]);
         }
 
-        public void SetKeySignature(byte key, byte scale)
+        private int ConvertBeatsToTicks(double beats)
         {
-            MetaMessage message = new MetaMessage(MetaType.KeySignature, new[] { key, scale });
-            CurrentTrack.Insert(ConvertBeatsToTicks(TrackBeatTime), message);
+            return (int)(ResolutionTicksPerBeat * beats * MidiDefaults.DefaultTempoBeatsPerWhole);
         }
 
-        public void AddMetaMessage(MetaType type, byte[] bytes)
+        // This kind of lazy track creation is necessary because we need to make sure that all NoteOff events
+        // will be inserted before all NoteOn events at the same position (Track.Insert inserts at the first
+        // available position in the list).
+        private void QueueMessage(IMidiMessage message)
         {
-            MetaMessage message = new MetaMessage(type, bytes);
-            CurrentTrack.Insert(ConvertBeatsToTicks(TrackBeatTime), message);
+            messagesToInsert.Add(new MessageToInsert(ConvertBeatsToTicks(TrackBeatTime),
+                message, CurrentTrack));
+        }
+
+        private void InsertChannelMessages()
+        {
+            foreach (var msg in messagesToInsert.OrderBy(m => m.Position))
+            {
+                msg.Track.Insert(msg.Position, msg.Message);
+            }
+        }
+
+        private class MessageToInsert
+        {
+            public int Position { get; }
+            public IMidiMessage Message { get; }
+            public Track Track { get; }
+
+            public MessageToInsert(int position, IMidiMessage message, Track track)
+            {
+                Position = position;
+                Message = message;
+                Track = track;
+            }
         }
     }
 }

@@ -78,12 +78,12 @@
     <Compile Include="Integration\MusicXml\MusicXmlParser.cs" />
     <Compile Include="Integration\MusicXml\Internals\PartContext.cs" />
     <Compile Include="Integration\MusicXml\Internals\VoiceDefinition.cs" />
-    <Compile Include="Midi\Controller.cs" />
-    <Compile Include="Midi\Instrument.cs" />
+    <Compile Include="Midi\Enums\Controller.cs" />
+    <Compile Include="Midi\Enums\Instrument.cs" />
     <Compile Include="Midi\MidiEventManager.cs" />
     <Compile Include="Midi\MidiTools.cs" />
-    <Compile Include="Midi\PercussionInstrument.cs" />
-    <Compile Include="Midi\Tempo.cs" />
+    <Compile Include="Midi\Enums\PercussionInstrument.cs" />
+    <Compile Include="Midi\Enums\Tempo.cs" />
     <Compile Include="Midi\TrackTimeManager.cs" />
     <Compile Include="Playing\ManagedPlayer.cs" />
     <Compile Include="Playing\Player.cs" />

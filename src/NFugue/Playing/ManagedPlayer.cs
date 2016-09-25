@@ -36,7 +36,13 @@ namespace NFugue.Playing
             }
             sequencer.Sequence = sequence;
             log.Trace($"Playing sequence with division {sequence.Division}");
-
+            foreach (var track in sequence)
+            {
+                foreach (var msg in track.Iterator())
+                {
+                    log.Trace($"absolute ticks: {msg.AbsoluteTicks} {msg.MidiMessage.MessageType} {msg.MidiMessage.GetBytes()} {(msg.MidiMessage as ChannelMessage)?.Command}");
+                }
+            }
             IsPlaying = true;
             IsFinished = false;
             IsPaused = false;
