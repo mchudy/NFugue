@@ -5,7 +5,7 @@
 ## Getting started
 
 ```csharp
-using(var player = new Player())
+using (var player = new Player())
 {
     player.Play("C D E F G A B");
 }
