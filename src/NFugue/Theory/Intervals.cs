@@ -1,6 +1,7 @@
 ﻿using NFugue.Extensions;
 using NFugue.Patterns;
 using NFugue.Providers;
+using NFugue.Staccato.Subparsers.NoteSubparser;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -97,8 +98,7 @@ namespace NFugue.Theory
             Pattern pattern = GetPattern();
             foreach (var split in pattern.ToString().Split(' '))
             {
-                //TODO
-                //if (new NoteSubparser().Matches(split))
+                if (new NoteSubparser().Matches(split))
                 {
                     noteList.Add(new Note(split));
                 }

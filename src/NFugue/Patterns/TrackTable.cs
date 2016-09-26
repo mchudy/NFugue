@@ -11,8 +11,7 @@ namespace NFugue.Patterns
 
         private readonly IList<IList<IPatternProducer>> tracks = new List<IList<IPatternProducer>>();
         private readonly IList<IPatternProducer> trackSettings = new List<IPatternProducer>();
-        private double cellDuration;
-
+        private readonly double cellDuration;
 
         public TrackTable(int length, double cellDuration)
         {
@@ -40,7 +39,7 @@ namespace NFugue.Patterns
             if (trackList == null)
             {
                 trackList = new List<IPatternProducer>();
-                this.tracks.Insert(track, trackList);
+                tracks.Insert(track, trackList);
             }
             trackList.Insert(position, producer.GetPattern());
             return this;

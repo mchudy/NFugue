@@ -1,16 +1,16 @@
 ﻿using NFugue.Patterns;
+using NFugue.Staccato.Instructions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using NFugue.Staccato.Instructions;
 
 namespace NFugue.Staccato.Preprocessors
 {
     public class InstructionPreprocessor : IPreprocessor
     {
         private static readonly Regex keyPattern = new Regex(@"\{\p{IsBasicLatin}*?\}", RegexOptions.Compiled);
-        private IDictionary<string, IInstruction> instructions = new Dictionary<string, IInstruction>();
+        private readonly IDictionary<string, IInstruction> instructions = new Dictionary<string, IInstruction>();
 
         public string Preprocess(string musicString, StaccatoParserContext context)
         {
@@ -65,7 +65,6 @@ namespace NFugue.Staccato.Preprocessors
 
         public void AddInstruction(string key, string value)
         {
-            //TODO: use delegates
             instructions.Add(key, new Instruction { Value = value });
         }
 

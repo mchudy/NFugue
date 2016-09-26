@@ -1,5 +1,5 @@
-﻿using System.Text;
-using NFugue.Extensions;
+﻿using NFugue.Extensions;
+using System.Text;
 
 namespace NFugue.Staccato.Preprocessors
 {

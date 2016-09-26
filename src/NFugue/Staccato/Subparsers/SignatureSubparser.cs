@@ -64,7 +64,7 @@ namespace NFugue.Staccato.Subparsers
                 int posNextSpace = music.FindNextOrEnd(' ');
                 Key key = CreateKey(music.Substring(KeySignatureString.Length, posNextSpace - KeySignatureString.Length));
                 context.Key = key;
-                context.Parser.OnKeySignatureParsed(key.Root.PositionInOctave, key.Scale.MajorOrMinorIndicator);
+                context.Parser.OnKeySignatureParsed(key.Root.PositionInOctave, (int)key.Scale.Type);
                 return posNextSpace + 1;
             }
             if (MatchesTimeSignature(music))
@@ -103,7 +103,7 @@ namespace NFugue.Staccato.Subparsers
         {
             StringBuilder sb = new StringBuilder();
             sb.Append(Note.NoteNamesCommon[notePositionInOctave]);
-            if (scale == Scale.MajorIndicator)
+            if (scale == (int)ScaleType.Major)
             {
                 sb.Append(MajorAbbreviation);
             }
@@ -116,7 +116,7 @@ namespace NFugue.Staccato.Subparsers
 
         public int ConvertAccidentalCountToKeyRootPositionInOctave(int accidentalCount, int scale)
         {
-            if (scale == Scale.MajorIndicator)
+            if (scale == (int)ScaleType.Major)
             {
                 return new Note(MajorKeySignatures[KeySigMidpoint - accidentalCount]).PositionInOctave;
             }

@@ -22,7 +22,7 @@ namespace NFugue.Integration.MusicXml
         private int currentVoice = -1;
         private int currentLayer;
 
-        private KeySignature keySignature = new KeySignature(0, Scale.MajorIndicator);
+        private KeySignature keySignature = new KeySignature(0, (int)ScaleType.Major);
 
         // next available voice # for a new voice
         private int nextVoice;
@@ -65,7 +65,7 @@ namespace NFugue.Integration.MusicXml
         private void ParsePartWise(XElement root)
         {
             var partlist = root.Element("part-list");
-            var parts = partlist.Elements().ToList();
+            var parts = partlist?.Elements().ToList();
             Dictionary<string, PartContext> partHeaders = ParsePartList(parts);
             parts = root.Elements("part").ToList();
             for (int childId = 0; childId < parts.Count; childId++)
@@ -107,9 +107,8 @@ namespace NFugue.Integration.MusicXml
             }
 
             var children = musicDataRoot.Elements().ToList();
-            for (int i = 0; i < children.Count; i++)
+            foreach (var el in children)
             {
-                var el = children[i];
                 if (el.Name.LocalName == "harmony")
                 {
                     ParseGuitarChord(el);
@@ -161,8 +160,6 @@ namespace NFugue.Integration.MusicXml
             bool isStartOfTie = false;
             bool isEndOfTie = false;
             int noteNumber = 0;
-            int octaveNumber = 0;
-            double decimalDuration;
 
             // skip grace notes
             // TODO : why do we skip grace notes ?
@@ -186,17 +183,15 @@ namespace NFugue.Integration.MusicXml
 
             var noteEls = noteElement.Elements().ToList();
             // See if note is part of a chord
-            for (int i = 0; i < noteEls.Count; i++)
+            foreach (var element in noteEls)
             {
-                var element = noteEls[i];
                 string tagName = element.Name.ToString();
                 if (tagName == "instrument")
                 {
                     PartContext header = partHeaders[partId];
                     MidiInstrument[] instruments = header.Instruments;
-                    for (int y = 0; y < instruments.Length; ++y)
+                    foreach (MidiInstrument ins in instruments)
                     {
-                        MidiInstrument ins = instruments[y];
                         if (ins != null && ins.Id == element.Attribute("id")?.Value)
                         {
                             ParseVoice(p, FindInstrument(ins));
@@ -223,7 +218,7 @@ namespace NFugue.Integration.MusicXml
                 }
                 else if (tagName == "pitch")
                 {
-                    string sStep = element.Element("step").Value;
+                    string sStep = element.Element("step")?.Value;
                     noteNumber = GetNoteNumber(sStep[0]);
                     var alter = element.Element("alter");
                     if (alter != null)
@@ -239,7 +234,8 @@ namespace NFugue.Integration.MusicXml
                         }
                     }
 
-                    int.TryParse(element.Element("octave").Value, out octaveNumber);
+                    var octaveNumber = 0;
+                    int.TryParse(element.Element("octave")?.Value, out octaveNumber);
 
                     // Compute the actual note number, based on octave and note
                     int intNoteNumber = ((octaveNumber) * 12) + noteNumber;
@@ -258,7 +254,7 @@ namespace NFugue.Integration.MusicXml
             // duration
             var element_duration = noteElement.Element("duration");
             double durationValue = double.Parse(element_duration.Value);
-            decimalDuration = durationValue / (divisionsPerBeat * beatsPerMeasure);
+            var decimalDuration = durationValue / (divisionsPerBeat * beatsPerMeasure);
 
             // Tied Note
             var notations = noteElement.Element("notations");
@@ -426,11 +422,11 @@ namespace NFugue.Integration.MusicXml
                 string mode = eMode.Value;
                 if (mode.Equals("major", StringComparison.OrdinalIgnoreCase))
                 {
-                    scale = Scale.MajorIndicator;
+                    scale = (int)ScaleType.Major;
                 }
                 else if (mode.Equals("minor", StringComparison.OrdinalIgnoreCase))
                 {
-                    scale = Scale.MinorIndicator;
+                    scale = (int)ScaleType.Minor;
                 }
                 else
                 {
@@ -439,7 +435,7 @@ namespace NFugue.Integration.MusicXml
             }
             else
             {
-                scale = Scale.MajorIndicator;
+                scale = (int)ScaleType.Major;
             }
             if (int.TryParse(attr.Element("fifths")?.Value, out key))
             {
@@ -560,7 +556,7 @@ namespace NFugue.Integration.MusicXml
         {
             if (part.Name.LocalName == "part-group")
                 return null;
-            PartContext partHeader = new PartContext(part.Attribute("id").Value, part.Element("part-name").Value);
+            PartContext partHeader = new PartContext(part.Attribute("id")?.Value, part.Element("part-name")?.Value);
             var midiInstruments = part.Elements("midi-instrument").ToList();
             for (int x = 0; x < midiInstruments.Count; x++)
             {
@@ -590,7 +586,7 @@ namespace NFugue.Integration.MusicXml
                 for (int partIndex = 0; partIndex < parts.Count; partIndex++)
                 {
                     var partElement = parts[partIndex];
-                    string partId = partElement.Attribute("id").Value;
+                    string partId = partElement.Attribute("id")?.Value;
                     SwitchPart(partHeaders, partId, measureIndex);
                     ParseMusicData(partIndex, partId, partHeaders, partElement);
                     OnBarLineParsed(0);

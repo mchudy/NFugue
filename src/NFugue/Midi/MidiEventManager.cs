@@ -132,7 +132,7 @@ namespace NFugue.Midi
             InsertChannelMessages();
             MetaMessage message = new MetaMessage(MetaType.EndOfTrack, new byte[] { });
             double latestTick = ConvertBeatsToTicks(Enumerable.Range(0, tracks.Length)
-                .Select(i => GetLatestTrackBeatTime(i))
+                .Select(GetLatestTrackBeatTime)
                 .Max());
             for (int i = 0; i < LastCreatedTrackNumber; i++)
             {

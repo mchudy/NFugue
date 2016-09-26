@@ -21,27 +21,23 @@
             Intervals = intervals;
         }
 
-        public static readonly int MajorIndicator = 1;
-        public static readonly int MinorIndicator = -1;
-
-        public static readonly Scale Major = new Scale(new Intervals("1 2 3 4 5 6 7")) { MajorOrMinorIndicator = MajorIndicator };
-        public static readonly Scale Minor = new Scale(new Intervals("1 2 b3 4 5 b6 b7")) { MajorOrMinorIndicator = MinorIndicator };
+        public static readonly Scale Major = new Scale(new Intervals("1 2 3 4 5 6 7")) { Type = ScaleType.Major };
+        public static readonly Scale Minor = new Scale(new Intervals("1 2 b3 4 5 b6 b7")) { Type = ScaleType.Minor };
         public static readonly Scale CircleOfFiths = new Scale(new Intervals("1 2 b3 4 5 6 7b"));
 
         public string Name { get; set; }
 
-        //TODO: enum?
-        public int MajorOrMinorIndicator { get; set; }
+        public ScaleType Type { get; set; } = ScaleType.Major;
         public Intervals Intervals { get; }
-        public int Disposition => MajorOrMinorIndicator == MajorIndicator ? 1 : -1;
+        public int Disposition => Type == ScaleType.Major ? 1 : -1;
 
         public override string ToString()
         {
-            if (MajorOrMinorIndicator == MajorIndicator)
+            if (Type == ScaleType.Major)
             {
                 return "maj";
             }
-            if (MajorOrMinorIndicator == MinorIndicator)
+            if (Type == ScaleType.Minor)
             {
                 return "min";
             }
@@ -67,5 +63,11 @@
             return Intervals?.GetHashCode() ?? 0;
         }
         #endregion
+    }
+
+    public enum ScaleType
+    {
+        Major = 1,
+        Minor = -1
     }
 }

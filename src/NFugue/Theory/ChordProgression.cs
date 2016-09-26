@@ -7,7 +7,7 @@ namespace NFugue.Theory
     public class ChordProgression : IPatternProducer
     {
         private string[] progressionElements;
-        private Chord[] knownChords = null;
+        private Chord[] knownChords;
         private Key key;
         private string allSequence;
         private string eachSequence;
@@ -16,7 +16,7 @@ namespace NFugue.Theory
 
         public ChordProgression(string progression)
         {
-            Create(Regex.Split(progression, "[- ]")); // Split on either spaces or dashes // TODO Make ChordProgression parse on [- +]
+            Create(Regex.Split(progression, "[- ]")); // Split on either spaces or dashes
         }
 
         public ChordProgression(string[] progressionElements)
@@ -75,7 +75,7 @@ namespace NFugue.Theory
             {
                 Pattern p2 = new Pattern();
                 foreach (var chordString in pattern.ToString().Split(' '))
-                { // TODO Should be " +"
+                {
                     Chord chord = new Chord(chordString);
                     p2.Add(ReplacementFormatUtil.ReplaceDollarsWithCandidates(eachSequence, chord.GetNotes(), chord));
                 }

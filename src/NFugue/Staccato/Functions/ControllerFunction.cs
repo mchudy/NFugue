@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using NFugue.Midi;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using NFugue.Midi;
 
 namespace NFugue.Staccato.Functions
 {
@@ -30,7 +30,7 @@ namespace NFugue.Staccato.Functions
                     }
                     controllerNumber = (int)context.Dictionary[controllerId];
                 }
-                if (controllerNumber > int.MaxValue)
+                if (controllerNumber > sbyte.MaxValue)
                 {
                     context.Parser.OnControllerEventParsed(MidiTools.GetLSB(controllerNumber),
                         MidiTools.GetLSB(int.Parse(splittedParams[1].Trim())));

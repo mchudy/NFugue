@@ -3,13 +3,13 @@
     public class AltLayer
     {
         public string RhythmString { get; set; }
-        public IRhythmAltLayerProvider AltLayerProvider { get; set; }
+        public RhythmAltLayerProvider AltLayerProvider { get; set; }
         public int StartIndex { get; set; }
         public int EndIndex { get; set; }
         public int Recurrence { get; set; }
         public int ZOrder { get; set; }
 
-        public AltLayer(int startIndex, int endIndex, int recurrence, string rhythmString, IRhythmAltLayerProvider altLayerProvider, int zOrder)
+        public AltLayer(int startIndex, int endIndex, int recurrence, string rhythmString, RhythmAltLayerProvider altLayerProvider, int zOrder)
         {
             RhythmString = rhythmString;
             AltLayerProvider = altLayerProvider;
@@ -18,6 +18,17 @@
             Recurrence = recurrence;
             ZOrder = zOrder;
         }
+
+        /// <summary>
+        /// Provides Rhythm with an alternate layer based on the current segment. For example,
+        /// if you would like to return a new layer for every 5th segment, you might say:
+        ///     <code>if (segment % 5 == 0) return "S...O...S..oO..."</code>
+        /// If there is no alt layer to provide, it should return null. 
+        /// </summary>
+        /// <param name="segment">The index into rhythm's length</param>
+        /// <returns>A new alt layer, or null if no alt layer is to be provided</returns>
+        /// <seealso cref="Rhythm.Length"/>
+        public delegate string RhythmAltLayerProvider(int segment);
 
         /// <summary>
         /// Indicates whether this alt layer should be provided for the given segment
@@ -48,7 +59,7 @@
         {
             if (AltLayerProvider != null)
             {
-                return AltLayerProvider.ProvideAltLayer(segment);
+                return AltLayerProvider(segment);
             }
             return RhythmString;
         }

@@ -213,7 +213,7 @@ namespace NFugue.Rhythms
         /// alt layer to play, and when to play it.
         /// By default, this has a Z-Order of 4.
         /// </summary>
-        public Rhythm AddAltLayerProvider(int layer, IRhythmAltLayerProvider altLayerProvider)
+        public Rhythm AddAltLayerProvider(int layer, AltLayer.RhythmAltLayerProvider altLayerProvider)
         {
             return AddAltLayerProvider(layer, altLayerProvider, 4);
         }
@@ -222,7 +222,7 @@ namespace NFugue.Rhythms
         /// Gives a RhythmAltLayerProvider, which will make its own determination about what type of 
         /// alt layer to play, and when to play it.
         /// </summary>
-        public Rhythm AddAltLayerProvider(int layer, IRhythmAltLayerProvider altLayerProvider, int zOrder)
+        public Rhythm AddAltLayerProvider(int layer, AltLayer.RhythmAltLayerProvider altLayerProvider, int zOrder)
         {
             GetAltLayersForLayer(layer).Add(new AltLayer(0, Length, -1, null, altLayerProvider, zOrder));
             return this;

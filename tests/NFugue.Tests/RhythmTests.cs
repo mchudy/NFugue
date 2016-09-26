@@ -8,7 +8,7 @@ namespace NFugue.Tests
 {
     public class RhythmTests
     {
-        private Rhythm rhythm = new Rhythm();
+        private readonly Rhythm rhythm = new Rhythm();
 
         [Fact]
         public void Test_replacing_with_default_rhythm_kit()
@@ -100,9 +100,12 @@ namespace NFugue.Tests
             rhythm.GetRhythm().First().Should().Be("SoSo..SoSo..SoSoSoSo");
         }
 
-        private class AltLayerProvider : IRhythmAltLayerProvider
+        [Fact]
+        public void Test_rhythm_with_providing_alt_layer()
         {
-            public string ProvideAltLayer(int segment)
+            rhythm.AddLayer("So");
+            rhythm.Length = 10;
+            rhythm.AddAltLayerProvider(0, segment =>
             {
                 if (segment == 2 || segment == 5)
                 {
@@ -113,15 +116,7 @@ namespace NFugue.Tests
                     return "ZZ";
                 }
                 return null;
-            }
-        }
-
-        [Fact]
-        public void Test_rhythm_with_providing_alt_layer()
-        {
-            rhythm.AddLayer("So");
-            rhythm.Length = 10;
-            rhythm.AddAltLayerProvider(0, new AltLayerProvider());
+            });
 
             rhythm.GetRhythm().First().Should().Be("SoSoPPSoSoPPSoSoZZSo");
         }

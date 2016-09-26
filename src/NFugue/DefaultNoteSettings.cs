@@ -18,7 +18,7 @@ namespace NFugue
             {
                 if (value < Note.MinOctave || value > Note.MaxOctave)
                 {
-                    throw new ArgumentOutOfRangeException("Octave out of range");
+                    throw new ArgumentOutOfRangeException(nameof(DefaultOctave));
                 }
                 defaultOctave = value;
             }
@@ -31,7 +31,7 @@ namespace NFugue
             {
                 if (value < Note.MinOctave || value > Note.MaxOctave)
                 {
-                    throw new ArgumentOutOfRangeException("Octave out of range");
+                    throw new ArgumentOutOfRangeException(nameof(DefaultBassOctave));
                 }
                 defaultBassOctave = value;
             }
@@ -44,7 +44,7 @@ namespace NFugue
             {
                 if (value < MidiDefaults.MinOnVelocity || value > MidiDefaults.MaxOnVelocity)
                 {
-                    throw new ArgumentOutOfRangeException("On velocity out of range");
+                    throw new ArgumentOutOfRangeException(nameof(DefaultOnVelocity));
                 }
                 defaultOnVelocity = value;
             }
@@ -57,7 +57,7 @@ namespace NFugue
             {
                 if (value < MidiDefaults.MinOnVelocity || value > MidiDefaults.MaxOnVelocity)
                 {
-                    throw new ArgumentOutOfRangeException("Off velocity out of range");
+                    throw new ArgumentOutOfRangeException(nameof(DefaultOffVelocity));
                 }
                 defaultOffVelocity = value;
             }

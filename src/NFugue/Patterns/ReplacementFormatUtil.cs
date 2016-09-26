@@ -5,7 +5,6 @@ using System.Text;
 
 namespace NFugue.Patterns
 {
-    //TODO: make non-static?
     public static class ReplacementFormatUtil
     {
         /// <summary>

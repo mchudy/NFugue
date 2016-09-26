@@ -100,7 +100,6 @@
     <Compile Include="Providers\ChordProviderFactory.cs" />
     <Compile Include="Rhythms\AltLayer.cs" />
     <Compile Include="Rhythms\Rhythm.cs" />
-    <Compile Include="Rhythms\IRhythmAltLayerProvider.cs" />
     <Compile Include="Staccato\Instructions\ChoiceInstruction.cs" />
     <Compile Include="Staccato\Instructions\LastIsValueInstruction.cs" />
     <Compile Include="Staccato\Instructions\LastIsValueToSplitInstruction.cs" />
