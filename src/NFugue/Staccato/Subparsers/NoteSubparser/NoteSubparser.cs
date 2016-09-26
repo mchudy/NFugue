@@ -1,11 +1,11 @@
 ﻿using NFugue.Extensions;
 using NFugue.Midi;
+using NFugue.Parsing;
 using NFugue.Patterns;
 using NFugue.Providers;
 using NFugue.Theory;
 using System;
 using System.Linq;
-using NFugue.Parsing;
 
 namespace NFugue.Staccato.Subparsers.NoteSubparser
 {
@@ -110,7 +110,7 @@ namespace NFugue.Staccato.Subparsers.NoteSubparser
                 numCharsInNumber++;
             }
             string numericNoteString = music.Substring(index, numCharsInNumber);
-            noteContext.NoteNumber = sbyte.Parse(numericNoteString);
+            noteContext.NoteNumber = int.Parse(numericNoteString);
             noteContext.IsNumericNote = true;
             return index + numCharsInNumber;
         }
@@ -243,7 +243,7 @@ namespace NFugue.Staccato.Subparsers.NoteSubparser
                         // For '[', we're checking for a note number after the inversion marker
                         case '[':
                             int indexEndBracket = s.IndexOf(']', index);
-                            context.InversionBassNote = Note.GetToneString(sbyte.Parse(s.Substring(index + 1, indexEndBracket - 2 - index)));
+                            context.InversionBassNote = Note.GetToneString(int.Parse(s.Substring(index + 1, indexEndBracket - 2 - index)));
                             index = indexEndBracket + 1;
                             break;
                         default:
@@ -504,7 +504,7 @@ namespace NFugue.Staccato.Subparsers.NoteSubparser
                     return endPoint;
                 }
 
-                sbyte velocityNumber = sbyte.Parse(s.Substring(startPoint, endPoint - startPoint));
+                int velocityNumber = int.Parse(s.Substring(startPoint, endPoint - startPoint));
                 // Or maybe a bracketed string was passed in, instead of a byte
                 string velocityString = null;
                 if ((index + 1 < s.Length) && (s[index + 1] == '['))
@@ -573,7 +573,7 @@ namespace NFugue.Staccato.Subparsers.NoteSubparser
             {
                 if (parserContext.Key != null)
                 {
-                    int keySig = KeyProviderFactory.GetKeyProvider().ConvertKeyToByte(parserContext.Key);
+                    int keySig = KeyProviderFactory.GetKeyProvider().ConvertKeyToInt(parserContext.Key);
                     if ((keySig != 0) && (!noteContext.IsNatural))
                     {
                         if ((keySig <= -1) && (noteContext.NoteNumber == 11)) noteContext.NoteNumber = 10;
@@ -661,7 +661,7 @@ namespace NFugue.Staccato.Subparsers.NoteSubparser
                     intervalLength = 3;
                 }
                 context.InternalInterval = Intervals.GetHalfsteps(s.Substring(index + 1, intervalLength));
-                context.OriginalString = Note.GetToneStringWithoutOctave((sbyte)(context.NoteNumber + context.InternalInterval)) + (context.IsOctaveExplicitlySet ? context.OctaveNumber.ToString() : "");
+                context.OriginalString = Note.GetToneStringWithoutOctave((context.NoteNumber + context.InternalInterval)) + (context.IsOctaveExplicitlySet ? context.OctaveNumber.ToString() : "");
                 return index + intervalLength + 1;
             }
             return index;

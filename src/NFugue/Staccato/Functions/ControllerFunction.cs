@@ -30,7 +30,7 @@ namespace NFugue.Staccato.Functions
                     }
                     controllerNumber = (int)context.Dictionary[controllerId];
                 }
-                if (controllerNumber > sbyte.MaxValue)
+                if (controllerNumber > int.MaxValue)
                 {
                     context.Parser.OnControllerEventParsed(MidiTools.GetLSB(controllerNumber),
                         MidiTools.GetLSB(int.Parse(splittedParams[1].Trim())));
@@ -39,8 +39,8 @@ namespace NFugue.Staccato.Functions
                 }
                 else
                 {
-                    context.Parser.OnControllerEventParsed((sbyte)controllerNumber,
-                        sbyte.Parse(splittedParams[1].Trim()));
+                    context.Parser.OnControllerEventParsed(controllerNumber,
+                        int.Parse(splittedParams[1].Trim()));
                 }
             }
         }

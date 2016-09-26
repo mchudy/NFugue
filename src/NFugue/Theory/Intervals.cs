@@ -76,7 +76,7 @@ namespace NFugue.Theory
 
             foreach (var interval in intervals)
             {
-                Note note = new Note((sbyte)(Root.Value + GetHalfsteps(interval)));
+                Note note = new Note((Root.Value + GetHalfsteps(interval)));
                 candidateNotes[counter++] = note;
             }
             Pattern intervalNotes = new Pattern(candidateNotes);

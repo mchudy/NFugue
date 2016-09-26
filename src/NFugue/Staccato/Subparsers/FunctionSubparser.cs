@@ -54,7 +54,7 @@ namespace NFugue.Staccato.Subparsers
             return sb.ToString();
         }
 
-        public static string GenerateFunctionCall(string functionName, params sbyte[] vals)
+        public static string GenerateFunctionCall(string functionName, params int[] vals)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append(FunctionChar);
@@ -65,7 +65,7 @@ namespace NFugue.Staccato.Subparsers
             return sb.ToString();
         }
 
-        private static string GetStringForPossibleArray(params sbyte[] vals)
+        private static string GetStringForPossibleArray(params int[] vals)
         {
             if (vals.Length == 0)
             {

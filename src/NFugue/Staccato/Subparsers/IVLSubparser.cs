@@ -42,13 +42,13 @@ namespace NFugue.Staccato.Subparsers
         {
             if (!Matches(music)) return 0;
             int posNextSpace = music.FindNextOrEnd(' ');
-            sbyte value = -1;
+            int value = -1;
             if (posNextSpace > 1)
             {
                 string instrumentId = music.Substring(1, posNextSpace - 1);
                 if (Regex.IsMatch(instrumentId, @"\d+"))
                 {
-                    value = sbyte.Parse(instrumentId);
+                    value = int.Parse(instrumentId);
                 }
                 else
                 {
@@ -56,7 +56,7 @@ namespace NFugue.Staccato.Subparsers
                     {
                         instrumentId = instrumentId.Substring(1, instrumentId.Length - 2);
                     }
-                    value = (sbyte)((Instrument)context.Dictionary[instrumentId]);
+                    value = (int)((Instrument)context.Dictionary[instrumentId]);
                 }
             }
             switch (music[0])

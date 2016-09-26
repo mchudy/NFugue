@@ -12,10 +12,10 @@ namespace NFugue.Staccato.Functions
         public void Apply(string parameters, StaccatoParserContext context)
         {
             var splittedParams = parameters.Split(',');
-            var bytes = new sbyte[splittedParams.Length];
+            var bytes = new byte[splittedParams.Length];
             for (int i = 0; i < splittedParams.Length; i++)
             {
-                bytes[i] = sbyte.Parse(splittedParams[i].Trim());
+                bytes[i] = byte.Parse(splittedParams[i].Trim());
             }
             context.Parser.OnSystemExclusiveParsed(bytes);
         }

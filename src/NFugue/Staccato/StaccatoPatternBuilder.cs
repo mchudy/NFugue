@@ -1,14 +1,13 @@
 ﻿using NFugue.Parsing;
 using NFugue.Patterns;
 using NFugue.Staccato.Utils;
-using System.Linq;
 
 namespace NFugue.Staccato
 {
     public class StaccatoPatternBuilder
     {
         private readonly Parser parser;
-        private sbyte track;
+        private int track;
 
         public StaccatoPatternBuilder(Parser parser)
         {
@@ -44,7 +43,7 @@ namespace NFugue.Staccato
                 (s, e) => Pattern.Add(StaccatoElementsFactory.CreateChannelPressureElement(e.Pressure));
             parser.PolyphonicPressureParsed +=
                 (s, e) => Pattern.Add(StaccatoElementsFactory.CreatePolyphonicPressureElement(e.Key, e.Pressure));
-            parser.SystemExclusiveParsed += (s, e) => Pattern.Add(StaccatoElementsFactory.CreateSystemExclusiveElement(e.Bytes.ToArray()));
+            parser.SystemExclusiveParsed += (s, e) => Pattern.Add(StaccatoElementsFactory.CreateSystemExclusiveElement(e.Bytes));
             parser.ControllerEventParsed +=
                 (s, e) => Pattern.Add(StaccatoElementsFactory.CreateControllerEventElement(e.Controller, e.Value));
             parser.LyricParsed += (s, e) => Pattern.Add(StaccatoElementsFactory.CreateLyricElement(e.Lyric));

@@ -3,7 +3,6 @@ using NFugue.Patterns;
 using NFugue.Staccato;
 using Sanford.Multimedia.Midi;
 using System;
-using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -119,7 +118,7 @@ namespace NFugue.Playing
             Parser.ChannelPressureParsed += (s, e) => eventManager.AddEvent(ChannelCommand.ChannelPressure, e.Pressure);
             Parser.PolyphonicPressureParsed +=
                 (s, e) => eventManager.AddEvent(ChannelCommand.PolyPressure, e.Key, e.Pressure);
-            Parser.SystemExclusiveParsed += (s, e) => eventManager.AddSystemExclusiveEvent(e.Bytes.Cast<byte>().ToArray());
+            Parser.SystemExclusiveParsed += (s, e) => eventManager.AddSystemExclusiveEvent(e.Bytes);
             Parser.ControllerEventParsed +=
                 (s, e) => eventManager.AddEvent(ChannelCommand.Controller, e.Controller, e.Value);
             Parser.LyricParsed +=

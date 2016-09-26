@@ -10,7 +10,7 @@ namespace NFugue.Theory
 {
     public class Note : IEquatable<Note>, IPatternProducer
     {
-        private sbyte value;
+        private int value;
         private double duration;
 
         public Note()
@@ -44,14 +44,14 @@ namespace NFugue.Theory
 
         public Note(int value) : this()
         {
-            Value = (sbyte)value;
+            Value = value;
             IsOctaveExplicitlySet = false;
             duration = DefaultNoteSettings.DefaultDuration;
         }
 
         public Note(int value, double duration) : this()
         {
-            this.value = (sbyte)value;
+            this.value = value;
             Duration = duration;
         }
 
@@ -85,8 +85,8 @@ namespace NFugue.Theory
         }
 
 
-        public sbyte OnVelocity { get; set; }
-        public sbyte OffVelocity { get; set; }
+        public int OnVelocity { get; set; }
+        public int OffVelocity { get; set; }
 
         public bool IsRest { get; set; }
         public bool IsStartOfTie { get; set; }
@@ -102,11 +102,11 @@ namespace NFugue.Theory
 
         public string OriginalString { get; set; }
 
-        public sbyte Value
+        public int Value
         {
             get
             {
-                return IsRest ? (sbyte)0 : value;
+                return IsRest ? 0 : value;
             }
             set { this.value = value; }
         }
@@ -122,9 +122,9 @@ namespace NFugue.Theory
 
         public double MicrosecondDuration(double mpq) => duration * 4.0f * mpq;
 
-        public sbyte Octave => (sbyte)(IsRest ? 0 : (sbyte)(value / SemitonesInOctave));
+        public int Octave => (IsRest ? 0 : (value / SemitonesInOctave));
 
-        public sbyte PositionInOctave => (sbyte)(IsRest ? 0 : (sbyte)(Value % SemitonesInOctave));
+        public int PositionInOctave => (IsRest ? 0 : (Value % SemitonesInOctave));
 
         public string GetToneString()
         {
@@ -141,7 +141,7 @@ namespace NFugue.Theory
             return sb.ToString();
         }
 
-        public static string GetToneString(sbyte noteValue)
+        public static string GetToneString(int noteValue)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append(GetToneStringWithoutOctave(noteValue));
@@ -149,7 +149,7 @@ namespace NFugue.Theory
             return sb.ToString();
         }
 
-        public static string GetToneStringWithoutOctave(sbyte noteValue)
+        public static string GetToneStringWithoutOctave(int noteValue)
         {
             return NoteNamesCommon[noteValue % SemitonesInOctave];
         }
@@ -173,7 +173,7 @@ namespace NFugue.Theory
             return false;
         }
 
-        public static string DispositionedToneStringWithoutOctave(int dispose, sbyte noteValue)
+        public static string DispositionedToneStringWithoutOctave(int dispose, int noteValue)
         {
             if (dispose == -1)
             {
@@ -182,7 +182,7 @@ namespace NFugue.Theory
             return NoteNamesSharp[noteValue % SemitonesInOctave];
         }
 
-        public static string PercussionString(sbyte noteValue)
+        public static string PercussionString(int noteValue)
         {
             StringBuilder buddy = new StringBuilder();
             buddy.Append("[");
@@ -347,9 +347,9 @@ namespace NFugue.Theory
         public static readonly string[] NoteNamesSharp = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
         public static readonly string[] NoteNamesFlat = { "C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B" };
 
-        public static readonly sbyte SemitonesInOctave = 12;
-        public static readonly sbyte MinOctave = 0;
-        public static readonly sbyte MaxOctave = 10;
+        public static readonly int SemitonesInOctave = 12;
+        public static readonly int MinOctave = 0;
+        public static readonly int MaxOctave = 10;
 
         #region Equality members
 

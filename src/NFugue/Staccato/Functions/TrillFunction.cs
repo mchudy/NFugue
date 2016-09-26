@@ -37,7 +37,7 @@ namespace NFugue.Staccato.Functions
                         // is being played. In a C-Major scale with an E note, F would be the
                         // trill note, and that is only +1 from E. Also, the trill could become
                         // increasingly quick. 
-                        buddy.Append(Note.GetToneString((sbyte)(note.Value + 2)));
+                        buddy.Append(Note.GetToneString((note.Value + 2)));
                         buddy.Append("t ");
                     }
                 }

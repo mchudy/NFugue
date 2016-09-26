@@ -80,27 +80,27 @@ namespace NFugue.Parsing
             FunctionParsed?.Invoke(this, new FunctionParsedEventArgs { Id = functionName, Message = parameters });
         }
 
-        public void OnInstrumentParsed(sbyte value)
+        public void OnInstrumentParsed(int value)
         {
             InstrumentParsed?.Invoke(this, new InstrumentParsedEventArgs { Instrument = value });
         }
 
-        public void OnLayerChanged(sbyte value)
+        public void OnLayerChanged(int value)
         {
             LayerChanged?.Invoke(this, new LayerChangedEventArgs { Layer = value });
         }
 
-        public void OnTrackChanged(sbyte value)
+        public void OnTrackChanged(int value)
         {
             TrackChanged?.Invoke(this, new TrackChangedEventArgs { Track = value });
         }
 
-        public void OnKeySignatureParsed(sbyte key, sbyte scale)
+        public void OnKeySignatureParsed(int key, int scale)
         {
             KeySignatureParsed?.Invoke(this, new KeySignatureParsedEventArgs { Key = key, Scale = scale });
         }
 
-        public void OnTimeSignatureParsed(sbyte numerator, sbyte denominator)
+        public void OnTimeSignatureParsed(int numerator, int denominator)
         {
             TimeSignatureParsed?.Invoke(this, new TimeSignatureParsedEventArgs { Numerator = numerator, PowerOfTwo = denominator });
         }
@@ -115,27 +115,27 @@ namespace NFugue.Parsing
             NoteParsed?.Invoke(this, new NoteEventArgs { Note = note });
         }
 
-        public void OnChannelPressureParsed(sbyte pressure)
+        public void OnChannelPressureParsed(int pressure)
         {
             ChannelPressureParsed?.Invoke(this, new ChannelPressureParsedEventArgs { Pressure = pressure });
         }
 
-        public void OnControllerEventParsed(sbyte controller, sbyte value)
+        public void OnControllerEventParsed(int controller, int value)
         {
             ControllerEventParsed?.Invoke(this, new ControllerEventParsedEventArgs { Controller = controller, Value = value });
         }
 
-        public void OnPitchWheelParsed(sbyte lsb, sbyte msb)
+        public void OnPitchWheelParsed(int lsb, int msb)
         {
             PitchWheelParsed?.Invoke(this, new PitchWheelParsedEventArgs { LSB = lsb, MSB = msb });
         }
 
-        public void OnPolyphonicPressureParsed(sbyte key, sbyte pressure)
+        public void OnPolyphonicPressureParsed(int key, int pressure)
         {
             PolyphonicPressureParsed?.Invoke(this, new PolyphonicPressureParsedEventArgs { Key = key, Pressure = pressure });
         }
 
-        public void OnSystemExclusiveParsed(sbyte[] bytes)
+        public void OnSystemExclusiveParsed(byte[] bytes)
         {
             SystemExclusiveParsed?.Invoke(this, new SystemExclusiveParsedEventArgs { Bytes = bytes });
         }

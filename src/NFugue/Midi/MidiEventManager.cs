@@ -132,7 +132,7 @@ namespace NFugue.Midi
             InsertChannelMessages();
             MetaMessage message = new MetaMessage(MetaType.EndOfTrack, new byte[] { });
             double latestTick = ConvertBeatsToTicks(Enumerable.Range(0, tracks.Length)
-                .Select(i => GetLatestTrackBeatTime((sbyte)i))
+                .Select(i => GetLatestTrackBeatTime(i))
                 .Max());
             for (int i = 0; i < LastCreatedTrackNumber; i++)
             {
@@ -150,7 +150,7 @@ namespace NFugue.Midi
             CreateTrack(0);
         }
 
-        protected override void CreateTrack(sbyte track)
+        protected override void CreateTrack(int track)
         {
             base.CreateTrack(track);
             tracks[track] = new Track();

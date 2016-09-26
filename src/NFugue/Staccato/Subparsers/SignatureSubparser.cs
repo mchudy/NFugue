@@ -1,10 +1,10 @@
 ﻿using NFugue.Extensions;
+using NFugue.Parsing;
 using NFugue.Patterns;
 using NFugue.Providers;
 using NFugue.Theory;
 using System;
 using System.Text;
-using NFugue.Parsing;
 
 namespace NFugue.Staccato.Subparsers
 {
@@ -64,7 +64,7 @@ namespace NFugue.Staccato.Subparsers
                 int posNextSpace = music.FindNextOrEnd(' ');
                 Key key = CreateKey(music.Substring(KeySignatureString.Length, posNextSpace - KeySignatureString.Length));
                 context.Key = key;
-                context.Parser.OnKeySignatureParsed(key.Root.PositionInOctave, (sbyte)key.Scale.MajorOrMinorIndicator);
+                context.Parser.OnKeySignatureParsed(key.Root.PositionInOctave, key.Scale.MajorOrMinorIndicator);
                 return posNextSpace + 1;
             }
             if (MatchesTimeSignature(music))
@@ -77,8 +77,8 @@ namespace NFugue.Staccato.Subparsers
                 {
                     throw new ParserException(StaccatoMessages.NoTimeSignatureSeparator + timeString);
                 }
-                sbyte numerator = sbyte.Parse(timeString.Substring(0, posOfSlash));
-                sbyte denominator = sbyte.Parse(timeString.Substring(posOfSlash + 1, timeString.Length - posOfSlash - 1));
+                int numerator = int.Parse(timeString.Substring(0, posOfSlash));
+                int denominator = int.Parse(timeString.Substring(posOfSlash + 1, timeString.Length - posOfSlash - 1));
                 var timeSignature = new TimeSignature(numerator, denominator);
                 context.TimeSignature = timeSignature;
                 context.Parser.OnTimeSignatureParsed(numerator, denominator);
@@ -99,7 +99,7 @@ namespace NFugue.Staccato.Subparsers
             return new Key(ChordProviderFactory.GetChordProvider().CreateChord(keySignature));
         }
 
-        public string CreateKeyString(sbyte notePositionInOctave, sbyte scale)
+        public string CreateKeyString(int notePositionInOctave, int scale)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append(Note.NoteNamesCommon[notePositionInOctave]);
@@ -114,7 +114,7 @@ namespace NFugue.Staccato.Subparsers
             return sb.ToString();
         }
 
-        public sbyte ConvertAccidentalCountToKeyRootPositionInOctave(int accidentalCount, sbyte scale)
+        public int ConvertAccidentalCountToKeyRootPositionInOctave(int accidentalCount, int scale)
         {
             if (scale == Scale.MajorIndicator)
             {
@@ -123,18 +123,18 @@ namespace NFugue.Staccato.Subparsers
             return new NFugue.Theory.Note(MinorKeySignatures[KeySigMidpoint - accidentalCount]).PositionInOctave;
         }
 
-        public sbyte ConvertKeyToByte(Key key)
+        public int ConvertKeyToInt(Key key)
         {
             string noteName = Note.DispositionedToneStringWithoutOctave(key.Scale.Disposition, key.Root.Value);
             if (noteName == null)
             {
                 return 0;
             }
-            for (sbyte b = (sbyte)-KeySigMidpoint; b < KeySigMidpoint + 1; b++)
+            for (int b = -KeySigMidpoint; b < KeySigMidpoint + 1; b++)
             {
                 if (Note.IsSameNote(noteName, key.Scale.Equals(Scale.Major) ? MajorKeySignatures[KeySigMidpoint + b] : MinorAbbreviation[KeySigMidpoint + b].ToString()))
                 {
-                    return (sbyte)(b * key.Scale.Disposition);
+                    return (b * key.Scale.Disposition);
                 }
             }
             return 0;
@@ -145,9 +145,9 @@ namespace NFugue.Staccato.Subparsers
             return new Key(MajorKeySignatures[KeySigMidpoint + CountAccidentals(keySignature)] + MajorAbbreviation);
         }
 
-        private static sbyte CountAccidentals(string keySignatureAsFlatsOrSharps)
+        private static int CountAccidentals(string keySignatureAsFlatsOrSharps)
         {
-            sbyte keySig = 0;
+            int keySig = 0;
             foreach (char ch in keySignatureAsFlatsOrSharps.ToUpper())
             {
                 if (ch == FlatChar) keySig--;

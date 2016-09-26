@@ -1,5 +1,5 @@
-using System;
 using NFugue.Theory;
+using System;
 
 namespace NFugue.Staccato.Subparsers.NoteSubparser
 {
@@ -27,8 +27,8 @@ namespace NFugue.Staccato.Subparsers.NoteSubparser
         public bool IsEndOfTie { get; set; }
         public bool IsStartOfTie { get; set; }
         public int MostRecentDuration { get; set; }
-        public sbyte NoteOnVelocity { get; set; }
-        public sbyte NoteOffVelocity { get; set; }
+        public int NoteOnVelocity { get; set; }
+        public int NoteOffVelocity { get; set; }
         public bool HasNoteOnVelocity { get; set; }
         public bool HasNoteOffVelocity { get; set; }
         public string NoteOffVelocityValueAsString { get; set; }
@@ -115,7 +115,7 @@ namespace NFugue.Staccato.Subparsers.NoteSubparser
             {
                 if (NoteOnVelocityValueAsString != null)
                 {
-                    NoteOnVelocity = (sbyte)parserContext.Dictionary[NoteOnVelocityValueAsString];
+                    NoteOnVelocity = (int)parserContext.Dictionary[NoteOnVelocityValueAsString];
                 }
                 note.OnVelocity = NoteOnVelocity;
             }
@@ -123,7 +123,7 @@ namespace NFugue.Staccato.Subparsers.NoteSubparser
             {
                 if (NoteOffVelocityValueAsString != null)
                 {
-                    NoteOffVelocity = (sbyte)parserContext.Dictionary[NoteOffVelocityValueAsString];
+                    NoteOffVelocity = (int)parserContext.Dictionary[NoteOffVelocityValueAsString];
                 }
                 note.OffVelocity = NoteOffVelocity;
             }

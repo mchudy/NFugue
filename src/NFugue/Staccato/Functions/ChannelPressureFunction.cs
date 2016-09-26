@@ -14,7 +14,7 @@ namespace NFugue.Staccato.Functions
             var splittedParams = parameters.Split(',');
             if (splittedParams.Length == 1)
             {
-                context.Parser.OnChannelPressureParsed(sbyte.Parse(splittedParams[0].Trim()));
+                context.Parser.OnChannelPressureParsed(int.Parse(splittedParams[0].Trim()));
             }
         }
     }

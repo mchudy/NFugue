@@ -30,13 +30,13 @@ namespace NFugue.Staccato.Utils
             return TempoSubparser.TempoChar.ToString() + bpm;
         }
 
-        public static string CreateKeySignatureElement(sbyte notePositionInOctave, sbyte scale)
+        public static string CreateKeySignatureElement(int notePositionInOctave, int scale)
         {
             return SignatureSubparser.KeySignatureString +
                    KeyProviderFactory.GetKeyProvider().CreateKeyString(notePositionInOctave, scale);
         }
 
-        public static string CreateTimeSignatureElement(sbyte numerator, sbyte powerOfTwo)
+        public static string CreateTimeSignatureElement(int numerator, int powerOfTwo)
         {
             return SignatureSubparser.TimeSignatureString + numerator + SignatureSubparser.SeparatorString +
                    (int)Math.Pow(2, powerOfTwo);
@@ -60,27 +60,27 @@ namespace NFugue.Staccato.Utils
             return char.ToString(BeatTimeSubparser.BeatTimeChar) + time;
         }
 
-        public static string CreatePitchWheelElement(sbyte lsb, sbyte msb)
+        public static string CreatePitchWheelElement(int lsb, int msb)
         {
             return FunctionSubparser.GenerateFunctionCall(new PitchWheelFunction().GetNames().FirstOrDefault(), lsb, msb);
         }
 
-        public static string CreateChannelPressureElement(sbyte pressure)
+        public static string CreateChannelPressureElement(int pressure)
         {
             return FunctionSubparser.GenerateFunctionCall(new ChannelPressureFunction().GetNames().FirstOrDefault(), pressure);
         }
 
-        public static string CreatePolyphonicPressureElement(sbyte key, sbyte pressure)
+        public static string CreatePolyphonicPressureElement(int key, int pressure)
         {
             return FunctionSubparser.GenerateFunctionCall(new PolyPressureFunction().GetNames().FirstOrDefault(), key, pressure);
         }
 
-        public static string CreateSystemExclusiveElement(params sbyte[] bytes)
+        public static string CreateSystemExclusiveElement(params byte[] bytes)
         {
             return FunctionSubparser.GenerateFunctionCall(new SysexFunction().GetNames().FirstOrDefault(), bytes);
         }
 
-        public static string CreateControllerEventElement(sbyte controller, sbyte value)
+        public static string CreateControllerEventElement(int controller, int value)
         {
             return FunctionSubparser.GenerateFunctionCall(new ControllerFunction().GetNames().FirstOrDefault(), controller, value);
         }
@@ -105,7 +105,7 @@ namespace NFugue.Staccato.Utils
             return note.GetPattern().ToString();
         }
 
-        public static string CreateNoteElement(Note note, sbyte track)
+        public static string CreateNoteElement(Note note, int track)
         {
             return (track == MidiDefaults.PercussionTrack) ? note.GetPercussionPattern().ToString() : CreateNoteElement(note);
         }

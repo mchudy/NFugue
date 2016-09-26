@@ -5,14 +5,14 @@ namespace NFugue.Midi
     public class TrackTimeManager
     {
         private readonly IDictionary<string, double> bookmarkedTrackTimeMap = new Dictionary<string, double>();
-        private readonly sbyte[] currentLayerNumber = new sbyte[MidiDefaults.Tracks];
-        private sbyte currentTrackNumber = 0;
+        private readonly int[] currentLayerNumber = new int[MidiDefaults.Tracks];
+        private int currentTrackNumber = 0;
 
         public double[,] BeatTime { get; set; } = new double[MidiDefaults.Tracks, MidiDefaults.Layers];
-        public sbyte LastCreatedTrackNumber { get; private set; } = 0;
+        public int LastCreatedTrackNumber { get; private set; } = 0;
         public double InitialNoteBeatTimeForHarmonicNotes { get; set; } = 0.0;
 
-        public sbyte CurrentTrackNumber
+        public int CurrentTrackNumber
         {
             get { return currentTrackNumber; }
             set
@@ -21,7 +21,7 @@ namespace NFugue.Midi
                 {
                     for (int i = LastCreatedTrackNumber + 1; i < value; i++)
                     {
-                        CreateTrack((sbyte)i);
+                        CreateTrack(i);
                     }
                     LastCreatedTrackNumber = value;
                 }
@@ -29,7 +29,7 @@ namespace NFugue.Midi
             }
         }
 
-        public sbyte CurrentLayerNumber
+        public int CurrentLayerNumber
         {
             get { return currentLayerNumber[currentTrackNumber]; }
             set { currentLayerNumber[currentTrackNumber] = value; }
@@ -70,7 +70,7 @@ namespace NFugue.Midi
             return bookmarkedTrackTimeMap[timeBookmarkId];
         }
 
-        public double GetLatestTrackBeatTime(sbyte trackNumber)
+        public double GetLatestTrackBeatTime(int trackNumber)
         {
             double latestTime = 0.0;
             for (int i = 0; i < MidiDefaults.Layers; i++)
@@ -83,7 +83,7 @@ namespace NFugue.Midi
             return latestTime;
         }
 
-        protected virtual void CreateTrack(sbyte track)
+        protected virtual void CreateTrack(int track)
         {
             for (int layer = 0; layer < MidiDefaults.Layers; layer++)
             {

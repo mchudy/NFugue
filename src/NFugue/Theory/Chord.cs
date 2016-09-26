@@ -302,7 +302,7 @@ namespace NFugue.Theory
 
         public Chord SetOctave(int octave)
         {
-            Root.Value = (sbyte)(Root.PositionInOctave + octave * 12);
+            Root.Value = (Root.PositionInOctave + octave * 12);
             return this;
         }
 
@@ -318,7 +318,7 @@ namespace NFugue.Theory
                 retVal[i + 1].UseSameExplicitOctaveSettingAs(Root);
                 if (!Root.IsOctaveExplicitlySet)
                 {
-                    retVal[i + 1].OriginalString = (Note.GetToneStringWithoutOctave((sbyte)(retVal[i].Value + halfsteps[i + 1] - halfsteps[i])));
+                    retVal[i + 1].OriginalString = (Note.GetToneStringWithoutOctave((retVal[i].Value + halfsteps[i + 1] - halfsteps[i])));
                 }
             }
 
@@ -327,7 +327,7 @@ namespace NFugue.Theory
             {
                 if (i < retVal.Length)
                 {
-                    retVal[i].Value = ((sbyte)(retVal[i].Value + OCTAVE));
+                    retVal[i].Value = ((retVal[i].Value + OCTAVE));
                 }
             }
 
@@ -421,7 +421,7 @@ namespace NFugue.Theory
         public static readonly Intervals DIMINISHED_SEVENTH_INTERVALS = new Intervals("1 b3 b5 6");
         public static readonly Intervals MAJOR_SEVENTH_SIXTH_INTERVALS = new Intervals("1 3 5 6 7");
         public static readonly Intervals MINOR_SEVENTH_SIXTH_INTERVALS = new Intervals("1 3 5 6 7");
-        public static readonly sbyte OCTAVE = 12;
+        public static readonly int OCTAVE = 12;
 
         #region Equality members
         protected bool Equals(Chord other)

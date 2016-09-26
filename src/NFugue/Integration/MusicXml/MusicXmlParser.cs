@@ -25,7 +25,7 @@ namespace NFugue.Integration.MusicXml
         private KeySignature keySignature = new KeySignature(0, Scale.MajorIndicator);
 
         // next available voice # for a new voice
-        private byte nextVoice;
+        private int nextVoice;
         private readonly VoiceDefinition[] voices = new VoiceDefinition[32];
         private PartContext currentPart;
 
@@ -91,7 +91,7 @@ namespace NFugue.Integration.MusicXml
                 if (!keySignature.Equals(ks))
                 {
                     keySignature = ks;
-                    OnKeySignatureParsed((sbyte)keySignature.Key, (sbyte)keySignature.Scale);
+                    OnKeySignatureParsed(keySignature.Key, keySignature.Scale);
                 }
 
                 int newDivisionsPerBeat;
@@ -126,7 +126,7 @@ namespace NFugue.Integration.MusicXml
                         string value = sound.Attribute("dynamics")?.Value;
                         if (value != null)
                         {
-                            currentPart.CurrentVolume = byte.Parse(value);
+                            currentPart.CurrentVolume = int.Parse(value);
                         }
                         value = sound.Attribute("tempo")?.Value;
                         if (value != null)
@@ -160,8 +160,8 @@ namespace NFugue.Integration.MusicXml
             bool isRest = false;
             bool isStartOfTie = false;
             bool isEndOfTie = false;
-            byte noteNumber = 0;
-            byte octaveNumber = 0;
+            int noteNumber = 0;
+            int octaveNumber = 0;
             double decimalDuration;
 
             // skip grace notes
@@ -177,8 +177,8 @@ namespace NFugue.Integration.MusicXml
                 if ((int.Parse(voice.Value) - 1) != currentLayer)
                 {
                     currentLayer = byte.Parse(voice.Value);
-                    currentLayer = (byte)(currentLayer - 1);
-                    OnLayerChanged((sbyte)currentLayer);
+                    currentLayer = currentLayer - 1;
+                    OnLayerChanged(currentLayer);
                 }
             }
 
@@ -217,8 +217,8 @@ namespace NFugue.Integration.MusicXml
                     var display_octave = element.Element("display-octave");
                     if (display_octave != null)
                     {
-                        byte octave_byte = byte.Parse(display_octave.Value);
-                        noteNumber += (byte)(octave_byte * 12);
+                        int octave_byte = int.Parse(display_octave.Value);
+                        noteNumber += (octave_byte * 12);
                     }
                 }
                 else if (tagName == "pitch")
@@ -228,7 +228,7 @@ namespace NFugue.Integration.MusicXml
                     var alter = element.Element("alter");
                     if (alter != null)
                     {
-                        noteNumber += (byte)int.Parse(alter.Value);
+                        noteNumber += int.Parse(alter.Value);
                         if (noteNumber > 11)
                         {
                             noteNumber = 0;
@@ -239,7 +239,7 @@ namespace NFugue.Integration.MusicXml
                         }
                     }
 
-                    byte.TryParse(element.Element("octave").Value, out octaveNumber);
+                    int.TryParse(element.Element("octave").Value, out octaveNumber);
 
                     // Compute the actual note number, based on octave and note
                     int intNoteNumber = ((octaveNumber) * 12) + noteNumber;
@@ -247,7 +247,7 @@ namespace NFugue.Integration.MusicXml
                     {
                         throw new ApplicationException("Note value " + intNoteNumber + " is larger than 127");
                     }
-                    noteNumber = (byte)intNoteNumber;
+                    noteNumber = intNoteNumber;
                 }
                 else if (tagName == "rest")
                 {
@@ -291,12 +291,12 @@ namespace NFugue.Integration.MusicXml
             }
             else
             {
-                newNote.Value = (sbyte)noteNumber;
+                newNote.Value = noteNumber;
                 newNote.Duration = decimalDuration;
                 newNote.IsStartOfTie = isStartOfTie;
                 newNote.IsEndOfTie = isEndOfTie;
-                newNote.OnVelocity = (sbyte)attackVelocity;
-                newNote.OffVelocity = (sbyte)decayVelocity;
+                newNote.OnVelocity = attackVelocity;
+                newNote.OffVelocity = decayVelocity;
             }
 
             OnNoteParsed(newNote);
@@ -426,11 +426,11 @@ namespace NFugue.Integration.MusicXml
                 string mode = eMode.Value;
                 if (mode.Equals("major", StringComparison.OrdinalIgnoreCase))
                 {
-                    scale = (sbyte)Scale.MajorIndicator;
+                    scale = Scale.MajorIndicator;
                 }
                 else if (mode.Equals("minor", StringComparison.OrdinalIgnoreCase))
                 {
-                    scale = (sbyte)Scale.MinorIndicator;
+                    scale = Scale.MinorIndicator;
                 }
                 else
                 {
@@ -439,11 +439,11 @@ namespace NFugue.Integration.MusicXml
             }
             else
             {
-                scale = (sbyte)Scale.MajorIndicator;
+                scale = Scale.MajorIndicator;
             }
             if (int.TryParse(attr.Element("fifths")?.Value, out key))
             {
-                key = KeyProviderFactory.GetKeyProvider().ConvertAccidentalCountToKeyRootPositionInOctave(-key, (sbyte)scale);
+                key = KeyProviderFactory.GetKeyProvider().ConvertAccidentalCountToKeyRootPositionInOctave(-key, scale);
             }
             return new KeySignature(key, scale);
         }
@@ -453,7 +453,7 @@ namespace NFugue.Integration.MusicXml
             currentPart = partHeaders[partString];
             if (currentPart.Voice >= 0)
             {
-                OnTrackChanged((sbyte)currentPart.Voice);
+                OnTrackChanged(currentPart.Voice);
             }
             else
             {
@@ -474,7 +474,7 @@ namespace NFugue.Integration.MusicXml
                     ParseInstrumentAndFireChange(currentPart.Instruments[0]);
                 }
                 currentLayer = 0;
-                OnLayerChanged((sbyte)currentLayer);
+                OnLayerChanged(currentLayer);
             }
         }
 
@@ -482,7 +482,7 @@ namespace NFugue.Integration.MusicXml
         {
             if (instrument.Program >= 0)
             {
-                OnInstrumentParsed((sbyte)instrument.Program);
+                OnInstrumentParsed(instrument.Program);
             }
             else if (instrument.Name != null)
             {
@@ -496,12 +496,12 @@ namespace NFugue.Integration.MusicXml
 
         private void ParseInstrumentNameAndFireChange(string name)
         {
-            sbyte instrumentNumber;
-            if (!sbyte.TryParse(name, out instrumentNumber))
+            int instrumentNumber;
+            if (!int.TryParse(name, out instrumentNumber))
             {
                 // otherwise map the midi_name to its byte code
                 int? value = (int?)name.GetEnumValueFromDescription<Instrument>();
-                instrumentNumber = (sbyte)((value == null) ? -1 : (sbyte)value);
+                instrumentNumber = value ?? -1;
             }
             if (instrumentNumber > -1)
             {
@@ -515,14 +515,14 @@ namespace NFugue.Integration.MusicXml
             // This needs to be reworked as it probably should be stored in PartContext.
             if (voice == 10)
             {
-                OnTrackChanged((sbyte)voice);
+                OnTrackChanged(voice);
             }
             else
             {
                 // scroll through voiceDef objects looking for this particular
                 // combination of p v
                 // XML part ID's are 1-based, JFugue voice numbers are 0-based
-                sbyte voiceNumber = -1;
+                int voiceNumber = -1;
 
                 for (byte x = 0; x < this.nextVoice; ++x)
                 {
@@ -530,14 +530,14 @@ namespace NFugue.Integration.MusicXml
                     // objects match a part index to a voice index.
                     if (part == voices[x].Part && voice == voices[x].Voice)
                     {
-                        voiceNumber = (sbyte)x;
+                        voiceNumber = x;
                         break;
                     }
                 }
                 // if Voice not found, add a new voiceDef to the array
                 if (voiceNumber == -1)
                 {
-                    voiceNumber = (sbyte)nextVoice;
+                    voiceNumber = nextVoice;
                     voices[voiceNumber] = new VoiceDefinition(part, voice);
                     ++nextVoice;
                 }

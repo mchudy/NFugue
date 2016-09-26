@@ -30,11 +30,11 @@ namespace NFugue.Staccato.Functions
 
                 if (key.Equals(Octave, StringComparison.OrdinalIgnoreCase))
                 {
-                    DefaultNoteSettings.DefaultOctave = sbyte.Parse(value);
+                    DefaultNoteSettings.DefaultOctave = int.Parse(value);
                 }
                 else if (key.Equals(BaseOctave, StringComparison.OrdinalIgnoreCase))
                 {
-                    DefaultNoteSettings.DefaultBassOctave = sbyte.Parse(value);
+                    DefaultNoteSettings.DefaultBassOctave = int.Parse(value);
                 }
                 else if (key.Equals(Duration, StringComparison.OrdinalIgnoreCase))
                 {
@@ -50,11 +50,11 @@ namespace NFugue.Staccato.Functions
                 }
                 else if (key.Equals(Attack, StringComparison.OrdinalIgnoreCase))
                 {
-                    DefaultNoteSettings.DefaultOnVelocity = sbyte.Parse(value);
+                    DefaultNoteSettings.DefaultOnVelocity = int.Parse(value);
                 }
                 else if (key.Equals(Decay, StringComparison.OrdinalIgnoreCase))
                 {
-                    DefaultNoteSettings.DefaultOffVelocity = sbyte.Parse(value);
+                    DefaultNoteSettings.DefaultOffVelocity = int.Parse(value);
                 }
                 else
                 {

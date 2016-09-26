@@ -7,15 +7,15 @@
     /// </summary>
     public class ElementWithTrack
     {
-        public ElementWithTrack(sbyte track, sbyte layer, string element)
+        public ElementWithTrack(int track, int layer, string element)
         {
             Track = track;
             Layer = layer;
             Element = element;
         }
 
-        public sbyte Track { get; }
-        public sbyte Layer { get; }
+        public int Track { get; }
+        public int Layer { get; }
         public string Element { get; }
     }
 }

@@ -1,17 +1,17 @@
-﻿using NFugue.Theory;
+﻿using NFugue.Midi;
+using NFugue.Theory;
 using System;
-using NFugue.Midi;
 
 namespace NFugue
 {
     public static class DefaultNoteSettings
     {
-        private static sbyte defaultOctave = 5;
-        private static sbyte defaultBassOctave = 4;
-        private static sbyte defaultOnVelocity = MidiDefaults.DefaultOnVelocity;
-        private static sbyte defaultOffVelocity;
+        private static int defaultOctave = 5;
+        private static int defaultBassOctave = 4;
+        private static int defaultOnVelocity = MidiDefaults.DefaultOnVelocity;
+        private static int defaultOffVelocity;
 
-        public static sbyte DefaultOctave
+        public static int DefaultOctave
         {
             get { return defaultOctave; }
             set
@@ -24,7 +24,7 @@ namespace NFugue
             }
         }
 
-        public static sbyte DefaultBassOctave
+        public static int DefaultBassOctave
         {
             get { return defaultBassOctave; }
             set
@@ -37,7 +37,7 @@ namespace NFugue
             }
         }
 
-        public static sbyte DefaultOnVelocity
+        public static int DefaultOnVelocity
         {
             get { return defaultOnVelocity; }
             set
@@ -50,7 +50,7 @@ namespace NFugue
             }
         }
 
-        public static sbyte DefaultOffVelocity
+        public static int DefaultOffVelocity
         {
             get { return defaultOffVelocity; }
             set
