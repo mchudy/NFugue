@@ -24,9 +24,8 @@ cache:
 
 deploy:
   provider: NuGet
-  server: https://www.myget.org/F/nfugue/api/v2/package
   api_key:
-    secure: 2gpeKZzqgpyD+Qncx3QJDQSDGg/8yF8otze+AnlOuukzSkd9GO9lpM2Uuhpqkcyg
+    secure: Kpo2YYLP/rdpADh2H4iFiL5KVciwSu8j5znuL47rK8XrnycbNxln0f92Bw5x2tBC
   on:
     branch: master
-    #appveyor_repo_tag: true
+    appveyor_repo_tag: true
