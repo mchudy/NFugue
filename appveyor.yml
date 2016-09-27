@@ -2,11 +2,31 @@
 
 configuration: Release
 
+environment:
+  packageVersion: 1.0.0
+
+assembly_info:
+  patch: true
+  file: '**\AssemblyInfo.*'
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '$(packageVersion)'
+
 before_build:
   - nuget restore
 
 build:
   verbosity: minimal
+  publish_nuget: true
 
 cache:
   - packages -> **\packages.config 
+
+deploy:
+  provider: NuGet
+  server: https://www.myget.org/F/nfugue/api/v2/package
+  api_key:
+    secure: 2gpeKZzqgpyD+Qncx3QJDQSDGg/8yF8otze+AnlOuukzSkd9GO9lpM2Uuhpqkcyg
+  on:
+    branch: master
+    #appveyor_repo_tag: true
