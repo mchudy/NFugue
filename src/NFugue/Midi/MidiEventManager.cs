@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace NFugue.Midi
 {
+    /// <summary>
+    /// Places musical data into the a MIDI sequence
+    /// </summary>
     public class MidiEventManager : TrackTimeManager
     {
         private readonly Track[] tracks = new Track[MidiDefaults.Tracks];
@@ -13,11 +16,23 @@ namespace NFugue.Midi
         public float DivisionType { get; set; } = MidiDefaults.DefaultDivisionType;
         public int ResolutionTicksPerBeat { get; set; } = MidiDefaults.DefaultResolutionTicksPerBeat;
         public byte MetronomePulse { get; set; } = (byte)MidiDefaults.DefaultMetronomePulse;
+
+        /// <summary>
+        /// Returns the current sequence, which is a collection of tracks
+        /// </summary>
+        /// <remarks>
+        /// If your goal is to add events to the sequence, you don't want to use this method to
+        /// get the sequence; instead, use the AddEvent methods to add your events.
+        /// </remarks>
         public Sequence Sequence { get; private set; }
 
         public byte ThirtySecondNotesPerQuarterNote { get; set; } =
             (byte)MidiDefaults.DefaultThirtysecondNotesPer24MidiClockSignals;
 
+        /// <summary>
+        /// Returns the track indicated by <code>CurrentTrackNumber</code> and creates
+        /// it if it does not already exist.
+        /// </summary>
         public Track CurrentTrack
         {
             get
@@ -31,6 +46,11 @@ namespace NFugue.Midi
             }
         }
 
+        /// <summary>
+        /// Adds a MIDI event to the current track
+        /// </summary>
+        /// <param name="command">MIDI command represented by the message</param>
+        /// <param name="data">The first data byte</param>
         public void AddEvent(ChannelCommand command, int data)
         {
             var shortMessageBuilder = new ChannelMessageBuilder
@@ -43,6 +63,12 @@ namespace NFugue.Midi
             QueueMessage(shortMessageBuilder.Result);
         }
 
+        /// <summary>
+        /// Adds a MIDI event to the current track
+        /// </summary>
+        /// <param name="command">MIDI command represented by the message</param>
+        /// <param name="data1">The first data byte</param>
+        /// <param name="data2">The second data byte</param>
         public void AddEvent(ChannelCommand command, int data1, int data2)
         {
             var shortMessageBuilder = new ChannelMessageBuilder
@@ -56,18 +82,31 @@ namespace NFugue.Midi
             QueueMessage(shortMessageBuilder.Result);
         }
 
+        /// <summary>
+        /// Adds a MetaMessage to the current track
+        /// </summary>
+        /// <param name="type">Type of the message</param>
+        /// <param name="bytes">Message data</param>
         public void AddMetaMessage(MetaType type, byte[] bytes)
         {
             MetaMessage message = new MetaMessage(type, bytes);
             QueueMessage(message);
         }
 
+        /// <summary>
+        /// Adds a SysexMessage to the current track
+        /// </summary>
+        /// <param name="bytes">Message data</param>
         public void AddSystemExclusiveEvent(byte[] bytes)
         {
             var message = new SysExMessage(bytes);
             QueueMessage(message);
         }
 
+        /// <summary>
+        /// Adds a MIDI message which sets the tempo
+        /// </summary>
+        /// <param name="tempoBPM">Tempo in BPM</param>
         public void SetTempo(int tempoBPM)
         {
             TempoChangeBuilder builder = new TempoChangeBuilder
@@ -78,6 +117,11 @@ namespace NFugue.Midi
             QueueMessage(builder.Result);
         }
 
+        /// <summary>
+        /// Adds a MIDI message which sets the time signature
+        /// </summary>
+        /// <param name="numerator"></param>
+        /// <param name="denominator"></param>
         public void SetTimeSignature(byte numerator, byte denominator)
         {
             TimeSignatureBuilder builder = new TimeSignatureBuilder
@@ -91,6 +135,10 @@ namespace NFugue.Midi
             QueueMessage(builder.Result);
         }
 
+        /// <summary>
+        /// Adds MIDI messages representing the given note (NoteOn and NoteOff)
+        /// </summary>
+        /// <param name="note"></param>
         public void AddNote(Note note)
         {
             if (note.Duration == 0.0)
@@ -121,12 +169,21 @@ namespace NFugue.Midi
             }
         }
 
+        /// <summary>
+        /// Adds a MIDI messages which sets the key signature
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="scale"></param>
         public void SetKeySignature(byte key, byte scale)
         {
             MetaMessage message = new MetaMessage(MetaType.KeySignature, new[] { key, scale });
             QueueMessage(message);
         }
 
+        /// <summary>
+        /// Finishes the sequence by adding an End of Track meta message (0x2F)
+        /// that has been used in this sequence.
+        /// </summary>
         public void FinishSequence()
         {
             InsertChannelMessages();
@@ -143,6 +200,9 @@ namespace NFugue.Midi
             }
         }
 
+        /// <summary>
+        /// Clears all the tracks and messages
+        /// </summary>
         public void Reset()
         {
             messagesToInsert.Clear();
@@ -150,21 +210,16 @@ namespace NFugue.Midi
             CreateTrack(0);
         }
 
-        protected override void CreateTrack(int track)
-        {
-            base.CreateTrack(track);
-            tracks[track] = new Track();
-            Sequence.Add(tracks[track]);
-        }
-
         private int ConvertBeatsToTicks(double beats)
         {
             return (int)(ResolutionTicksPerBeat * beats * MidiDefaults.DefaultTempoBeatsPerWhole);
         }
 
-        // This kind of lazy track creation is necessary because we need to make sure that all NoteOff events
-        // will be inserted before all NoteOn events at the same position (Track.Insert inserts at the first
-        // available position in the list).
+        /*
+         * This kind of lazy track creation is necessary because we need to make sure that all NoteOff events
+         * will be inserted before all NoteOn events at the same position (Track.Insert inserts at the first
+         * available position in the list). 
+        */
         private void QueueMessage(IMidiMessage message)
         {
             messagesToInsert.Add(new MessageToInsert(ConvertBeatsToTicks(TrackBeatTime),
@@ -177,6 +232,13 @@ namespace NFugue.Midi
             {
                 msg.Track.Insert(msg.Position, msg.Message);
             }
+        }
+
+        protected override void CreateTrack(int track)
+        {
+            base.CreateTrack(track);
+            tracks[track] = new Track();
+            Sequence.Add(tracks[track]);
         }
 
         private class MessageToInsert

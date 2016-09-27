@@ -661,7 +661,7 @@ namespace NFugue.Staccato.Subparsers.NoteSubparser
                     intervalLength = 3;
                 }
                 context.InternalInterval = Intervals.GetHalfsteps(s.Substring(index + 1, intervalLength));
-                context.OriginalString = Note.GetToneStringWithoutOctave((context.NoteNumber + context.InternalInterval)) + (context.IsOctaveExplicitlySet ? context.OctaveNumber.ToString() : "");
+                context.OriginalString = Note.ToneStringWithoutOctave((context.NoteNumber + context.InternalInterval)) + (context.IsOctaveExplicitlySet ? context.OctaveNumber.ToString() : "");
                 return index + intervalLength + 1;
             }
             return index;

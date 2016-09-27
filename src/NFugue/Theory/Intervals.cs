@@ -106,7 +106,6 @@ namespace NFugue.Theory
             return noteList;
         }
 
-        //TODO: indexer?
         public string GetNthInterval(int n)
         {
             return intervalPattern.Split(' ')[n];
@@ -158,6 +157,15 @@ namespace NFugue.Theory
             return 0;
         }
 
+        /// <summary>
+        /// Rotates an interval string by the given value.
+        /// </summary> 
+        /// <example>
+        /// For example, with an Interval like "1 3 5" and rotate(1),
+        /// this would return "3 5 1" (not "5 1 3").
+        /// </example>
+        /// <param name="n">The rotation shift</param>
+        /// <returns>Rotated intervals</returns>
         public Intervals Rotate(int n)
         {
             string[] intervals = intervalPattern.Split(' ');

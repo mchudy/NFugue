@@ -12,6 +12,9 @@ using System.Xml.Linq;
 
 namespace NFugue.Integration.MusicXml
 {
+    /// <summary>
+    /// Parses a MusicXML file, and fires appropriate <see cref="Parser"/> events
+    /// </summary>
     public class MusicXmlParser : Parser
     {
         private XDocument document;

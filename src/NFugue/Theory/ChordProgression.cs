@@ -14,11 +14,21 @@ namespace NFugue.Theory
 
         private ChordProgression() { }
 
+        /// <summary>
+        /// Creates a chord progression given a Progression String, like "I vi ii V" - case is important!
+        /// Chords can be separated with spaces("I vi ii V") or dashes("I-vi-ii-V").
+        /// </summary>
+        /// <param name="progression"></param>
         public ChordProgression(string progression)
         {
             Create(Regex.Split(progression, "[- ]")); // Split on either spaces or dashes
         }
 
+        /// <summary>
+        /// Creates a chord progression given an array of Progression Strings, 
+        /// like { "I", "vi", "ii", "V" } - case is important!
+        /// </summary>
+        /// <param name="progressionElements"></param>
         public ChordProgression(string[] progressionElements)
         {
             Create(progressionElements);
@@ -85,6 +95,10 @@ namespace NFugue.Theory
             return pattern;
         }
 
+        /// <summary>
+        /// Returns a list of chords represented by this chord progression
+        /// </summary>
+        /// <returns></returns>
         public Chord[] GetChords()
         {
             if (knownChords != null)

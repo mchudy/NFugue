@@ -2,6 +2,11 @@
 {
     internal static class LilyPondNoteDurationHelper
     {
+        /// <summary>
+        /// This class listens to events from the MusicString parser. In response to this
+        /// events, a Lilypond string is produced. The Lilypond string is produced with
+        /// relative octave notation.
+        /// </summary>
         public static string GetDuration(string duration)
         {
             string durationLy = "4";

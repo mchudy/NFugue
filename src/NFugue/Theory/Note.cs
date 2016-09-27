@@ -133,7 +133,7 @@ namespace NFugue.Theory
                 return "R";
             }
             StringBuilder sb = new StringBuilder();
-            sb.Append(GetToneStringWithoutOctave(Value));
+            sb.Append(ToneStringWithoutOctave(Value));
             if (IsOctaveExplicitlySet)
             {
                 sb.Append(Octave);
@@ -141,15 +141,28 @@ namespace NFugue.Theory
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Returns a MusicString representation of the given MIDI note value,
+        /// which indicates a note and an octave.
+        /// </summary>
         public static string GetToneString(int noteValue)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append(GetToneStringWithoutOctave(noteValue));
+            sb.Append(ToneStringWithoutOctave(noteValue));
             sb.Append(noteValue / SemitonesInOctave);
             return sb.ToString();
         }
 
-        public static string GetToneStringWithoutOctave(int noteValue)
+        /// <summary>
+        /// Returns a MusicString representation of the given MIDI note value,
+        /// but just the note - not the octave.This means that the value returned
+        /// can not be used to accurately recalculate the noteValue, since information
+        /// will be missing.But this is useful for knowing what note within any octave
+        /// the corresponding value belongs to.
+        /// </summary>
+        /// <param name="noteValue">MIDI numeric note value</param>
+        /// <returns>Music string</returns>
+        public static string ToneStringWithoutOctave(int noteValue)
         {
             return NoteNamesCommon[noteValue % SemitonesInOctave];
         }
@@ -173,6 +186,15 @@ namespace NFugue.Theory
             return false;
         }
 
+        /// <summary>
+        /// Returns a MusicString representation of the given MIDI note value,
+        /// just the note(not the octave), disposed to use either flats or sharps.
+        /// Pass -1 to get a flat name and +1 to get a sharp name for any notes
+        /// that are accidentals.
+        /// </summary>
+        /// <param name="dispose">-1 to get a flat value, +1 to get a sharp value</param>
+        /// <param name="noteValue">The MIDI note value</param>
+        /// <returns>Music string representation of the note</returns>
         public static string DispositionedToneStringWithoutOctave(int dispose, int noteValue)
         {
             if (dispose == -1)
@@ -182,6 +204,12 @@ namespace NFugue.Theory
             return NoteNamesSharp[noteValue % SemitonesInOctave];
         }
 
+        /// <summary>
+        /// Returns a music string representations of the given note using the
+        /// name of a percussion instrument
+        /// </summary>
+        /// <param name="noteValue">The MIDI note value</param>
+        /// <returns>Music string representation of the note</returns>
         public static string PercussionString(int noteValue)
         {
             StringBuilder buddy = new StringBuilder();
@@ -191,12 +219,22 @@ namespace NFugue.Theory
             return buddy.ToString();
         }
 
+        /// <summary>
+        /// Return the frequency in Hertz for the given note.
+        /// </summary>
+        /// <param name="note">Music string representing the note</param>
+        /// <returns>The note frequency in Hz</returns>
         public static double FrequencyForNote(string note)
         {
             return note.ToUpper().StartsWith("R") ? 0.0d :
                 FrequencyForNote(NoteProviderFactory.GetNoteProvider().CreateNote(note).Value);
         }
 
+        /// <summary>
+        /// Return the frequency in Hertz for the given note.
+        /// </summary>
+        /// <param name="noteValue">MIDI numeric note value</param>
+        /// <returns>The note frequency in Hz</returns>
         public static double FrequencyForNote(int noteValue)
         {
             return PreciseFrequencyForNote(noteValue).Truncate(3);
@@ -217,6 +255,18 @@ namespace NFugue.Theory
             return NoteSubparser.Instance.Matches(candidateNote);
         }
 
+        /// <summary>
+        /// Returns a MusicString representation of a decimal duration.  This code
+        /// currently only converts single duration values representing whole, half,
+        /// quarter, eighth, etc. durations; and dotted durations associated with those
+        /// durations(such as "h.", equal to 0.75).  This method does not convert
+        /// combined durations(for example, "hi" for 0.625). For these values,
+        /// the original decimal duration is returned in a string, prepended with a "/"
+        /// to make the returned value a valid MusicString duration indicator.
+        /// It does handle durations greater than 1.0 (for example, "wwww" for 4.0).  
+        /// </summary>
+        /// <param name="decimalDuration">The decimal value of the duration to convert</param>
+        /// <returns>A MusicString fragment representing the duration</returns>
         public static string DurationString(double decimalDuration)
         {
             double originalDecimalDuration = decimalDuration;
@@ -315,20 +365,22 @@ namespace NFugue.Theory
             return OriginalString ?? GetToneString(Value);
         }
 
-        public string ToneString()
+        public string ToneString
         {
-            if (IsRest)
+            get
             {
-                return "R";
+                if (IsRest)
+                {
+                    return "R";
+                }
+                StringBuilder sb = new StringBuilder();
+                sb.Append(ToneStringWithoutOctave(Value));
+                if (IsOctaveExplicitlySet)
+                {
+                    sb.Append(Octave);
+                }
+                return sb.ToString();
             }
-
-            StringBuilder sb = new StringBuilder();
-            sb.Append(GetToneStringWithoutOctave(Value));
-            if (IsOctaveExplicitlySet)
-            {
-                sb.Append(Octave);
-            }
-            return sb.ToString();
         }
 
         public string DecoratorString()

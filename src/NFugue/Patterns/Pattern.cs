@@ -3,6 +3,7 @@ using NFugue.Midi;
 using NFugue.Staccato;
 using NFugue.Staccato.Subparsers;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -251,6 +252,46 @@ namespace NFugue.Patterns
             return this;
         }
 
-        //TODO: save, transform
+        /// <summary>
+        /// Saves the pattern to a file
+        /// </summary>
+        /// <param name="filePath">Path to the file</param>
+        /// <param name="comments">Additional comments which will be added at the beggining of the file</param>
+        /// <returns></returns>
+        public Pattern Save(string filePath, params string[] comments)
+        {
+            using (var writer = new StreamWriter(filePath))
+            {
+                if (comments.Any())
+                {
+                    writer.WriteLine("# ");
+                    foreach (var comment in comments)
+                    {
+                        writer.WriteLine($"# {comment}");
+                    }
+                    writer.WriteLine("# ");
+                }
+                writer.Write(ToString());
+            }
+            return this;
+        }
+
+        /// <summary>
+        /// Reads pattern from the file
+        /// </summary>
+        /// <param name="filePath">Path to the file</param>
+        /// <returns>Parsed pattern</returns>
+        public static Pattern Load(string filePath)
+        {
+            var pattern = new Pattern();
+            foreach (string line in File.ReadLines(filePath))
+            {
+                if (!line.StartsWith("#"))
+                {
+                    pattern.Add(line);
+                }
+            }
+            return pattern;
+        }
     }
 }

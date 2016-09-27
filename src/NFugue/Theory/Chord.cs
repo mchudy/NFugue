@@ -250,7 +250,7 @@ namespace NFugue.Theory
                     StringBuilder sb = new StringBuilder();
                     if (returnNonOctaveNotes)
                     {
-                        sb.Append(Note.GetToneStringWithoutOctave(notes[i].Value));
+                        sb.Append(Note.ToneStringWithoutOctave(notes[i].Value));
                     }
                     else
                     {
@@ -318,7 +318,7 @@ namespace NFugue.Theory
                 retVal[i + 1].UseSameExplicitOctaveSettingAs(Root);
                 if (!Root.IsOctaveExplicitlySet)
                 {
-                    retVal[i + 1].OriginalString = (Note.GetToneStringWithoutOctave((retVal[i].Value + halfsteps[i + 1] - halfsteps[i])));
+                    retVal[i + 1].OriginalString = (Note.ToneStringWithoutOctave((retVal[i].Value + halfsteps[i + 1] - halfsteps[i])));
                 }
             }
 
@@ -338,7 +338,7 @@ namespace NFugue.Theory
         {
             StringBuilder buddy = new StringBuilder();
             //buddy.Append(Note.getToneString(note.getValue()));
-            buddy.Append(note.ToneString());
+            buddy.Append(note.ToneString);
             buddy.Append(chordName);
             if (note.IsDurationExplicitlySet)
             {
