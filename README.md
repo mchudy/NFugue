@@ -25,7 +25,8 @@ using (var player = new Player())
     player.Play("C D E F G A B");
 }
 ```
-Music in NFugue is generally represented by patterns which can be transformed, for example to create some twelve-bar-blues:
+Music in NFugue is generally represented by patterns which can be transformed in various ways, 
+for example to create some twelve-bar blues:
 ```csharp
 Pattern pattern = new ChordProgression("I IV V")
     .Distribute("7%6")
@@ -35,5 +36,4 @@ Pattern pattern = new ChordProgression("I IV V")
     .SetInstrument(Instrument.AcousticBass)
     .SetTempo(120);
 ```
-
 For more examples and a description of the Staccato markup visit [JFugue website](http://jfugue.org/). Most examples should work in NFugue with little or no modifications.
