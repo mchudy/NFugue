@@ -1,7 +1,7 @@
 # NFugue
 
 [![Build status](https://ci.appveyor.com/api/projects/status/u25hrsi0a1d9jecd?svg=true)](https://ci.appveyor.com/project/mchudy/nfugue)
-[![NuGet](https://img.shields.io/nuget/v/NFugue.svg?maxAge=2592000)](https://www.nuget.org/packages/NFugue/)
+[![NuGet](https://img.shields.io/nuget/v/NFugue.svg?maxAge=60)](https://www.nuget.org/packages/NFugue/)
 
 .NET port of [JFugue](http://jfugue.org) based on version 5.0.7.
 
