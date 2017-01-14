@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using NFugue.Midi.Conversion;
 
 namespace NFugue.Patterns
 {
@@ -292,6 +293,16 @@ namespace NFugue.Patterns
                 }
             }
             return pattern;
+        }
+
+        /// <summary>
+        /// Loads pattern from a MIDI file
+        /// </summary>
+        /// <param name="filePath">Path to the MIDI file</param>
+        /// <returns>Loaded pattern</returns>
+        public static Pattern LoadFromMidi(string filePath)
+        {
+            return MidiFileConverter.LoadPatternFromMidi(filePath);
         }
     }
 }

@@ -74,11 +74,12 @@
     <Compile Include="Integration\MusicXml\MusicXmlParser.cs" />
     <Compile Include="Integration\MusicXml\Internals\PartContext.cs" />
     <Compile Include="Integration\MusicXml\Internals\VoiceDefinition.cs" />
+    <Compile Include="Midi\Conversion\MidiFileConverter.cs" />
+    <Compile Include="Midi\Conversion\PatternProducerExtensions.cs" />
     <Compile Include="Midi\Enums\Controller.cs" />
     <Compile Include="Midi\Enums\Instrument.cs" />
     <Compile Include="Midi\MidiEventArgs.cs" />
     <Compile Include="Midi\MidiEventManager.cs" />
-    <Compile Include="Midi\MidiFileManager.cs" />
     <Compile Include="Midi\MidiParser.cs" />
     <Compile Include="Midi\MidiTools.cs" />
     <Compile Include="Midi\Enums\PercussionInstrument.cs" />
