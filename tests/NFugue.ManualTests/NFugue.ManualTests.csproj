@@ -38,7 +38,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Sanford.Multimedia.Midi, Version=6.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sanford.Multimedia.Midi.6.1.2\lib\net20\Sanford.Multimedia.Midi.dll</HintPath>
+      <HintPath>..\..\packages\Sanford.Multimedia.Midi.6.2.1\lib\net20\Sanford.Multimedia.Midi.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
