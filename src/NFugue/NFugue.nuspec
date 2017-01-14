@@ -9,12 +9,12 @@
     <projectUrl>https://www.github.com/mchudy/nfugue</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Music programming library for .NET</description>
-    <releaseNotes>Initial release.</releaseNotes>
+    <releaseNotes>Added methods for easier converting to MIDI files.</releaseNotes>
     <copyright>Copyright ©2016 Marcin Chudy</copyright>
     <tags>music</tags>
     <dependencies>
       <dependency id="NLog" version="4.3.7" />
-      <dependency id="Sanford.MidiToolkit" version="5.0.2" />
+      <dependency id="Sanford.Multimedia.Midi" version="6.2.1" />
     </dependencies>
   </metadata>
 </package>

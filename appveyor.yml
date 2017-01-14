@@ -1,9 +1,9 @@
-﻿version: 1.0.0.{build}
+﻿version: 1.0.1.{build}
 
 configuration: Release
 
 environment:
-  packageVersion: 1.0.0
+  packageVersion: 1.0.1
 
 assembly_info:
   patch: true
