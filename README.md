@@ -3,7 +3,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/u25hrsi0a1d9jecd?svg=true)](https://ci.appveyor.com/project/mchudy/nfugue)
 [![NuGet](https://img.shields.io/nuget/v/NFugue.svg?maxAge=60)](https://www.nuget.org/packages/NFugue/)
 
-.NET port of [JFugue](http://jfugue.org) based on version 5.0.7.
+.NET port of [JFugue](http://jfugue.org) based on version 5.0.9.
 
 NFugue allows you to create, play and experiment with music programatically. You can easily build music using 
 elements like chords, chord progresssions and rhythms which will get transformed to MIDI for you. It also supports 
