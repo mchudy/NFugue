@@ -27,7 +27,7 @@ cache:
 deploy:
   provider: NuGet
   api_key:
-    secure: Kpo2YYLP/rdpADh2H4iFiL5KVciwSu8j5znuL47rK8XrnycbNxln0f92Bw5x2tBC
+    secure: Wez33pNFdKSfZiJUnZhhLpmQbgmchJupLyAg2fVFc5k9BC10TcEsPMij4MdTLMoB
   on:
     branch: master
     appveyor_repo_tag: true
