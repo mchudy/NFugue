@@ -55,7 +55,7 @@ namespace NFugue.Tests.Theory
         [Fact]
         public void Test_each_chord_as_with_underscore()
         {
-            ChordProgression cp = new ChordProgression("I IV V").EachChordAs("$_q $0q $1h $2w");
+            ChordProgression cp = new ChordProgression("I IV V").EachChordAs("$!q $0q $1h $2w");
             cp.GetPattern().ToString().Should().Be("C4MAJq C4q E4h G4w F4MAJq F4q A4h C5w G4MAJq G4q B4h D5w");
         }
 
@@ -72,10 +72,10 @@ namespace NFugue.Tests.Theory
         [Fact]
         public void Test_all_chords_as_with_underscore()
         {
-            ChordProgression cp = new ChordProgression("I IV V").AllChordsAs("$_i $0q $1h $2w");
+            ChordProgression cp = new ChordProgression("I IV V").AllChordsAs("$!i $0q $1h $2w");
             cp.GetPattern().ToString().Should().Be("C4MAJi F4MAJi G4MAJi C4MAJq F4MAJh G4MAJw");
 
-            cp = new ChordProgression("I IV V").AllChordsAs("$0q $1h $2w $_i");
+            cp = new ChordProgression("I IV V").AllChordsAs("$0q $1h $2w $!i");
             cp.GetPattern().ToString().Should().Be("C4MAJq F4MAJh G4MAJw C4MAJi F4MAJi G4MAJi");
         }
 
@@ -89,14 +89,14 @@ namespace NFugue.Tests.Theory
         [Fact]
         public void Test_each_chord_as_with_inversion()
         {
-            ChordProgression cp = new ChordProgression("iv v i").EachChordAs("$_q $_^q $_^^q");
+            ChordProgression cp = new ChordProgression("iv v i").EachChordAs("$!q $!^q $!^^q");
             cp.GetPattern().ToString().Should().Be("F4MINq F4MIN^q F4MIN^^q G4MINq G4MIN^q G4MIN^^q C4MINq C4MIN^q C4MIN^^q");
         }
 
         [Fact]
         public void Test_all_chords_as_with_underscore_and_inversions()
         {
-            ChordProgression cp = new ChordProgression("iv v i").AllChordsAs("$_q $_^q $_^^q");
+            ChordProgression cp = new ChordProgression("iv v i").AllChordsAs("$!q $!^q $!^^q");
             cp.GetPattern().ToString().Should().Be("F4MINq G4MINq C4MINq F4MIN^q G4MIN^q C4MIN^q F4MIN^^q G4MIN^^q C4MIN^^q");
         }
 
@@ -106,5 +106,13 @@ namespace NFugue.Tests.Theory
             ChordProgression cp = new ChordProgression("I IV V").AllChordsAs("$2 $1 $0").EachChordAs("$2 $1 $0");
             cp.GetPattern().ToString().Should().Be("D5 B4 G4 C5 A4 F4 G4 E4 C4");
         }
+
+        [Fact]
+        public void Test_chord_progression_with_inversions()
+        {
+            ChordProgression cp = new ChordProgression("I II^ III^^ IV^^^ v^^^ vi^^ vii^");
+            cp.GetPattern().ToString().Should().Be("C4MAJ D4MAJ^ E4MAJ^^ F4MAJ^^^ G4MIN^^^ A4MIN^^ B4MIN^");
+        }
+
     }
 }

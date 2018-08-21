@@ -16,6 +16,7 @@ namespace NFugue.Patterns
         Function,
         Note,
         Whitespace,
+        Atom,
         UnknownToken
     }
 }

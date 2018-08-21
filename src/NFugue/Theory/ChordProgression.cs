@@ -1,4 +1,5 @@
-﻿using NFugue.Patterns;
+﻿using System.Linq;
+using NFugue.Patterns;
 using NFugue.Providers;
 using System.Text.RegularExpressions;
 
@@ -12,7 +13,9 @@ namespace NFugue.Theory
         private string allSequence;
         private string eachSequence;
 
-        private ChordProgression() { }
+        private ChordProgression()
+        {
+        }
 
         /// <summary>
         /// Creates a chord progression given a Progression String, like "I vi ii V" - case is important!
@@ -43,17 +46,18 @@ namespace NFugue.Theory
         public static ChordProgression FromChords(string knownChords)
         {
             string[] knownChordStrings = Regex.Split(knownChords, " +");
-            ChordProgression cp = new ChordProgression { knownChords = new Chord[knownChordStrings.Length] };
+            ChordProgression cp = new ChordProgression {knownChords = new Chord[knownChordStrings.Length]};
             for (int i = 0; i < knownChordStrings.Length; i++)
             {
                 cp.knownChords[i] = new Chord(knownChordStrings[i]);
             }
+
             return cp;
         }
 
         public static ChordProgression FromChords(params Chord[] chords)
         {
-            return new ChordProgression { knownChords = chords };
+            return new ChordProgression {knownChords = chords};
         }
 
         /** The key usually identifies the tonic note and/or chord [Wikipedia] */
@@ -78,7 +82,8 @@ namespace NFugue.Theory
 
             if (allSequence != null)
             {
-                pattern = ReplacementFormatUtil.ReplaceDollarsWithCandidates(allSequence, GetChords(), new Pattern(GetChords()));
+                pattern = ReplacementFormatUtil.ReplaceDollarsWithCandidates(allSequence, GetChords(),
+                    new Pattern(GetChords()));
             }
 
             if (eachSequence != null)
@@ -89,6 +94,7 @@ namespace NFugue.Theory
                     Chord chord = new Chord(chordString);
                     p2.Add(ReplacementFormatUtil.ReplaceDollarsWithCandidates(eachSequence, chord.GetNotes(), chord));
                 }
+
                 pattern = p2;
             }
 
@@ -105,13 +111,15 @@ namespace NFugue.Theory
             {
                 return knownChords;
             }
+
             Chord[] chords = new Chord[progressionElements.Length];
             Pattern scalePattern = key.Scale.Intervals.SetRoot(key.Root).GetPattern();
             string[] scaleNotes = scalePattern.ToString().Split(' ');
             int counter = 0;
             foreach (string progressionElement in progressionElements)
             {
-                Note rootNote = NoteProviderFactory.GetNoteProvider().CreateNote(scaleNotes[RomanNumeralToIndex(progressionElement)]);
+                Note rootNote = NoteProviderFactory.GetNoteProvider()
+                    .CreateNote(scaleNotes[RomanNumeralToIndex(progressionElement)]);
                 rootNote.UseSameDurationAs(key.Root);
                 Intervals intervals = Chord.MAJOR_INTERVALS;
                 if ((progressionElement[0] == 'i') || (progressionElement[0] == 'v'))
@@ -119,11 +127,13 @@ namespace NFugue.Theory
                     // Checking to see if the progression element is lowercase 
                     intervals = Chord.MINOR_INTERVALS;
                 }
+
                 if ((progressionElement.ToLower().IndexOf("o") > 0) || (progressionElement.ToLower().IndexOf("d") > 0))
                 {
                     // Checking to see if the progression element is diminished
                     intervals = Chord.DIMINISHED_INTERVALS;
                 }
+
                 if (progressionElement.EndsWith("7"))
                 {
                     if (intervals.Equals(Chord.MAJOR_INTERVALS))
@@ -139,6 +149,7 @@ namespace NFugue.Theory
                         intervals = Chord.DIMINISHED_SEVENTH_INTERVALS;
                     }
                 }
+
                 if (progressionElement.EndsWith("7%6"))
                 {
                     if (intervals.Equals(Chord.MAJOR_INTERVALS))
@@ -151,35 +162,59 @@ namespace NFugue.Theory
                     }
                 }
 
+                // Check for inversions
+                int inversions = CountInversions(progressionElement);
+
                 chords[counter] = new Chord(rootNote, intervals);
+                if (inversions > 0)
+                {
+                    chords[counter].Inversion = inversions;
+                }
+
                 counter++;
             }
+
             return chords;
         }
 
         private int RomanNumeralToIndex(string romanNumeral)
         {
             string s = romanNumeral.ToLower();
-
-            // Notice if we are dealing with a diminished interval
-            if (s.EndsWith("o") || s.EndsWith("d") || s.EndsWith("7"))
+            if (s.StartsWith("vii"))
             {
-                s = s.Substring(0, s.Length - 1);
+                return 6;
             }
 
-            if (s.EndsWith("7%6"))
+            if (s.StartsWith("vi"))
             {
-                s = s.Substring(0, s.Length - 3);
+                return 5;
             }
 
-            // Convert Roman numerals to numeric index
-            if (s.Equals("i")) { return 0; }
-            if (s.Equals("ii")) { return 1; }
-            if (s.Equals("iii")) { return 2; }
-            if (s.Equals("iv")) { return 3; }
-            if (s.Equals("v")) { return 4; }
-            if (s.Equals("vi")) { return 5; }
-            if (s.Equals("vii")) { return 6; }
+            if (s.StartsWith("v"))
+            {
+                return 4;
+            }
+
+            if (s.StartsWith("iv"))
+            {
+                return 3;
+            }
+
+            if (s.StartsWith("iii"))
+            {
+                return 2;
+            }
+
+            if (s.StartsWith("ii"))
+            {
+                return 1;
+            }
+
+            if (s.StartsWith("i"))
+            {
+                return 0;
+            }
+
             return 0;
         }
 
@@ -211,7 +246,10 @@ namespace NFugue.Theory
             {
                 progressionElements[i] = progressionElements[i] + distribute;
             }
+
             return this;
         }
+
+        private int CountInversions(string s) => s.Count(t => t == '^');
     }
 }

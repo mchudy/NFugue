@@ -13,7 +13,7 @@ namespace NFugue
 
         public static int DefaultOctave
         {
-            get { return defaultOctave; }
+            get => defaultOctave;
             set
             {
                 if (value < Note.MinOctave || value > Note.MaxOctave)
@@ -26,7 +26,7 @@ namespace NFugue
 
         public static int DefaultBassOctave
         {
-            get { return defaultBassOctave; }
+            get => defaultBassOctave;
             set
             {
                 if (value < Note.MinOctave || value > Note.MaxOctave)
@@ -39,7 +39,7 @@ namespace NFugue
 
         public static int DefaultOnVelocity
         {
-            get { return defaultOnVelocity; }
+            get => defaultOnVelocity;
             set
             {
                 if (value < MidiDefaults.MinOnVelocity || value > MidiDefaults.MaxOnVelocity)
@@ -52,7 +52,7 @@ namespace NFugue
 
         public static int DefaultOffVelocity
         {
-            get { return defaultOffVelocity; }
+            get => defaultOffVelocity;
             set
             {
                 if (value < MidiDefaults.MinOnVelocity || value > MidiDefaults.MaxOnVelocity)
@@ -63,7 +63,7 @@ namespace NFugue
             }
         }
 
-        public static bool DefaultAdjustNotesByKeySignature { get; set; } = true;
+        public static bool AdjustNotesByKeySignature { get; set; } = true;
         public static double DefaultDuration { get; set; } = 0.25;
     }
 }

@@ -12,23 +12,23 @@ namespace NFugue.Staccato
 {
     public class StaccatoParser : Parsing.Parser
     {
-        private readonly StaccatoParserContext context;
         private readonly IList<IPreprocessor> preprocessors = new List<IPreprocessor>();
         private readonly IList<ISubparser> subparsers = new List<ISubparser>();
 
         public StaccatoParser()
         {
-            context = new StaccatoParserContext(this);
+            Context = new StaccatoParserContext(this);
 
-            NoteSubparser.PopulateContext(context);
-            TempoSubparser.PopulateContext(context);
-            IVLSubparser.PopulateContext(context);
+            NoteSubparser.PopulateContext(Context);
+            TempoSubparser.PopulateContext(Context);
+            IVLSubparser.PopulateContext(Context);
 
             InitializeSubparsers();
             InitializePreprocessors();
             InitializeFunctionManager();
         }
 
+        public StaccatoParserContext Context { get; }
         public bool ThrowsExceptionOnUnknownToken { get; set; }
 
         public void Parse(string musicString)
@@ -41,7 +41,7 @@ namespace NFugue.Staccato
                     var subparser = subparsers.FirstOrDefault(s => s.Matches(substring));
                     if (subparser != null)
                     {
-                        subparser.Parse(substring, context);
+                        subparser.Parse(substring, Context);
                     }
                     else if (ThrowsExceptionOnUnknownToken)
                     {
@@ -61,7 +61,7 @@ namespace NFugue.Staccato
         {
             foreach (var preprocessor in preprocessors)
             {
-                musicString = preprocessor.Preprocess(musicString, context);
+                musicString = preprocessor.Preprocess(musicString, Context);
             }
             return musicString;
         }

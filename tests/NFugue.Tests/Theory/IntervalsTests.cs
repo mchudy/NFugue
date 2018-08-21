@@ -33,6 +33,33 @@ namespace NFugue.Tests.Theory
             intervals.ToString().Should().Be("3 5 1");
         }
 
+
+        [Fact]
+        public void Test_has()
+        {
+            var intervals = new Intervals("1 3 5");
+            intervals.SetRoot("C");
+            intervals.Has("E").Should().BeTrue();
+            intervals.Has("F").Should().BeFalse();
+        }
+
+        [Fact]
+        public void Test_has_with_octaves()
+        {
+            var intervals = new Intervals("1 3 5");
+            intervals.SetRoot("D5");
+            intervals.Has("F#2").Should().BeTrue();
+            intervals.Has("G5").Should().BeFalse();
+        }
+
+        [Fact]
+        public void Test_as1()
+        {
+            var intervals = new Intervals("1 3 5").SetRoot("C").As("$!i $0q $1h $2w");
+            Assert.Equal(intervals.GetPattern().ToString(), "C5i E5i G5i C5q E5h G5w", true);
+        }
+
+
         [Fact]
         public void Test_pattern_with_root()
         {
@@ -60,7 +87,7 @@ namespace NFugue.Tests.Theory
         public void As_sequence_with_shorter_notes()
         {
             Intervals intervals = new Intervals("1 3 5").SetRoot("C");
-            intervals.AsSequence = "$_i $0q $1h $2w";
+            intervals.AsSequence = "$!i $0q $1h $2w";
             intervals.GetPattern().ToString().Should().Be("C5i E5i G5i C5q E5h G5w");
         }
 

@@ -255,6 +255,8 @@ namespace NFugue.Theory
             return NoteSubparser.Instance.Matches(candidateNote);
         }
 
+        public static bool IsValidQualifier(string candidateQualifier) => true;
+
         /// <summary>
         /// Returns a MusicString representation of a decimal duration.  This code
         /// currently only converts single duration values representing whole, half,

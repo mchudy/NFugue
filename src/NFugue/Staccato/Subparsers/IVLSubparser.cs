@@ -56,7 +56,8 @@ namespace NFugue.Staccato.Subparsers
                     {
                         instrumentId = instrumentId.Substring(1, instrumentId.Length - 2);
                     }
-                    value = (int)((Instrument)context.Dictionary[instrumentId]);
+
+                    value = Convert.ToInt32(context.Dictionary[instrumentId]);
                 }
             }
             switch (music[0])
@@ -74,6 +75,23 @@ namespace NFugue.Staccato.Subparsers
             return posNextSpace + 1;
         }
 
+
+        /** Given a string like "V0" or "I[Piano]", this method will return the value of the token */
+        public byte GetValue(string ivl, StaccatoParserContext context)
+        {
+            string instrumentId = ivl.Substring(1, ivl.Length - 1);
+            if (Regex.IsMatch(instrumentId, "\\d+"))
+            {
+                return byte.Parse(instrumentId);
+            }
+
+            if (instrumentId[0] == '[')
+            {
+                instrumentId = instrumentId.Substring(1, instrumentId.Length - 2);
+            }
+            return (byte) context.Dictionary[instrumentId];
+        }
+
         public static void PopulateContext(StaccatoParserContext context)
         {
             // Voices
@@ -81,8 +99,11 @@ namespace NFugue.Staccato.Subparsers
 
             // Instruments
             context.Dictionary.AddRange(Enum.GetValues(typeof(Instrument)).OfType<Instrument>()
-                .ToDictionary(item => item.GetDescription().ToUpper(), item => (object)item)
-            );
+                .ToDictionary(item => item.GetDescription().ToUpper(), item =>
+                {
+                    var @byte = (byte) item;
+                    return (object) @byte;
+                }));
         }
     }
 }

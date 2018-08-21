@@ -104,6 +104,25 @@ namespace NFugue.Theory
         public static IDictionary<string, Intervals> ChordMap;
         public static IDictionary<string, string> humanReadableMap;
 
+        public static bool IsValid(string candidateChordMusicString)
+        {
+            string musicString = candidateChordMusicString.ToUpper();
+            foreach (string chordName in ChordMap.Keys)
+            {
+                if (musicString.Contains(chordName))
+                {
+                    int index = musicString.IndexOf(chordName);
+                    string possibleNote = musicString.Substring(0, index);
+                    string qualifiers = musicString.Substring(index + chordName.Length - 1, musicString.Length - index - chordName.Length);
+                    if (Note.IsValidNote(possibleNote) && Note.IsValidQualifier(qualifiers))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
         private static int CompareLength(string s1, string s2)
         {
             if (s1.Length < s2.Length)
@@ -159,7 +178,7 @@ namespace NFugue.Theory
             humanReadableMap.Add(chordName, humanReadableName);
         }
 
-        public static string getHumanReadableName(string chordName)
+        public static string GetHumanReadableName(string chordName)
         {
             if (humanReadableMap.ContainsKey(chordName))
             {
@@ -297,12 +316,14 @@ namespace NFugue.Theory
 
         public Note GetBassNote()
         {
-            return new Note(Root.Value - Note.SemitonesInOctave + Theory.Intervals.GetHalfsteps(intervals.GetNthInterval(Inversion)));
+            int bassNoteValue = Root.Value - Note.SemitonesInOctave +
+                                Theory.Intervals.GetHalfsteps(intervals.GetNthInterval(Inversion));
+            return new Note(Note.NoteNamesCommon[bassNoteValue % Note.SemitonesInOctave]).UseSameExplicitOctaveSettingAs(Root);
         }
 
         public Chord SetOctave(int octave)
         {
-            Root.Value = (Root.PositionInOctave + octave * 12);
+            Root.Value = (Root.PositionInOctave + octave * Note.SemitonesInOctave);
             return this;
         }
 
@@ -322,16 +343,25 @@ namespace NFugue.Theory
                 }
             }
 
-            // For notes Now calculate inversion
+            // Now calculate inversion
+            // 2017-02-17: It looks like this is putting notes up, instead of moving other notes down
             for (int i = 0; i < Inversion; i++)
             {
                 if (i < retVal.Length)
                 {
-                    retVal[i].Value = ((retVal[i].Value + OCTAVE));
+                    retVal[i].Value = (byte)(retVal[i].Value + Note.SemitonesInOctave);
                 }
             }
 
-            return retVal;
+            // Rotate the returned notes based on the inversion
+            // Cmaj should return C E G, but Cmaj^^ should return G C E
+            Note[] retVal2 = new Note[retVal.Length];
+            for (int i = 0; i < retVal.Length; i++)
+            {
+                retVal2[i] = retVal[(i + Inversion) % retVal.Length];
+            }
+
+            return retVal2;
         }
 
         private string InsertChordNameIntoNote(Note note, string chordName)
@@ -403,6 +433,39 @@ namespace NFugue.Theory
             return new Pattern(sb.ToString());
         }
 
+
+        public Pattern GetPatternWithNotesExceptRoot()
+        {
+            var builder = new StringBuilder();
+            var notes = GetNotes();
+            for (int i = 0; i < notes.Length; i++)
+            {
+                if (notes[i].PositionInOctave != Root.PositionInOctave)
+                {
+                    builder.Append(notes[i].GetPattern());
+                    builder.Append("+");
+                }
+            }
+            builder.Remove(builder.Length - 1, 1);
+            return new Pattern(builder.ToString());
+        }
+
+        public Pattern GetPatternWithNotesExceptBass()
+        {
+            var builder = new StringBuilder();
+            var notes = GetNotes();
+            for (int i = 0; i < notes.Length - 1; i++)
+            {
+                if (notes[i].Value % Note.SemitonesInOctave != GetBassNote().Value % Note.SemitonesInOctave)
+                {
+                    builder.Append(notes[i].GetPattern());
+                    builder.Append("+");
+                }
+            }
+            builder.Append(notes[notes.Length - 1]);
+            return new Pattern(builder.ToString());
+        }
+
         public override string ToString()
         {
             return GetPattern().ToString();
@@ -410,8 +473,28 @@ namespace NFugue.Theory
 
         public string ToHumanReadableString()
         {
-            return Root + getHumanReadableName(GetChordType());
+            return Root + GetHumanReadableName(GetChordType());
         }
+
+
+        /// <summary>
+        /// Returns a string consisting of the notes in the chord.
+        /// For example, new Chord("Cmaj").toNoteString() returns "(C+E+G)"
+        /// </summary> 
+        public string ToNoteString()
+        {
+            var builder = new StringBuilder();
+            builder.Append("(");
+            foreach (var note in GetNotes())
+            {
+                builder.Append(note);
+                builder.Append("+");
+            }
+            builder.Remove(builder.Length - 1, 1);
+            builder.Append(")");
+            return builder.ToString();
+        }
+
 
         public static readonly Intervals MAJOR_INTERVALS = new Intervals("1 3 5");
         public static readonly Intervals MINOR_INTERVALS = new Intervals("1 b3 5");

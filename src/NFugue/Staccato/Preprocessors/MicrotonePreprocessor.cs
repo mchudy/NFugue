@@ -27,7 +27,7 @@ namespace NFugue.Staccato.Preprocessors
                 sb.Append(musicString, posPrev, match.Index - posPrev);
 
                 double frequency = 0.0d;
-                Match frequencyMatch = frequencyPattern.Match(match.Groups[0].Value);
+                var frequencyMatch = frequencyPattern.Match(match.Groups[0].Value);
                 if (frequencyMatch.Success)
                 {
                     frequency = double.Parse(frequencyMatch.Groups[0].ToString());
@@ -38,7 +38,7 @@ namespace NFugue.Staccato.Preprocessors
                 }
 
                 string qualifier = null;
-                Match qualifierMatch = qualifierPattern.Match(match.Groups[0].Value);
+                var qualifierMatch = qualifierPattern.Match(match.Groups[0].Value);
                 if (qualifierMatch.Success)
                 {
                     qualifier = qualifierMatch.Groups[0].ToString();
@@ -65,23 +65,42 @@ namespace NFugue.Staccato.Preprocessors
         public static string ConvertFrequencyToStaccato(double frequency, string qualifier)
         {
             double totalCents = 1200 * Math.Log(frequency / 16.3515978312876) / Math.Log(2);
-            double octave = Math.Round(totalCents / 1200.0);
+            int octave = (int)(totalCents / 1200.0);
             double semitoneCents = totalCents - (octave * 1200.0);
-            double semitone = Math.Round(semitoneCents / 100.0);
+            int semitone = (int)(semitoneCents / 100.0);
             double microtonalAdjustment = semitoneCents - (semitone * 100.0);
-            double pitches = 8192.0 + (microtonalAdjustment * 8192.0 / 100.0);
+            int pitches = (int) (8192.0 + (microtonalAdjustment * 8192.0 / 100.0));
 
-            double note = ((octave + 1) * 12) + semitone; // This gives a MIDI value, 0 - 128
+            // If we're close enough to the next note, just use the next note. 
+            if (pitches >= 16380)
+            {
+                pitches = 0;
+                semitone += 1;
+                if (semitone == 12)
+                {
+                    octave += 1;
+                    semitone = 0;
+                }
+            }
+
+            int note = (octave * 12) + semitone; // This gives a MIDI value, 0 - 128
             if (note > 127) note = 127;
 
-            StringBuilder buddy = new StringBuilder();
-            buddy.Append(":PitchWheel(");
-            buddy.Append((int)pitches);
-            buddy.Append(") ");
-            buddy.Append((int)note);
-            buddy.Append(qualifier);
-            buddy.Append(" :PitchWheel(8192)"); // Reset the pitch wheel.  8192 = original pitch wheel position
-            return buddy.ToString();
+            var builder = new StringBuilder();
+            if (pitches > 0)
+            {
+                builder.Append(":PitchWheel(");
+                builder.Append(pitches);
+                builder.Append(") ");
+            }
+            builder.Append((int)note);
+            builder.Append(qualifier);
+
+            if (pitches > 0)
+            {
+                builder.Append(" :PitchWheel(8192)"); // Reset the pitch wheel.  8192 = original pitch wheel position
+            }
+            return builder.ToString();
         }
     }
 }

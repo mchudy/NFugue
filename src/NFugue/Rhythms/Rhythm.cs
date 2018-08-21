@@ -23,6 +23,7 @@ namespace NFugue.Rhythms
                 {'+', "[CRASH_CYMBAL_1]s Rs"},
                 {'X', "[HAND_CLAP]i"},
                 {'x', "Rs [HAND_CLAP]s"},
+                {' ', "Ri"}
         };
 
         private IList<string> layers = new List<string>();

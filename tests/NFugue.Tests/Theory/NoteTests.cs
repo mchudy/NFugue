@@ -88,5 +88,14 @@ namespace NFugue.Tests.Theory
         {
             Note.FrequencyForNote("R").Should().Be(0);
         }
+
+
+        [Fact]
+        public void Test_position_in_octave()
+        {
+            new Note("C").PositionInOctave.Should().Be(0);
+            new Note("Bb5").PositionInOctave.Should().Be(10);
+            new Note("F#2").PositionInOctave.Should().Be(6);
+        }
     }
 }

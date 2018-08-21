@@ -131,7 +131,7 @@ namespace NFugue.Tests.Theory
             var chord = Chord.FromNotes("B4 C5 E5 G5");
             chord.Inversion.Should().Be(3);
             chord.Should().Be(new Chord("C5maj7^^^"));
-            var expectedBassNote = new Note("B4") { IsOctaveExplicitlySet = false };
+            var expectedBassNote = new Note("B") { IsOctaveExplicitlySet = true };
             chord.GetBassNote().Should().Be(expectedBassNote);
         }
 
@@ -139,7 +139,16 @@ namespace NFugue.Tests.Theory
         public void Test_get_bass_note()
         {
             var chord = new Chord("Cmaj^");
-            var expectedBassNote = new Note("E3") { IsOctaveExplicitlySet = false };
+            var expectedBassNote = new Note("E");
+            chord.GetBassNote().Should().Be(expectedBassNote);
+        }
+
+
+        [Fact]
+        public void Test_get_bass_note_with_octave()
+        {
+            var chord = new Chord("C3maj^");
+            var expectedBassNote = new Note("E") { IsOctaveExplicitlySet = true };
             chord.GetBassNote().Should().Be(expectedBassNote);
         }
 
@@ -168,22 +177,60 @@ namespace NFugue.Tests.Theory
             notes[1].Value.Should().Be(55); //G3
         }
 
+
+        [Fact]
+        public void Test_get_pattern_without_root()
+        {
+            new Chord("Cmaj").GetPatternWithNotesExceptRoot().ToString().Should().Be("E+G");
+        }
+
+        [Fact]
+        public void Test_get_pattern_without_root_first_inversion()
+        {
+            new Chord("Dmin^").GetPatternWithNotesExceptRoot().ToString().Should().Be("F+A");
+        }
+
+        [Fact]
+        public void Test_get_pattern_without_root_second_inversion()
+        {
+            new Chord("Emaj^^").GetPatternWithNotesExceptRoot().ToString().Should().Be("B+G#");
+        }
+
+        [Fact]
+        public void Test_get_pattern_without_bass()
+        {
+            new Chord("Cmaj").GetPatternWithNotesExceptBass().ToString().Should().Be("E+G");
+        }
+
+        [Fact]
+        public void Test_get_pattern_without_bass_first_inversion()
+        {
+            new Chord("Dmin^").GetPatternWithNotesExceptBass().ToString().Should().Be("A+D");
+        }
+
+        [Fact]
+        public void Test_get_pattern_without_bass_second_inversion()
+        {
+            new Chord("Emaj^^").GetPatternWithNotesExceptBass().ToString().Should().Be("E+G#");
+        }
+
+
         private static void VerifyFirstInversion(Chord chord)
         {
             var notes = chord.GetNotes();
 
-            notes[0].Value.Should().Be(60); // C4
-            notes[1].Value.Should().Be(52); // E3
-            notes[2].Value.Should().Be(55); // G3
+            notes[0].Value.Should().Be(52); // C4
+            notes[1].Value.Should().Be(55); // E3
+            notes[2].Value.Should().Be(60); // G3
         }
 
         private static void VerifySecondInversion(Chord chord)
         {
             var notes = chord.GetNotes();
 
-            notes[0].Value.Should().Be(60); // C4
-            notes[1].Value.Should().Be(64); // E4
-            notes[2].Value.Should().Be(55); // G3
+            notes[0].Value.Should().Be(55); // C4
+            notes[1].Value.Should().Be(60); // E4
+            notes[2].Value.Should().Be(64); // G3
         }
     }
 }

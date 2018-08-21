@@ -95,7 +95,8 @@ namespace NFugue.Integration.LilyPond
 
         private void OnInstrumentParsed(object sender, InstrumentParsedEventArgs e)
         {
-            string setInstrumentString = $"\\set Staff.instrumentName = \"{((Instrument)e.Instrument).GetDescription()}\" ";
+            string setInstrumentString =
+                $"\\set Staff.instrumentName = \"{((Instrument) e.Instrument).GetDescription()}\" ";
             lilyPondString.Append(setInstrumentString);
         }
 

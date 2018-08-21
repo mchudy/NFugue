@@ -569,7 +569,7 @@ namespace NFugue.Staccato.Subparsers.NoteSubparser
             if (noteContext.IsRest) return;
 
             // Adjust for Key Signature
-            if (DefaultNoteSettings.DefaultAdjustNotesByKeySignature)
+            if (DefaultNoteSettings.AdjustNotesByKeySignature)
             {
                 if (parserContext.Key != null)
                 {

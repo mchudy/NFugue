@@ -1,3 +1,4 @@
+using System;
 using NFugue.Extensions;
 using NFugue.Midi;
 using NFugue.Staccato;
@@ -16,6 +17,7 @@ namespace NFugue.Patterns
 
         private const int UndeclaredExplicit = -1;
         private int explicitVoice = UndeclaredExplicit;
+        private int explicitLayer = UndeclaredExplicit;
         private int explicitInstrument = UndeclaredExplicit;
         private int explicitTempo = UndeclaredExplicit;
 
@@ -127,6 +129,49 @@ namespace NFugue.Patterns
             return this;
         }
 
+        /// <summary>
+        /// Turns the given pattern into a pattern of Voice-Instrument-Note atoms
+        /// </summary>
+        /// <returns>this pattern for method chaining</returns>
+        public Pattern Atomize()
+        {
+            var currentLayer = new string[MidiDefaults.Tracks];      // Most recent layer for each voice
+            var currentInstrument = new string[MidiDefaults.Tracks]; // Most recent instrument for each voice
+            var tokens = GetTokens();
+
+            // Set current values
+            var currentVoice = "" + IVLSubparser.VoiceChar + ValueOrZero(explicitVoice);
+            currentLayer[ValueOrZero(explicitVoice)] = "" + IVLSubparser.LayerChar + ValueOrZero(explicitLayer);
+            currentInstrument[ValueOrZero(explicitVoice)] = "" + IVLSubparser.InstrumentChar + ValueOrZero(explicitInstrument);
+
+            // Clear the current contents of pattern (except for Tempo)
+            patternBuilder.Clear();
+            explicitVoice = UndeclaredExplicit;
+            explicitLayer = UndeclaredExplicit;
+            explicitInstrument = UndeclaredExplicit;
+
+            int voiceCounter = 0;
+            foreach (var token in tokens)
+            {
+                string s = token.GetPattern().ToString();
+                switch (token.Type)
+                {
+                    case TokenType.Voice:
+                        currentVoice = s;
+                        voiceCounter = new IVLSubparser().GetValue(currentVoice, null);
+                        if (currentLayer[voiceCounter] == null) currentLayer[voiceCounter] = IVLSubparser.LayerChar + "0";
+                        if (currentInstrument[voiceCounter] == null) currentInstrument[voiceCounter] = IVLSubparser.InstrumentChar + "0";
+                        break;
+                    case TokenType.Layer: currentLayer[voiceCounter] = s; break;
+                    case TokenType.Instrument: currentInstrument[voiceCounter] = s; break;
+                    case TokenType.Note: Add(new Atom(currentVoice, currentLayer[voiceCounter], currentInstrument[voiceCounter], s)); break;
+                    default: Add(s); break;
+                }
+            }
+
+            return this;
+        }
+
         public Pattern GetPattern() => this;
 
         public IEnumerable<Token> GetTokens()
@@ -151,6 +196,14 @@ namespace NFugue.Patterns
             if (explicitVoice != UndeclaredExplicit)
             {
                 b2.Append(IVLSubparser.VoiceChar);
+                b2.Append(explicitVoice);
+                b2.Append(" ");
+            }
+
+            // Add the explicit layer, if one has been provided
+            if (explicitLayer != UndeclaredExplicit)
+            {
+                b2.Append(IVLSubparser.LayerChar);
                 b2.Append(explicitVoice);
                 b2.Append(" ");
             }
@@ -195,6 +248,23 @@ namespace NFugue.Patterns
         public Pattern SetVoice(int voice)
         {
             explicitVoice = voice;
+            return this;
+        }
+
+        /// <summary>
+        /// Provides a way to explicitly set the layer on a Pattern directly
+        /// through the pattern rather than by adding text to the contents
+        /// of the Pattern.
+        /// </summary>
+        /// <remarks>
+        /// When Pattern.toString() is called, the a layer will be prepended 
+        /// to the beginning of the pattern after any explicit voice and before any
+        /// explicit instrument in the form of "Lx", where x is the voice number
+        /// </remarks>
+        /// <returns>This pattern</returns>
+        public Pattern SetLayer(int layer)
+        {
+            this.explicitLayer = layer;
             return this;
         }
 
@@ -304,5 +374,7 @@ namespace NFugue.Patterns
         {
             return MidiFileConverter.LoadPatternFromMidi(filePath);
         }
+
+        private int ValueOrZero(int value) => value == UndeclaredExplicit ? 0 : value;
     }
 }

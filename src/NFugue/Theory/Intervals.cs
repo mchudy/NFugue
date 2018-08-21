@@ -185,6 +185,50 @@ namespace NFugue.Theory
             return this;
         }
 
+        /// <summary>
+        /// Returns true if this interval contains the provided note
+        /// in any octave.
+        /// Requires that the interval has a root; the octave of the root
+        /// or the provided values are ignored.
+        /// </summary>
+        public bool Has(string note)
+        {
+            return Has(NoteProviderFactory.GetNoteProvider().CreateNote(note));
+        }
+
+        /// <summary>
+        /// Returns true if this interval contains the provided note
+        /// in any octave.
+        /// Requires that the interval has a root; the octave of the root
+        /// or the provided values are ignored.
+        /// </summary>
+        public bool Has(Note note)
+        {
+            if (Root == null)
+            {
+                return false;
+            }
+            foreach (string interval in intervalPattern.Split(' '))
+            {
+                int intervalValue = (Root.Value + GetHalfsteps(interval)) % Note.SemitonesInOctave;
+                if (intervalValue == note.PositionInOctave)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Accepts a string of replacement values, like $1 $2 $2, which will be
+        /// populated with the 1st, 2nd, and 2nd intervals when getPattern() is called.
+        /// </summary>
+        public Intervals As(string asSequence)
+        {
+            AsSequence = asSequence;
+            return this;
+        }
+
         public override string ToString()
         {
             return intervalPattern;
