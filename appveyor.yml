@@ -2,6 +2,8 @@
 
 configuration: Release
 
+image: Visual Studio 2017
+
 environment:
   packageVersion: 1.1.0
 
