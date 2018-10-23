@@ -137,6 +137,9 @@
     <Compile Include="Staccato\Subparsers\SignatureSubparser.cs" />
     <Compile Include="Staccato\Subparsers\TempoSubparser.cs" />
     <Compile Include="Staccato\Subparsers\WhitespaceConsumer.cs" />
+    <Compile Include="Temporal\DurationTemporalEvent.cs" />
+    <Compile Include="Temporal\ITemporalEvent.cs" />
+    <Compile Include="Temporal\TemporalEventManager.cs" />
     <Compile Include="Theory\Chord.cs" />
     <Compile Include="Theory\ChordProgression.cs" />
     <Compile Include="Theory\Intervals.cs" />
