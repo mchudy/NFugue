@@ -143,7 +143,7 @@ namespace NFugue.Parsing
             TempoChanged?.Invoke(this, new TempoChangedEventArgs { TempoBPM = tempo });
         }
 
-        public void OnFunctionParsed(string functionName, string parameters)
+        public void OnFunctionParsed(string functionName, object parameters)
         {
             FunctionParsed?.Invoke(this, new FunctionParsedEventArgs { Id = functionName, Message = parameters });
         }
