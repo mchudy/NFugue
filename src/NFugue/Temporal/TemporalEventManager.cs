@@ -5,7 +5,7 @@ namespace NFugue.Temporal
 {
     public class TemporalEventManager
     {
-        public readonly SortedDictionary<long, List<ITemporalEvent>> timeToEventMap = new SortedDictionary<long, List<ITemporalEvent>>();
+        public readonly SortedDictionary<long, List<ITemporalEvent>> TimeToEventMap = new SortedDictionary<long, List<ITemporalEvent>>();
         private int tempoBeatsPerMinute = MidiDefaults.DefaultTempoBeatsPerMinute;
         private int beatsPerWhole = MidiDefaults.DefaultTempoBeatsPerWhole;
         private byte currentTrack = 0;
@@ -24,7 +24,7 @@ namespace NFugue.Temporal
             {
                 currentLayer[i] = 0;
             }
-            timeToEventMap.Clear();
+            TimeToEventMap.Clear();
         }
 
         public void Finish() { }
@@ -99,11 +99,11 @@ namespace NFugue.Temporal
 
         public void AddRealTimeEvent(ITemporalEvent @event)
         {
-            List<ITemporalEvent> eventList = timeToEventMap[ConvertBeatsToMillis(GetTrackBeatTime())];
+            List<ITemporalEvent> eventList = TimeToEventMap[ConvertBeatsToMillis(GetTrackBeatTime())];
             if (eventList == null)
             {
                 eventList = new List<ITemporalEvent>();
-                timeToEventMap[ConvertBeatsToMillis(GetTrackBeatTime())] = eventList;
+                TimeToEventMap[ConvertBeatsToMillis(GetTrackBeatTime())] = eventList;
             }
             eventList.Add(@event);
         }

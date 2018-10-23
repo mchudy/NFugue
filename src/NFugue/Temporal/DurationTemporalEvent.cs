@@ -2,6 +2,6 @@
 {
     public interface IDurationTemporalEvent : ITemporalEvent
     {
-        double GetDuration();
+        double Duration { get; }
     }
 }
