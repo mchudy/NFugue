@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace NFugue.Temporal
 {
-    class TemporalEventManager
+    public class TemporalEventManager
     {
         public readonly SortedDictionary<long, List<ITemporalEvent>> timeToEventMap = new SortedDictionary<long, List<ITemporalEvent>>();
         private int tempoBeatsPerMinute = MidiDefaults.DefaultTempoBeatsPerMinute;

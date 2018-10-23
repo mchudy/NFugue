@@ -2,7 +2,7 @@
 
 namespace NFugue.Temporal
 {
-    interface ITemporalEvent
+    public interface ITemporalEvent
     {
         void Execute(Parser parser);
     }

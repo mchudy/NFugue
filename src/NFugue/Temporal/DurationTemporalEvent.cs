@@ -1,6 +1,6 @@
 ﻿namespace NFugue.Temporal
 {
-    interface IDurationTemporalEvent : ITemporalEvent
+    public interface IDurationTemporalEvent : ITemporalEvent
     {
         double GetDuration();
     }
