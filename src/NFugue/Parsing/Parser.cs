@@ -1,10 +1,78 @@
 ﻿using NFugue.Theory;
 using System;
+using System.Collections.Generic;
 
 namespace NFugue.Parsing
 {
     public class Parser
     {
+        public readonly SynchronizedCollection<IParserListener> ParserListeners = new SynchronizedCollection<IParserListener>();
+
+        public void AddParserListener(IParserListener listener)
+        {
+            ParserListeners.Add(listener);
+
+            BeforeParsingStarted           += listener.BeforeParsingStarted;
+            AfterParsingFinished           += listener.AfterParsingFinished;
+            TrackChanged                   += listener.TrackChanged;
+            LayerChanged                   += listener.LayerChanged;
+            InstrumentParsed               += listener.InstrumentParsed;
+            TempoChanged                   += listener.TempoChanged;
+            KeySignatureParsed             += listener.KeySignatureParsed;
+            TimeSignatureParsed            += listener.TimeSignatureParsed;
+            BarLineParsed                  += listener.BarLineParsed;
+            TrackBeatTimeBookmarked        += listener.TrackBeatTimeBookmarked;
+            TrackBeatTimeBookmarkRequested += listener.TrackBeatTimeBookmarkRequested;
+            TrackBeatTimeRequested         += listener.TrackBeatTimeRequested;
+            PitchWheelParsed               += listener.PitchWheelParsed;
+            ChannelPressureParsed          += listener.ChannelPressureParsed;
+            PolyphonicPressureParsed       += listener.PolyphonicPressureParsed;
+            SystemExclusiveParsed          += listener.SystemExclusiveParsed;
+            ControllerEventParsed          += listener.ControllerEventParsed;
+            LyricParsed                    += listener.LyricParsed;
+            MarkerParsed                   += listener.MarkerParsed;
+            FunctionParsed                 += listener.FunctionParsed;
+            NotePressed                    += listener.NotePressed;
+            NoteReleased                   += listener.NoteReleased;
+            NoteParsed                     += listener.NoteParsed;
+            ChordParsed                    += listener.ChordParsed;
+        }
+
+        public void RemoveParserListener(IParserListener listener)
+        {
+            ParserListeners.Remove(listener);
+
+            BeforeParsingStarted           -= listener.BeforeParsingStarted;
+            AfterParsingFinished           -= listener.AfterParsingFinished;
+            TrackChanged                   -= listener.TrackChanged;
+            LayerChanged                   -= listener.LayerChanged;
+            InstrumentParsed               -= listener.InstrumentParsed;
+            TempoChanged                   -= listener.TempoChanged;
+            KeySignatureParsed             -= listener.KeySignatureParsed;
+            TimeSignatureParsed            -= listener.TimeSignatureParsed;
+            BarLineParsed                  -= listener.BarLineParsed;
+            TrackBeatTimeBookmarked        -= listener.TrackBeatTimeBookmarked;
+            TrackBeatTimeBookmarkRequested -= listener.TrackBeatTimeBookmarkRequested;
+            TrackBeatTimeRequested         -= listener.TrackBeatTimeRequested;
+            PitchWheelParsed               -= listener.PitchWheelParsed;
+            ChannelPressureParsed          -= listener.ChannelPressureParsed;
+            PolyphonicPressureParsed       -= listener.PolyphonicPressureParsed;
+            SystemExclusiveParsed          -= listener.SystemExclusiveParsed;
+            ControllerEventParsed          -= listener.ControllerEventParsed;
+            LyricParsed                    -= listener.LyricParsed;
+            MarkerParsed                   -= listener.MarkerParsed;
+            FunctionParsed                 -= listener.FunctionParsed;
+            NotePressed                    -= listener.NotePressed;
+            NoteReleased                   -= listener.NoteReleased;
+            NoteParsed                     -= listener.NoteParsed;
+            ChordParsed                    -= listener.ChordParsed;
+        }
+
+        public void ClearParserListeners()
+        {
+            ParserListeners.Clear();
+        }
+
         public event EventHandler BeforeParsingStarted;
         public event EventHandler AfterParsingFinished;
         public event EventHandler<TrackChangedEventArgs> TrackChanged;

@@ -39,6 +39,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -68,6 +69,7 @@
     <Compile Include="Midi\Enums\PercussionInstrument.cs" />
     <Compile Include="Midi\Enums\Tempo.cs" />
     <Compile Include="Midi\TrackTimeManager.cs" />
+    <Compile Include="Parsing\ParserListener.cs" />
     <Compile Include="Patterns\Atom.cs" />
     <Compile Include="Playing\ManagedPlayer.cs" />
     <Compile Include="Playing\Player.cs" />
