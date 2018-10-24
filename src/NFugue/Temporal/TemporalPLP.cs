@@ -20,7 +20,7 @@ namespace NFugue.Temporal
             get => eventManager.TimeToEventMap;
         }
 
-        // FIXME: Same name as Parser.BeforeParsingStarted (EventHandler)
+        // FIXME: Same name as Parser.OnBeforeParsingStarted()
         public void OnBeforeParsingStarted(object sender, EventArgs e)
         {
             eventManager.Reset();
