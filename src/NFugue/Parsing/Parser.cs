@@ -70,7 +70,10 @@ namespace NFugue.Parsing
 
         public void ClearParserListeners()
         {
-            ParserListeners.Clear();
+            foreach (var listener in ParserListeners)
+            {
+                RemoveParserListener(listener);
+            }
         }
 
         public event EventHandler BeforeParsingStarted;
