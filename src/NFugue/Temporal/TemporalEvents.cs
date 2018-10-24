@@ -7,9 +7,9 @@ namespace NFugue.Temporal
     {
         public class TrackEvent : ITemporalEvent
         {
-            private readonly byte track;
+            private readonly int track;
 
-            public TrackEvent(byte track)
+            public TrackEvent(int track)
             {
                 this.track = track;
             }
@@ -22,9 +22,9 @@ namespace NFugue.Temporal
 
         public class LayerEvent : ITemporalEvent
         {
-            private readonly byte layer;
+            private readonly int layer;
 
-            public LayerEvent(byte layer)
+            public LayerEvent(int layer)
             {
                 this.layer = layer;
             }
@@ -37,9 +37,9 @@ namespace NFugue.Temporal
 
         public class InstrumentEvent : ITemporalEvent
         {
-            private readonly byte instrument;
+            private readonly int instrument;
 
-            public InstrumentEvent(byte instrument)
+            public InstrumentEvent(int instrument)
             {
                 this.instrument = instrument;
             }
@@ -67,10 +67,10 @@ namespace NFugue.Temporal
 
         public class KeySignatureEvent : ITemporalEvent
         {
-            private readonly byte key;
-            private readonly byte scale;
+            private readonly int key;
+            private readonly int scale;
 
-            public KeySignatureEvent(byte key, byte scale)
+            public KeySignatureEvent(int key, int scale)
             {
                 this.key = key;
                 this.scale = scale;
@@ -84,10 +84,10 @@ namespace NFugue.Temporal
 
         public class TimeSignatureEvent : ITemporalEvent
         {
-            private readonly byte numerator;
-            private readonly byte powerOfTwo;
+            private readonly int numerator;
+            private readonly int powerOfTwo;
 
-            public TimeSignatureEvent(byte numerator, byte powerOfTwo)
+            public TimeSignatureEvent(int numerator, int powerOfTwo)
             {
                 this.numerator = numerator;
                 this.powerOfTwo = powerOfTwo;
@@ -120,10 +120,10 @@ namespace NFugue.Temporal
 
         public class PitchWheelEvent : ITemporalEvent
         {
-            private readonly byte lsb;
-            private readonly byte msb;
+            private readonly int lsb;
+            private readonly int msb;
 
-            public PitchWheelEvent(byte lsb, byte msb)
+            public PitchWheelEvent(int lsb, int msb)
             {
                 this.lsb = lsb;
                 this.msb = msb;
@@ -137,9 +137,9 @@ namespace NFugue.Temporal
 
         public class ChannelPressureEvent : ITemporalEvent
         {
-            private readonly byte pressure;
+            private readonly int pressure;
 
-            public ChannelPressureEvent(byte pressure)
+            public ChannelPressureEvent(int pressure)
             {
                 this.pressure = pressure;
             }
@@ -152,10 +152,10 @@ namespace NFugue.Temporal
 
         public class PolyphonicPressureEvent : ITemporalEvent
         {
-            private readonly byte key;
-            private readonly byte pressure;
+            private readonly int key;
+            private readonly int pressure;
 
-            public PolyphonicPressureEvent(byte key, byte pressure)
+            public PolyphonicPressureEvent(int key, int pressure)
             {
                 this.key = key;
                 this.pressure = pressure;
@@ -184,10 +184,10 @@ namespace NFugue.Temporal
 
         public class ControllerEvent : ITemporalEvent
         {
-            private readonly byte controller;
-            private readonly byte value;
+            private readonly int controller;
+            private readonly int value;
 
-            public ControllerEvent(byte controller, byte value)
+            public ControllerEvent(int controller, int value)
             {
                 this.controller = controller;
                 this.value = value;

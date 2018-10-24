@@ -8,8 +8,8 @@ namespace NFugue.Temporal
         public readonly SortedDictionary<long, List<ITemporalEvent>> TimeToEventMap = new SortedDictionary<long, List<ITemporalEvent>>();
         private int tempoBeatsPerMinute = MidiDefaults.DefaultTempoBeatsPerMinute;
         private int beatsPerWhole = MidiDefaults.DefaultTempoBeatsPerWhole;
-        private byte currentTrack = 0;
-        private byte[] currentLayer = new byte[MidiDefaults.Tracks];
+        private int currentTrack = 0;
+        private int[] currentLayer = new int[MidiDefaults.Tracks];
         private double[ , ] beatTime = new double[MidiDefaults.Tracks, MidiDefaults.Layers];
         private Dictionary<string, double> bookmarkedTrackTimeMap;
 
@@ -29,61 +29,53 @@ namespace NFugue.Temporal
 
         public void Finish() { }
 
-        public void SetTempo(int tempoBPM)
+        public int Tempo
         {
-            tempoBeatsPerMinute = tempoBPM;
+            set { tempoBeatsPerMinute = value; }
         }
 
-        /**
-         * Sets the current track to which new events will be added.
-         * @param layer the track to select
-         */
-        public void SetCurrentTrack(byte track)
+        /// <summary>
+        /// Sets the current track to which new events will be added
+        /// </summary>
+        /// <value>The track to select.</value>
+        public int CurrentTrack
         {
-            currentTrack = track;
+            set { currentTrack = value; }
         }
 
-        /**
-         * Sets the current layer within the track to which new events will be added.
-         * @param layer the layer to select
-         */
-        public void SetCurrentLayer(byte layer)
+        /// <summary>
+        /// Sets the current layer within the track to which new events will be added.
+        /// </summary>
+        /// <value>The layer to select.</value>
+        public int CurrentLayer
         {
-            currentLayer[currentTrack] = layer;
+            set { currentLayer[currentTrack] = value; }
         }
 
-        /**
-         * Advances the timer for the current track by the specified duration,
-         * which is specified in Pulses Per Quarter (PPQ)
-         * @param duration the duration to increase the track timer
-         */
+        /// <summary>
+        /// Advances the timer for the current track by the specified duration,
+        /// which is specified in Pulses Per Quarter (PPQ)
+        /// </summary>
+        /// <param name="advanceTime">The duration to increase the track timer.</param>
         public void AdvanceTrackBeatTime(double advanceTime)
         {
             beatTime[currentTrack, currentLayer[currentTrack]] += advanceTime;
         }
 
-        /**
-         * Sets the timer for the current track by the given time,
-         * which is specified in Pulses Per Quarter (PPQ)
-         * @param newTickTime the time at which to set the track timer
-         */
-        public void SetTrackBeatTime(double newTime)
+        /// <summary>
+        /// Sets or Gets the timer for the current track and current layer by the given time,
+        /// which is specified in Pulses Per Quarter (PPQ).
+        /// </summary>
+        /// <value>The time at which to set the track timer.</value>
+        public double TrackBeatTime
         {
-            beatTime[currentTrack, currentLayer[currentTrack]] = newTime;
-        }
-
-        /**
-         * Returns the timer for the current track and current layer.
-         * @return the timer value for the current track, specified in Pulses Per Quarter (PPQ)
-         */
-        public double GetTrackBeatTime()
-        {
-            return beatTime[currentTrack, currentLayer[currentTrack]];
+            set { beatTime[currentTrack, currentLayer[currentTrack]] = value; }
+            get => beatTime[currentTrack, currentLayer[currentTrack]];
         }
 
         public void AddTrackTickTimeBookmark(string timeBookmarkID)
         {
-            bookmarkedTrackTimeMap[timeBookmarkID] = GetTrackBeatTime();
+            bookmarkedTrackTimeMap[timeBookmarkID] = TrackBeatTime;
         }
 
         public double GetTrackBeatTimeBookmark(string timeBookmarkID)
@@ -94,16 +86,16 @@ namespace NFugue.Temporal
         public void AddRealTimeEvent(IDurationTemporalEvent @event)
         {
             AddRealTimeEvent((ITemporalEvent)@event);
-            AdvanceTrackBeatTime(@event.GetDuration());
+            AdvanceTrackBeatTime(@event.Duration);
         }
 
         public void AddRealTimeEvent(ITemporalEvent @event)
         {
-            List<ITemporalEvent> eventList = TimeToEventMap[ConvertBeatsToMillis(GetTrackBeatTime())];
+            List<ITemporalEvent> eventList = TimeToEventMap[ConvertBeatsToMillis(TrackBeatTime)];
             if (eventList == null)
             {
                 eventList = new List<ITemporalEvent>();
-                TimeToEventMap[ConvertBeatsToMillis(GetTrackBeatTime())] = eventList;
+                TimeToEventMap[ConvertBeatsToMillis(TrackBeatTime)] = eventList;
             }
             eventList.Add(@event);
         }

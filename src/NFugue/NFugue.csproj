@@ -69,7 +69,7 @@
     <Compile Include="Midi\Enums\PercussionInstrument.cs" />
     <Compile Include="Midi\Enums\Tempo.cs" />
     <Compile Include="Midi\TrackTimeManager.cs" />
-    <Compile Include="Parsing\ParserListener.cs" />
+    <Compile Include="Parsing\IParserListener.cs" />
     <Compile Include="Patterns\Atom.cs" />
     <Compile Include="Playing\ManagedPlayer.cs" />
     <Compile Include="Playing\Player.cs" />
@@ -137,9 +137,11 @@
     <Compile Include="Staccato\Subparsers\SignatureSubparser.cs" />
     <Compile Include="Staccato\Subparsers\TempoSubparser.cs" />
     <Compile Include="Staccato\Subparsers\WhitespaceConsumer.cs" />
-    <Compile Include="Temporal\DurationTemporalEvent.cs" />
+    <Compile Include="Temporal\IDurationTemporalEvent.cs" />
     <Compile Include="Temporal\ITemporalEvent.cs" />
     <Compile Include="Temporal\TemporalEventManager.cs" />
+    <Compile Include="Temporal\TemporalEvents.cs" />
+    <Compile Include="Temporal\TemporalPLP.cs" />
     <Compile Include="Theory\Chord.cs" />
     <Compile Include="Theory\ChordProgression.cs" />
     <Compile Include="Theory\Intervals.cs" />
