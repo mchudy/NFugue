@@ -7,13 +7,7 @@ namespace NFugue.Temporal
 {
     public class TemporalPLP : Parser, IParserListener
     {
-
-        private TemporalEventManager eventManager;
-
-        public TemporalPLP()
-        {
-            eventManager = new TemporalEventManager();
-        }
+        private readonly TemporalEventManager eventManager = new TemporalEventManager();
 
         public SortedDictionary<long, List<ITemporalEvent>> TimeToEventMap
         {

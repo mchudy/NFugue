@@ -69,7 +69,7 @@ namespace NFugue.Temporal
         /// <value>The time at which to set the track timer.</value>
         public double TrackBeatTime
         {
-            set { beatTime[currentTrack, currentLayer[currentTrack]] = value; }
+            set => beatTime[currentTrack, currentLayer[currentTrack]] = value;
             get => beatTime[currentTrack, currentLayer[currentTrack]];
         }
 
@@ -91,8 +91,8 @@ namespace NFugue.Temporal
 
         public void AddRealTimeEvent(ITemporalEvent @event)
         {
-            List<ITemporalEvent> eventList = TimeToEventMap[ConvertBeatsToMillis(TrackBeatTime)];
-            if (eventList == null)
+            List<ITemporalEvent> eventList;
+            if (!TimeToEventMap.TryGetValue(ConvertBeatsToMillis(TrackBeatTime), out eventList))
             {
                 eventList = new List<ITemporalEvent>();
                 TimeToEventMap[ConvertBeatsToMillis(TrackBeatTime)] = eventList;
