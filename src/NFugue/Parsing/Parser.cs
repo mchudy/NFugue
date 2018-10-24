@@ -12,60 +12,60 @@ namespace NFugue.Parsing
         {
             ParserListeners.Add(listener);
 
-            BeforeParsingStarted           += listener.BeforeParsingStarted;
-            AfterParsingFinished           += listener.AfterParsingFinished;
-            TrackChanged                   += listener.TrackChanged;
-            LayerChanged                   += listener.LayerChanged;
-            InstrumentParsed               += listener.InstrumentParsed;
-            TempoChanged                   += listener.TempoChanged;
-            KeySignatureParsed             += listener.KeySignatureParsed;
-            TimeSignatureParsed            += listener.TimeSignatureParsed;
-            BarLineParsed                  += listener.BarLineParsed;
-            TrackBeatTimeBookmarked        += listener.TrackBeatTimeBookmarked;
-            TrackBeatTimeBookmarkRequested += listener.TrackBeatTimeBookmarkRequested;
-            TrackBeatTimeRequested         += listener.TrackBeatTimeRequested;
-            PitchWheelParsed               += listener.PitchWheelParsed;
-            ChannelPressureParsed          += listener.ChannelPressureParsed;
-            PolyphonicPressureParsed       += listener.PolyphonicPressureParsed;
-            SystemExclusiveParsed          += listener.SystemExclusiveParsed;
-            ControllerEventParsed          += listener.ControllerEventParsed;
-            LyricParsed                    += listener.LyricParsed;
-            MarkerParsed                   += listener.MarkerParsed;
-            FunctionParsed                 += listener.FunctionParsed;
-            NotePressed                    += listener.NotePressed;
-            NoteReleased                   += listener.NoteReleased;
-            NoteParsed                     += listener.NoteParsed;
-            ChordParsed                    += listener.ChordParsed;
+            BeforeParsingStarted           += listener.OnBeforeParsingStarted;
+            AfterParsingFinished           += listener.OnAfterParsingFinished;
+            TrackChanged                   += listener.OnTrackChanged;
+            LayerChanged                   += listener.OnLayerChanged;
+            InstrumentParsed               += listener.OnInstrumentParsed;
+            TempoChanged                   += listener.OnTempoChanged;
+            KeySignatureParsed             += listener.OnKeySignatureParsed;
+            TimeSignatureParsed            += listener.OnTimeSignatureParsed;
+            BarLineParsed                  += listener.OnBarLineParsed;
+            TrackBeatTimeBookmarked        += listener.OnTrackBeatTimeBookmarked;
+            TrackBeatTimeBookmarkRequested += listener.OnTrackBeatTimeBookmarkRequested;
+            TrackBeatTimeRequested         += listener.OnTrackBeatTimeRequested;
+            PitchWheelParsed               += listener.OnPitchWheelParsed;
+            ChannelPressureParsed          += listener.OnChannelPressureParsed;
+            PolyphonicPressureParsed       += listener.OnPolyphonicPressureParsed;
+            SystemExclusiveParsed          += listener.OnSystemExclusiveParsed;
+            ControllerEventParsed          += listener.OnControllerEventParsed;
+            LyricParsed                    += listener.OnLyricParsed;
+            MarkerParsed                   += listener.OnMarkerParsed;
+            FunctionParsed                 += listener.OnFunctionParsed;
+            NotePressed                    += listener.OnNotePressed;
+            NoteReleased                   += listener.OnNoteReleased;
+            NoteParsed                     += listener.OnNoteParsed;
+            ChordParsed                    += listener.OnChordParsed;
         }
 
         public void RemoveParserListener(IParserListener listener)
         {
             ParserListeners.Remove(listener);
 
-            BeforeParsingStarted           -= listener.BeforeParsingStarted;
-            AfterParsingFinished           -= listener.AfterParsingFinished;
-            TrackChanged                   -= listener.TrackChanged;
-            LayerChanged                   -= listener.LayerChanged;
-            InstrumentParsed               -= listener.InstrumentParsed;
-            TempoChanged                   -= listener.TempoChanged;
-            KeySignatureParsed             -= listener.KeySignatureParsed;
-            TimeSignatureParsed            -= listener.TimeSignatureParsed;
-            BarLineParsed                  -= listener.BarLineParsed;
-            TrackBeatTimeBookmarked        -= listener.TrackBeatTimeBookmarked;
-            TrackBeatTimeBookmarkRequested -= listener.TrackBeatTimeBookmarkRequested;
-            TrackBeatTimeRequested         -= listener.TrackBeatTimeRequested;
-            PitchWheelParsed               -= listener.PitchWheelParsed;
-            ChannelPressureParsed          -= listener.ChannelPressureParsed;
-            PolyphonicPressureParsed       -= listener.PolyphonicPressureParsed;
-            SystemExclusiveParsed          -= listener.SystemExclusiveParsed;
-            ControllerEventParsed          -= listener.ControllerEventParsed;
-            LyricParsed                    -= listener.LyricParsed;
-            MarkerParsed                   -= listener.MarkerParsed;
-            FunctionParsed                 -= listener.FunctionParsed;
-            NotePressed                    -= listener.NotePressed;
-            NoteReleased                   -= listener.NoteReleased;
-            NoteParsed                     -= listener.NoteParsed;
-            ChordParsed                    -= listener.ChordParsed;
+            BeforeParsingStarted           -= listener.OnBeforeParsingStarted;
+            AfterParsingFinished           -= listener.OnAfterParsingFinished;
+            TrackChanged                   -= listener.OnTrackChanged;
+            LayerChanged                   -= listener.OnLayerChanged;
+            InstrumentParsed               -= listener.OnInstrumentParsed;
+            TempoChanged                   -= listener.OnTempoChanged;
+            KeySignatureParsed             -= listener.OnKeySignatureParsed;
+            TimeSignatureParsed            -= listener.OnTimeSignatureParsed;
+            BarLineParsed                  -= listener.OnBarLineParsed;
+            TrackBeatTimeBookmarked        -= listener.OnTrackBeatTimeBookmarked;
+            TrackBeatTimeBookmarkRequested -= listener.OnTrackBeatTimeBookmarkRequested;
+            TrackBeatTimeRequested         -= listener.OnTrackBeatTimeRequested;
+            PitchWheelParsed               -= listener.OnPitchWheelParsed;
+            ChannelPressureParsed          -= listener.OnChannelPressureParsed;
+            PolyphonicPressureParsed       -= listener.OnPolyphonicPressureParsed;
+            SystemExclusiveParsed          -= listener.OnSystemExclusiveParsed;
+            ControllerEventParsed          -= listener.OnControllerEventParsed;
+            LyricParsed                    -= listener.OnLyricParsed;
+            MarkerParsed                   -= listener.OnMarkerParsed;
+            FunctionParsed                 -= listener.OnFunctionParsed;
+            NotePressed                    -= listener.OnNotePressed;
+            NoteReleased                   -= listener.OnNoteReleased;
+            NoteParsed                     -= listener.OnNoteParsed;
+            ChordParsed                    -= listener.OnChordParsed;
         }
 
         public void ClearParserListeners()

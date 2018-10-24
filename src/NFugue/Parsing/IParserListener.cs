@@ -9,20 +9,20 @@ namespace NFugue.Parsing
         /// Called when the parser first starts up, but before it starts parsing anything. 
         /// Provides listeners with a chance to initialize variables and get ready for the parser events. 
         /// </summary>
-        void BeforeParsingStarted(object sender, EventArgs e);
+        void OnBeforeParsingStarted(object sender, EventArgs e);
 
         /// <summary>
         /// Called when the parser has parsed its last item. 
         /// Provides listeners with a chance to clean up.
         /// </summary>
-        void AfterParsingFinished(object sender, EventArgs e);
+        void OnAfterParsingFinished(object sender, EventArgs e);
 
         /// <summary>
         /// Called when the parser encounters a new track (also known as a channel; previously in NFugue,
         /// known as a Voice). Tracks correspond to MIDI tracks/channels.
         /// </summary>
         /// <param name="e">the new track event that has been parsed</param>
-        void TrackChanged(object sender, TrackChangedEventArgs e);
+        void OnTrackChanged(object sender, TrackChangedEventArgs e);
 
         /// <summary>
         /// Called when the parser encounters a new layer.
@@ -32,21 +32,21 @@ namespace NFugue.Parsing
         /// time progression, so "L1 Eq Eq L2 Cq Gq" would be the same as saying "Eq+Cq Eq+Gq". Layers are a NFugue
         /// feature, and are not a part of the MIDI specification.
         /// </summary>
-        void LayerChanged(object sender, LayerChangedEventArgs e);
+        void OnLayerChanged(object sender, LayerChangedEventArgs e);
 
         /// <summary>
         /// Called when the parser encounters a new instrument selection.
         /// </summary>
         /// <param name="e">the MIDI instrument value that has been parsed</param>
-        void InstrumentParsed(object sender, InstrumentParsedEventArgs e);
+        void OnInstrumentParsed(object sender, InstrumentParsedEventArgs e);
 
         /// <summary>
         /// Called when the parser encounters a new tempo selection.
         /// </summary>
         /// <param name="e">The new tempo value</param>
-        void TempoChanged(object sender, TempoChangedEventArgs e);
+        void OnTempoChanged(object sender, TempoChangedEventArgs e);
 
-        void KeySignatureParsed(object sender, KeySignatureParsedEventArgs e);
+        void OnKeySignatureParsed(object sender, KeySignatureParsedEventArgs e);
 
         /// <summary>
         /// The first parameter is the number of beats per measure; 
@@ -54,7 +54,7 @@ namespace NFugue.Parsing
         /// Example 1: For a 5/8 time signature, expect 5,3 (since 2^3 = 8)
         /// Example 2: For a 4/4 time signature, expect 4,2 (since 2^2 = 4)
         /// </summary>
-        void TimeSignatureParsed(object sender, TimeSignatureParsedEventArgs e);
+        void OnTimeSignatureParsed(object sender, TimeSignatureParsedEventArgs e);
 
         /// <summary>
         /// The separator character which indicates a bar line has been parsed. Generally,
@@ -63,29 +63,29 @@ namespace NFugue.Parsing
         /// 
         /// </summary>
         /// <param name="e">This is the id of the measure, which is an optional numeric value following the bar character.</param>
-        void BarLineParsed(object sender, BarLineParsedEventArgs e);
+        void OnBarLineParsed(object sender, BarLineParsedEventArgs e);
 
-        void TrackBeatTimeBookmarked(object sender, TrackBeatTimeBookmarkEventArgs e);
+        void OnTrackBeatTimeBookmarked(object sender, TrackBeatTimeBookmarkEventArgs e);
 
-        void TrackBeatTimeBookmarkRequested(object sender, TrackBeatTimeBookmarkEventArgs e);
+        void OnTrackBeatTimeBookmarkRequested(object sender, TrackBeatTimeBookmarkEventArgs e);
 
-        void TrackBeatTimeRequested(object sender, TrackBeatTimeRequestedEventArgs e);
+        void OnTrackBeatTimeRequested(object sender, TrackBeatTimeRequestedEventArgs e);
 
-        void PitchWheelParsed(object sender, PitchWheelParsedEventArgs e);
+        void OnPitchWheelParsed(object sender, PitchWheelParsedEventArgs e);
 
-        void ChannelPressureParsed(object sender, ChannelPressureParsedEventArgs e);
+        void OnChannelPressureParsed(object sender, ChannelPressureParsedEventArgs e);
 
-        void PolyphonicPressureParsed(object sender, PolyphonicPressureParsedEventArgs e);
+        void OnPolyphonicPressureParsed(object sender, PolyphonicPressureParsedEventArgs e);
 
-        void SystemExclusiveParsed(object sender, SystemExclusiveParsedEventArgs e);
+        void OnSystemExclusiveParsed(object sender, SystemExclusiveParsedEventArgs e);
 
-        void ControllerEventParsed(object sender, ControllerEventParsedEventArgs e);
+        void OnControllerEventParsed(object sender, ControllerEventParsedEventArgs e);
 
-        void LyricParsed(object sender, LyricParsedEventArgs e);
+        void OnLyricParsed(object sender, LyricParsedEventArgs e);
 
-        void MarkerParsed(object sender, MarkerParsedEventArgs e);
+        void OnMarkerParsed(object sender, MarkerParsedEventArgs e);
 
-        void FunctionParsed(object sender, FunctionParsedEventArgs e);
+        void OnFunctionParsed(object sender, FunctionParsedEventArgs e);
 
         /// <summary>
         /// Used to indicate when a note is pressed. Used in realtime cases when 
@@ -94,7 +94,7 @@ namespace NFugue.Parsing
         /// 
         /// Expect the Note event to contain only the note number and note-on velocity.
         /// </summary>
-        void NotePressed(object sender, NoteEventArgs e);
+        void OnNotePressed(object sender, NoteEventArgs e);
 
         /// <summary>
         /// Used to indicate when a note is released. Used in realtime cases when 
@@ -104,7 +104,7 @@ namespace NFugue.Parsing
         /// Expect the Note event to contain only the note number and note-off velocity.
         /// Duration may not be set on the Note from onNoteReleased.
         /// </summary>
-        void NoteReleased(object sender, NoteEventArgs e);
+        void OnNoteReleased(object sender, NoteEventArgs e);
 
         /// <summary>
         /// We may have actually parsed a musical note!
@@ -116,8 +116,8 @@ namespace NFugue.Parsing
         /// </summary>
         /// <param name="e">note The note that was parsed. Please see the Note class for more details about notes!</param>
         /// <seealso cref="Note"/>
-        void NoteParsed(object sender, NoteEventArgs e);
+        void OnNoteParsed(object sender, NoteEventArgs e);
 
-        void ChordParsed(object sender, ChordParsedEventArgs e);
+        void OnChordParsed(object sender, ChordParsedEventArgs e);
     }
 }
