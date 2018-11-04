@@ -1,10 +1,81 @@
 ﻿using NFugue.Theory;
 using System;
+using System.Collections.Generic;
 
 namespace NFugue.Parsing
 {
     public class Parser
     {
+        public readonly SynchronizedCollection<IParserListener> ParserListeners = new SynchronizedCollection<IParserListener>();
+
+        public void AddParserListener(IParserListener listener)
+        {
+            ParserListeners.Add(listener);
+
+            BeforeParsingStarted           += listener.OnBeforeParsingStarted;
+            AfterParsingFinished           += listener.OnAfterParsingFinished;
+            TrackChanged                   += listener.OnTrackChanged;
+            LayerChanged                   += listener.OnLayerChanged;
+            InstrumentParsed               += listener.OnInstrumentParsed;
+            TempoChanged                   += listener.OnTempoChanged;
+            KeySignatureParsed             += listener.OnKeySignatureParsed;
+            TimeSignatureParsed            += listener.OnTimeSignatureParsed;
+            BarLineParsed                  += listener.OnBarLineParsed;
+            TrackBeatTimeBookmarked        += listener.OnTrackBeatTimeBookmarked;
+            TrackBeatTimeBookmarkRequested += listener.OnTrackBeatTimeBookmarkRequested;
+            TrackBeatTimeRequested         += listener.OnTrackBeatTimeRequested;
+            PitchWheelParsed               += listener.OnPitchWheelParsed;
+            ChannelPressureParsed          += listener.OnChannelPressureParsed;
+            PolyphonicPressureParsed       += listener.OnPolyphonicPressureParsed;
+            SystemExclusiveParsed          += listener.OnSystemExclusiveParsed;
+            ControllerEventParsed          += listener.OnControllerEventParsed;
+            LyricParsed                    += listener.OnLyricParsed;
+            MarkerParsed                   += listener.OnMarkerParsed;
+            FunctionParsed                 += listener.OnFunctionParsed;
+            NotePressed                    += listener.OnNotePressed;
+            NoteReleased                   += listener.OnNoteReleased;
+            NoteParsed                     += listener.OnNoteParsed;
+            ChordParsed                    += listener.OnChordParsed;
+        }
+
+        public void RemoveParserListener(IParserListener listener)
+        {
+            ParserListeners.Remove(listener);
+
+            BeforeParsingStarted           -= listener.OnBeforeParsingStarted;
+            AfterParsingFinished           -= listener.OnAfterParsingFinished;
+            TrackChanged                   -= listener.OnTrackChanged;
+            LayerChanged                   -= listener.OnLayerChanged;
+            InstrumentParsed               -= listener.OnInstrumentParsed;
+            TempoChanged                   -= listener.OnTempoChanged;
+            KeySignatureParsed             -= listener.OnKeySignatureParsed;
+            TimeSignatureParsed            -= listener.OnTimeSignatureParsed;
+            BarLineParsed                  -= listener.OnBarLineParsed;
+            TrackBeatTimeBookmarked        -= listener.OnTrackBeatTimeBookmarked;
+            TrackBeatTimeBookmarkRequested -= listener.OnTrackBeatTimeBookmarkRequested;
+            TrackBeatTimeRequested         -= listener.OnTrackBeatTimeRequested;
+            PitchWheelParsed               -= listener.OnPitchWheelParsed;
+            ChannelPressureParsed          -= listener.OnChannelPressureParsed;
+            PolyphonicPressureParsed       -= listener.OnPolyphonicPressureParsed;
+            SystemExclusiveParsed          -= listener.OnSystemExclusiveParsed;
+            ControllerEventParsed          -= listener.OnControllerEventParsed;
+            LyricParsed                    -= listener.OnLyricParsed;
+            MarkerParsed                   -= listener.OnMarkerParsed;
+            FunctionParsed                 -= listener.OnFunctionParsed;
+            NotePressed                    -= listener.OnNotePressed;
+            NoteReleased                   -= listener.OnNoteReleased;
+            NoteParsed                     -= listener.OnNoteParsed;
+            ChordParsed                    -= listener.OnChordParsed;
+        }
+
+        public void ClearParserListeners()
+        {
+            foreach (var listener in ParserListeners)
+            {
+                RemoveParserListener(listener);
+            }
+        }
+
         public event EventHandler BeforeParsingStarted;
         public event EventHandler AfterParsingFinished;
         public event EventHandler<TrackChangedEventArgs> TrackChanged;
@@ -75,7 +146,7 @@ namespace NFugue.Parsing
             TempoChanged?.Invoke(this, new TempoChangedEventArgs { TempoBPM = tempo });
         }
 
-        public void OnFunctionParsed(string functionName, string parameters)
+        public void OnFunctionParsed(string functionName, object parameters)
         {
             FunctionParsed?.Invoke(this, new FunctionParsedEventArgs { Id = functionName, Message = parameters });
         }
