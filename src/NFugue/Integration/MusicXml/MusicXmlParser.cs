@@ -364,7 +364,7 @@ namespace NFugue.Integration.MusicXml
 
         private void ParseGuitarChord(XElement harmony)
         {
-            StringBuilder chordString = new StringBuilder(" ");
+            StringBuilder chordString = new StringBuilder("");
             AppendToChord(chordString, harmony, "root");
             var chordKind = harmony.Element("kind");
             if (chordKind != null)
